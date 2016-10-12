@@ -1,0 +1,26 @@
+﻿{%extends "base.html" %}
+{%block title%}Создать номер телефона{%endblock%}
+{%block content%}
+<script src="/static/event.js"></script>
+<script>
+
+
+</script>
+        <section class="container">
+            <div class="login">
+<h1>Создать номер телефона</h1>
+
+<form action="" method="post">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Создать">
+</form>
+</div>
+
+</section>
+<script>
+document.getElementById("id_partner").addEventListener("change", addChoise)
+document.getElementById("id_club").addEventListener("change", addChoise)
+document.getElementById("id_cash").addEventListener("change", addChoise)
+</script>
+{%endblock%}

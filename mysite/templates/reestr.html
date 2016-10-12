@@ -1,0 +1,215 @@
+﻿{%extends "base.html" %}
+{%block title%}Реестр учета 3.0{%endblock%}
+{%block content%}
+<script src="/static/event.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="/static/cashlist.js"></script>
+<section class="filter">
+
+<div class="form">
+<section id="1">
+<div class="casher">
+<p class="errorhiden" id="error">Это обязательное поле! Введите ответ.</p>
+Касса:<span class="star">*</span>
+<input name="casher" foc="0" type="text" id="listinp" autofocus autocomplete='off'  placeholder="Начните вводить номер!" >
+<div class="listBox" scroll="yes">
+<dl id="Listbox">
+<dt>part</dt>
+	<dd>cash</dd>
+	
+</dl>
+</div>
+</div>
+</section>
+<section id="2">
+<div id="cheks" class="instrument">
+<p>Инструмент:<span class="star">*</span></p>
+<p class="errorhiden">Это обязательное поле! Выберите вариант.</p>
+{%for i in instruments%}
+<input name="instrument" type="radio" value="{{i.id}}" />{{i.instrument}}<br>
+{%endfor%}
+</div>
+</section>
+<section id="3">
+<div id="cheks" class="usposition">
+<p>Роль обратившегося пользователя:<span class="star">*</span></p>
+<p class="errorhiden">Это обязательное поле! Выберите вариант.</p>
+{%for i in position%}
+<input name="usposition" type="radio" value="{{i.id}}" />{{i}}<br>
+{%endfor%}
+</div>
+</section>
+<section id="4">
+<div id="cheks" class="requesttype">
+<p>Тип запроса:<span class="star">*</span></p>
+<p class="errorhiden">Это обязательное поле! Выберите вариант.</p>
+{%for i in requesttype%}
+<input name="requesttype" type="radio" value="{{i.id}}" />{{i.request_type}} <br>
+{%endfor%}
+
+</div>
+</section>
+<section id="5">
+<div id="cheks" class="requestsubj">
+<p>Тема обращения:<span class="star">*</span></p>
+<p class="errorhiden">Это обязательное поле! Выберите вариант.</p>
+{%for i in requestsubj%}
+<input name="requestsubj" type="radio" value="{{i.id}}" />{{i.subject}}<br>
+{%endfor%}
+</div>
+</section>
+<section id="6">
+<div class="coment">
+<p>Комментарии к теме обращения:<span class="star">*</span></p>
+<p class="errorhiden">Это обязательное поле! Введите ответ.</p>
+<textarea name="coment" type="text" maxlength="500" style="width:500px; height:100px;"></textarea>
+</div>
+</section>
+<section id="7">
+<div class="duration">
+<p>Продолжительность решения запроса:<span class="star">*</span></p>
+<p class="errorhiden">Это обязательное поле! Введите ответ.</p>
+<input name="duration" type="text">
+</div>
+</section>
+<section id="8">
+<div class="otrs">
+<p>Если запрос открыт: указать номер тикета OTRS, или указать ФИО сотрудника которому передан запрос</p>
+<input name="otrs" type="text" maxlength="20">
+</div>
+</section>
+<section id="9">
+<div class="jira">
+<p>Если это баг: указать номер тикета в Jira:</p>
+<input name="jira" type="text" maxlength="10">
+</div>
+</section>
+<section id="11">
+<div class="level">
+<p>Уровень обработки запроса.</p>
+<input type="radio" name="level" value=1 >1 уровень.<br>
+<input type="radio" name="level" value=2 >2 уровень.<br>
+<input type="radio" name="level" value=3 >3 уровень.<br>
+</div>
+</section>
+<section>
+<div class="submit">
+<p class="errorhiden2">Проверьте заполнение формы. Есть ошибки!</p>
+<input name="submit" type="button" value="Отправить">
+</div>
+</section>
+</div>
+</section>
+<script type="text/javascript">
+function getCash(){
+	function addObj(obj){
+		for (key in obj){
+			this[key]=obj[key]
+		}
+	}
+var cash_name=$("#listinp").val()
+var priz=$("#listinp").attr("priznak")
+var cash_id=$("#listinp").attr("value")
+var obj=new Object({"cash_name":cash_name, "priz":priz, "cash_id":cash_id})
+obj["addObj"]=addObj
+return obj
+}
+function getTex(classname){
+var els=$("."+classname).children("input, textarea")
+var obj={}
+obj[classname]=els.val()
+return obj
+}
+function funcGetForm(){
+var val=getCash()
+val.addObj(getChekd("instrument"))
+val.addObj(getChekd("usposition"))
+val.addObj(getChekd("requesttype"))
+val.addObj(getChekd("requestsubj"))
+val.addObj(getTex("coment"))
+val.addObj(getTex("duration"))
+val.addObj(getTex("otrs"))
+val.addObj(getTex("jira"))
+val.addObj(getChekd("level"))
+return val
+}
+
+function getChekd(classname){
+var els=$("."+classname).children(":checked")
+var obj={}
+obj[classname]=els.val()
+return obj
+}
+function PostGetValidate(obj){
+	if (obj.level==undefined){
+		obj.level="1"
+	}
+	var er=false
+	for (key in obj){
+		if (obj[key]==undefined){
+			er=true
+		}
+	}
+	obj.error=er
+	return obj
+}
+function funcRedirect(data){
+console.log(data[0]["pk"])
+window.location="./thank/"+data[0]["pk"]+"/"
+}
+function funcReq(obj){$.ajax({
+	url:"./submit/",
+	type:"POST",
+	cache:true,
+	dataType:"json",
+	data:obj,
+	success:funcRedirect,
+	async: true,
+	})
+}
+function funcSubmit(event){
+$("input[type=radio]:not(:checked), textarea, input[type=text]").trigger("blur")
+if ($(".form .errorvisible").length==0){
+	//PreGetValidate true
+	
+	obj=funcGetForm()
+	reqdata=PostGetValidate(obj)
+	if (reqdata.error==false){
+		//Нет ошибок получения данных
+		delete reqdata.addObj
+		delete reqdata.error
+		reqdata.username=$(".user").attr("username")
+		reqdata.useremail=$(".user").attr("useremail")
+		
+		reqdata.csrfmiddlewaretoken=getCode()
+		funcReq(reqdata)
+		console.log(reqdata)
+		$(".errorvisible2").attr("class", "errorhiden2")
+	}else{
+		//Есть ошибки получения данных
+		console.error("Ошибка получения данных формы!")
+		$(".errorhiden2").attr("class", "errorvisible2")
+	}
+	}else{
+	//PreGetValidate false 
+	console.error("Не заполнены или не правильно заполнены поля формы!")
+	$(".errorhiden2").attr("class", "errorvisible2")
+	}
+}
+function getCode(){
+			var eleme="{% csrf_token %}".split(' ')[3].split('=')[1].replace("'", "").replace("'", "")
+			return eleme
+		}
+
+$(document).ready(function(){
+	$("[name=submit]").bind('click', funcSubmit)
+	$('#listinp').bind('keydown', testfunc).bind('keyup', testfunc).bind('keypress', testfunc);
+	$('input, textarea').bind("blur", livevalidate)
+	
+	//$('input').focusin(getsect)
+	//$('#listinp').bind('blur', function(){$('.listBox').hide( )});
+	//$('#listinp').bind('focus', function(){$('.listBox').show( )});
+})
+</script>
+{{locals}}
+{%endblock%}

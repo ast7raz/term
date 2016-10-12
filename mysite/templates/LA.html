@@ -1,0 +1,53 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="ru">
+<head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8; no-cache">
+<title>Нагрузка</title>
+</head>
+<body>
+{%if list%}
+{%for i in list%}
+<img name="{{i.name}}" src="{{i.new_link}}" style="height:140px; margin: -5px">
+{%endfor%}
+{%endif%}
+<script>
+
+var Elements=document.getElementsByTagName("img")
+var item=new Array();
+for (var i in Elements){
+	if (typeof Elements[i] == "object"){
+		item[i]= Elements[i].getAttribute("name")
+	}
+}
+function sec(name){
+	var csrf="{% csrf_token %}";
+	var toc=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+	var params = "name=" + encodeURIComponent(name) + "&csrfmiddlewaretoken=" + encodeURIComponent(toc);
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/la/', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	xhr.onload = function() {
+		var src=JSON.parse(this.responseText)["new_link"]+"?"+Math.random()
+		document.getElementsByName(name)[0].setAttribute("src", src)
+		}
+		
+		xhr.send(params)
+}
+
+tim=function(){
+console.log("start FUNC")
+for(i in item){
+sec(item[i])
+
+}
+console.log("end FUNC")
+}
+
+setTimeout(function(){setInterval(tim, 20000)}, 10000)
+//sec()
+
+</script>
+</body>
+</html>

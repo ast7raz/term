@@ -1,0 +1,93 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="ru">
+<head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8; no-cache">
+<title>Нагрузка</title>
+</head>
+<body>
+
+{%if list%}
+{%for i in list%}
+<!--<img name="{{i.name}}" src="{{i.new_link}}" style="height:140px; margin: -5px">-->
+<canvas title='{{i.name}}' height='100' width='30' name='{{i.name}}' style="margin: -8px -2px 0px -2px;">Обновите браузер</canvas>
+{%endfor%}
+{%endif%}
+<!--
+<canvas height='100' width='100' name='{{i.name}}' style="margin: -8px -2px 0px -2px;">Обновите браузер</canvas>
+<canvas height='100' width='100' name='example' style="margin: -8px -2px 0px -2px;">Обновите браузер</canvas>		
+<canvas height='100' width='100' name='example' style="margin: -8px -2px 0px -2px;">Обновите браузер</canvas>
+<canvas height='100' width='100' name='example' style="margin: -8px -2px 0px -2px;">Обновите браузер</canvas>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script>
+			var example = document.getElementsByName("example");
+			console.log(example)
+			for (i = 0; i < example.length; i++){
+			    ctx     = example[i].getContext('2d');
+				ld=50
+				
+				ctx.fillStyle="rgb(255,0,0)"
+				ctx.fillRect(0, 100-ld, example[i].width, ld);
+				
+			}
+		</script>
+		-->
+<script>
+
+var Elements=document.getElementsByTagName("canvas")
+var item=new Array();
+for (var i in Elements){
+	if (typeof Elements[i] == "object"){
+		item[i]= Elements[i].getAttribute("name")
+	}
+}
+function sec(name){
+	
+	var csrf="{% csrf_token %}";
+	var toc=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+	var params = "name=" + encodeURIComponent(name) + "&csrfmiddlewaretoken=" + encodeURIComponent(toc);
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/loav/', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	xhr.onload = function() {
+		var src=JSON.parse(this.responseText)["LA"]
+		//document.getElementsByName(name)[0].setAttribute("src", src)
+		var example = document.getElementsByName(name)[0];
+		ctx     = example.getContext('2d');
+		//ctx.clear()
+		//ld=50
+		//ctx.label(name)
+		ctx.fillStyle="rgb(255,255,255)"
+		ctx.fillRect(0, 0, example.width, example.height);
+		ctx.fillStyle="rgb(255,0,0)"
+		ctx.fillRect(0, 100-src, example.width, src);
+		svgtrans=ctx.currentTransform
+		
+		ctx.fillStyle='Black'
+		ctx.fillText(name, 0,100)
+		setTimeout(sec,20000,name)
+		}
+		
+		xhr.send(params)
+		
+}
+
+//sec(item[0])
+for(i in item){
+console.log(item[i])
+sec(item[i])
+
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿{%extends "base.html" %}
+{%block title%}Создать номер телефона{%endblock%}
+{%block content%}
+<section class="button">
+
+</section>
+        <section class="container">
+        
+
+{%if phones %}
+	
+	<table>
+	<a href="/pb/" class="button28">Добавить номер</a>
+		{%for phone in phones%}
+		<tr>
+		
+		<td class="number">{{phone.phone_number}}</td>
+		<td class="partner">{{phone.partner}}</td>
+		<td class="club">{{phone.club}}</td>
+		<td class="cash">{{phone.cash}}</td>
+		<td class="rol">{{phone.rol}}</td>
+		<td class="com">{{phone.coment}}</td>
+		</tr>
+		</div>
+		{%endfor%}
+	</table>
+	<h1>Найдено {{phones|length}} зарегистрированых телефонов.</h1>
+{%else%}
+	<p>Зарегистрированых номеров телефонов не найдено.</p>
+{%endif%}
+</div>
+
+</section>
+
+{%endblock%}

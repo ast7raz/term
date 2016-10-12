@@ -1,0 +1,280 @@
+save_Base.py[LINE:174]# INFO     [2015-11-24 11:19:17,696]  This proccess pid 8676
+save_Base.py[LINE:120]# INFO     [2015-11-24 11:19:17,697]  Start Agreegate
+save_Base.py[LINE:121]# INFO     [2015-11-24 11:19:17,697]  Agregate param: Partner=True; Club and Cash=True; Terminals=True;
+save_Base.py[LINE:124]# INFO     [2015-11-24 11:19:19,355]  Partner
+save_Base.py[LINE:129]# INFO     [2015-11-24 11:19:24,101]  Clubs and Cashs
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:19:38,003]  https://partner190.com/backend.php/club?page=1
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:19:52,183]  https://partner190.com/backend.php/club?page=2
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:20:05,259]  https://partner190.com/backend.php/club?page=3
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:20:18,220]  https://partner190.com/backend.php/club?page=4
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:20:31,355]  https://partner190.com/backend.php/club?page=5
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:20:44,424]  https://partner190.com/backend.php/club?page=6
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:20:57,211]  https://partner190.com/backend.php/club?page=7
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:21:09,993]  https://partner190.com/backend.php/club?page=8
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:21:22,786]  https://partner190.com/backend.php/club?page=9
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:21:36,543]  https://partner190.com/backend.php/club?page=10
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:21:49,463]  https://partner190.com/backend.php/club?page=11
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:22:02,440]  https://partner190.com/backend.php/club?page=12
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:22:15,250]  https://partner190.com/backend.php/club?page=13
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:22:28,753]  https://partner190.com/backend.php/club?page=14
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:22:41,473]  https://partner190.com/backend.php/club?page=15
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:22:54,441]  https://partner190.com/backend.php/club?page=16
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:23:07,221]  https://partner190.com/backend.php/club?page=17
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:23:20,806]  https://partner190.com/backend.php/club?page=18
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:23:33,823]  https://partner190.com/backend.php/club?page=19
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:23:46,647]  https://partner190.com/backend.php/club?page=20
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:23:59,832]  https://partner190.com/backend.php/club?page=21
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:24:12,448]  https://partner190.com/backend.php/club?page=22
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:24:25,282]  https://partner190.com/backend.php/club?page=23
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:24:38,428]  https://partner190.com/backend.php/club?page=24
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:24:51,401]  https://partner190.com/backend.php/club?page=25
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:25:04,369]  https://partner190.com/backend.php/club?page=26
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:25:17,380]  https://partner190.com/backend.php/club?page=27
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:25:30,427]  https://partner190.com/backend.php/club?page=28
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:25:43,265]  https://partner190.com/backend.php/club?page=29
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:25:56,072]  https://partner190.com/backend.php/club?page=30
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:26:09,072]  https://partner190.com/backend.php/club?page=31
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:26:21,934]  https://partner190.com/backend.php/club?page=32
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:26:34,723]  https://partner190.com/backend.php/club?page=33
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:26:47,506]  https://partner190.com/backend.php/club?page=34
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:27:01,993]  https://partner190.com/backend.php/club?page=35
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:27:15,017]  https://partner190.com/backend.php/club?page=36
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:27:27,903]  https://partner190.com/backend.php/club?page=37
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:27:40,799]  https://partner190.com/backend.php/club?page=38
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:27:53,898]  https://partner190.com/backend.php/club?page=39
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:28:07,065]  https://partner190.com/backend.php/club?page=40
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:28:20,108]  https://partner190.com/backend.php/club?page=41
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:28:33,040]  https://partner190.com/backend.php/club?page=42
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:28:46,417]  https://partner190.com/backend.php/club?page=43
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:28:59,979]  https://partner190.com/backend.php/club?page=44
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:29:12,887]  https://partner190.com/backend.php/club?page=45
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:29:26,214]  https://partner190.com/backend.php/club?page=46
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:29:39,542]  https://partner190.com/backend.php/club?page=47
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:29:52,196]  https://partner190.com/backend.php/club?page=48
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:30:06,447]  https://partner190.com/backend.php/club?page=49
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:30:19,538]  https://partner190.com/backend.php/club?page=50
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:30:32,584]  https://partner190.com/backend.php/club?page=51
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:30:45,828]  https://partner190.com/backend.php/club?page=52
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:31:02,053]  https://partner190.com/backend.php/club?page=53
+rubParse.py[LINE:113]# INFO     [2015-11-24 11:31:10,671]  https://partner190.com/backend.php/club?page=54
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:18,240]  https://partner190.com/backend.php/cashdesk?page=1
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:22,253]  https://partner190.com/backend.php/cashdesk?page=2
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:27,780]  https://partner190.com/backend.php/cashdesk?page=3
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:35,365]  https://partner190.com/backend.php/cashdesk?page=4
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:40,960]  https://partner190.com/backend.php/cashdesk?page=5
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:45,653]  https://partner190.com/backend.php/cashdesk?page=6
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:50,209]  https://partner190.com/backend.php/cashdesk?page=7
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:31:55,299]  https://partner190.com/backend.php/cashdesk?page=8
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:00,371]  https://partner190.com/backend.php/cashdesk?page=9
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:05,068]  https://partner190.com/backend.php/cashdesk?page=10
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:10,440]  https://partner190.com/backend.php/cashdesk?page=11
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:15,644]  https://partner190.com/backend.php/cashdesk?page=12
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:20,944]  https://partner190.com/backend.php/cashdesk?page=13
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:26,611]  https://partner190.com/backend.php/cashdesk?page=14
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:32,371]  https://partner190.com/backend.php/cashdesk?page=15
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:37,733]  https://partner190.com/backend.php/cashdesk?page=16
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:43,217]  https://partner190.com/backend.php/cashdesk?page=17
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:49,436]  https://partner190.com/backend.php/cashdesk?page=18
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:32:55,457]  https://partner190.com/backend.php/cashdesk?page=19
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:01,463]  https://partner190.com/backend.php/cashdesk?page=20
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:07,930]  https://partner190.com/backend.php/cashdesk?page=21
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:14,128]  https://partner190.com/backend.php/cashdesk?page=22
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:20,309]  https://partner190.com/backend.php/cashdesk?page=23
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:26,315]  https://partner190.com/backend.php/cashdesk?page=24
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:34,760]  https://partner190.com/backend.php/cashdesk?page=25
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:40,674]  https://partner190.com/backend.php/cashdesk?page=26
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:46,562]  https://partner190.com/backend.php/cashdesk?page=27
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:52,855]  https://partner190.com/backend.php/cashdesk?page=28
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:33:59,200]  https://partner190.com/backend.php/cashdesk?page=29
+rubParse.py[LINE:162]# INFO     [2015-11-24 11:34:04,973]  https://partner190.com/backend.php/cashdesk?page=30
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,007]  Partner DoesNot Exist: Гудвин_Россия for club base_id - 347
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,028]  Partner DoesNot Exist: Панорама_Мельников for club base_id - 810
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,029]  Partner DoesNot Exist: Панорама_Мельников for club base_id - 811
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,030]  Partner DoesNot Exist: Панорама_Тагил for club base_id - 812
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,032]  Partner DoesNot Exist: Панорама_Тагил for club base_id - 813
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,233]  Partner DoesNot Exist: Панорама_Калининград-6 for club base_id - 198
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,469]  Partner DoesNot Exist: sportbetmax_Ивано-Франковск for club base_id - 33
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,490]  Partner DoesNot Exist: sportbetmax_Ивано-Франковск for club base_id - 34
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,565]  Partner DoesNot Exist: Барса for club base_id - 338
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,566]  Partner DoesNot Exist: Андрей Москва for club base_id - 335
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,568]  Partner DoesNot Exist: Андрей Москва for club base_id - 334
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,578]  Partner DoesNot Exist: X-bet for club base_id - 331
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,578]  Partner DoesNot Exist: X-bet for club base_id - 330
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,584]  Partner DoesNot Exist: X-bet for club base_id - 332
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,658]  Partner DoesNot Exist: СтавьКа for club base_id - 91
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,660]  Partner DoesNot Exist: СтавьКа for club base_id - 90
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,664]  Partner DoesNot Exist: СтавьКа for club base_id - 92
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,665]  Partner DoesNot Exist: Панорама_Череповец for club base_id - 814
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,671]  Partner DoesNot Exist: Sportbetmax_Херсон for club base_id - 740
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,671]  Partner DoesNot Exist: SRLSPORTBET for club base_id - 741
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,680]  Partner DoesNot Exist: TOO London for club base_id - 746
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,683]  Partner DoesNot Exist: Sportbetmax_Херсон for club base_id - 994
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,687]  Partner DoesNot Exist: Владимир for club base_id - 749
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,802]  Partner DoesNot Exist: Смоленск for club base_id - 144
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,812]  Partner DoesNot Exist: Смоленск for club base_id - 142
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:05,812]  Partner DoesNot Exist: Смоленск for club base_id - 143
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,130]  Partner DoesNot Exist: ForexSport.tj for club base_id - 137
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,131]  Partner DoesNot Exist: Ставки на спорт 24 for club base_id - 136
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,252]  Partner DoesNot Exist: Arabika for club base_id - 20
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,471]  Partner DoesNot Exist: Панорама_Рефтинский for club base_id - 758
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,526]  Partner DoesNot Exist: Геленджик for club base_id - 825
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,684]  Partner DoesNot Exist: ИП Бухаркин Евгений Николаевич for club base_id - 88
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,687]  Partner DoesNot Exist: Панорама_Екатеринбург 8 for club base_id - 89
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,785]  Partner DoesNot Exist: Карамболь for club base_id - 796
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,786]  Partner DoesNot Exist: ИП_Поддубный for club base_id - 795
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,786]  Partner DoesNot Exist: Избербаш1 for club base_id - 794
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,788]  Partner DoesNot Exist: Адыги for club base_id - 793
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,789]  Partner DoesNot Exist: Абакан for club base_id - 792
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,802]  Partner DoesNot Exist: Мартин Гейл for club base_id - 799
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:06,802]  Partner DoesNot Exist: Мартин Гейл for club base_id - 798
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,335]  Partner DoesNot Exist: Панорама_Набережные Челны-2 for club base_id - 179
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,619]  Partner DoesNot Exist: Sportbetmax_Хмельницк for club base_id - 185
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,729]  Partner DoesNot Exist: sportbetmax_Одесса-2 for club base_id - 17
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,743]  Partner DoesNot Exist: sportbetmax_Одесса-2 for club base_id - 18
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,806]  Partner DoesNot Exist: Мартин Гейл for club base_id - 752
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,829]  Partner DoesNot Exist: Панорама_Казахстан for club base_id - 756
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,831]  Partner DoesNot Exist: Панорама_Волгоград 7 for club base_id - 355
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,848]  Partner DoesNot Exist: Port Bet for club base_id - 326
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,857]  Partner DoesNot Exist: platina for club base_id - 325
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,858]  Partner DoesNot Exist: X-bet for club base_id - 328
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,858]  Partner DoesNot Exist: X-bet for club base_id - 329
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,859]  Partner DoesNot Exist: Панорама_Томск for club base_id - 759
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,901]  Partner DoesNot Exist: StarGame for club base_id - 779
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,901]  Partner DoesNot Exist: sportbetmax_Одесса for club base_id - 778
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,918]  Partner DoesNot Exist: Российская недвижимость for club base_id - 73
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,920]  Partner DoesNot Exist: Панорама_Земляной вал for club base_id - 72
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:07,921]  Partner DoesNot Exist: Панорама_Земляной вал for club base_id - 71
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,132]  Partner DoesNot Exist: Sportbetmax_Херсон for club base_id - 995
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,188]  Partner DoesNot Exist: Мираж for club base_id - 125
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,207]  Partner DoesNot Exist: Sportbetmax_Dnepr2 for club base_id - 777
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,323]  Partner DoesNot Exist: Одесса for club base_id - 833
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,325]  Partner DoesNot Exist: ForexSport.tj for club base_id - 138
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,325]  Partner DoesNot Exist: “Зенит” for club base_id - 836
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,326]  Partner DoesNot Exist: Sportbetmax_Городенка for club base_id - 837
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,328]  Partner DoesNot Exist: Патриарших for club base_id - 834
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,328]  Partner DoesNot Exist: Риверабет for club base_id - 835
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,329]  Partner DoesNot Exist: Букмекер паб for club base_id - 838
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,331]  Partner DoesNot Exist: Вавилов Ф. for club base_id - 839
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,339]  Partner DoesNot Exist: sportbetmax_Северодонецк for club base_id - 366
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,401]  Partner DoesNot Exist: StarGame for club base_id - 784
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,401]  Partner DoesNot Exist: StarGame for club base_id - 785
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,403]  Partner DoesNot Exist: StarGame for club base_id - 786
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,403]  Partner DoesNot Exist: StarGame for club base_id - 787
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,404]  Partner DoesNot Exist: StarGame for club base_id - 780
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,404]  Partner DoesNot Exist: StarGame for club base_id - 781
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,405]  Partner DoesNot Exist: StarGame for club base_id - 782
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,407]  Partner DoesNot Exist: StarGame for club base_id - 783
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,469]  Partner DoesNot Exist: sportbetmax_Одесса-3 for club base_id - 60
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,470]  Partner DoesNot Exist: Томск_rub90 for club base_id - 61
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,486]  Partner DoesNot Exist: Панорама_Калининград for club base_id - 67
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,505]  Partner DoesNot Exist: СтавьКа for club base_id - 256
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,506]  Partner DoesNot Exist: Панорама_Екатеринбург-16 for club base_id - 257
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,539]  Partner DoesNot Exist: Bet055 for club base_id - 733
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,543]  Partner DoesNot Exist: Better life for club base_id - 734
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,549]  Partner DoesNot Exist: Financial Group Gold Lion for club base_id - 736
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,549]  Partner DoesNot Exist: sportbetmax_Запорожье for club base_id - 739
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,551]  Partner DoesNot Exist: MLMbet_1905 года for club base_id - 738
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,694]  Partner DoesNot Exist: Sportbetmax_Мариуполь for club base_id - 169
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:08,934]  Partner DoesNot Exist: 777 for club base_id - 935
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,289]  Partner DoesNot Exist: Бинго Бум_Сочи-2 for club base_id - 899
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,359]  Partner DoesNot Exist: Панорама_Армавир for club base_id - 809
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,361]  Partner DoesNot Exist: ООО «НовоПлэй» for club base_id - 808
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,362]  Partner DoesNot Exist: ООО "Стар бет" for club base_id - 353
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,384]  Partner DoesNot Exist: ИП Казачков Д. Ю. for club base_id - 350
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,385]  Partner DoesNot Exist: Мартин Гейл for club base_id - 803
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,387]  Partner DoesNot Exist: Мартин Гейл for club base_id - 802
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,388]  Partner DoesNot Exist: Мартин Гейл for club base_id - 801
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,388]  Partner DoesNot Exist: Мартин Гейл for club base_id - 800
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,390]  Partner DoesNot Exist: ООО "СБ-Комплект" for club base_id - 807
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,391]  Partner DoesNot Exist: ООО "Росбет" for club base_id - 806
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,391]  Partner DoesNot Exist: ММВ for club base_id - 805
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,392]  Partner DoesNot Exist: ММВ for club base_id - 804
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,394]  Partner DoesNot Exist: sportbetmax_Ильичёвск for club base_id - 216
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,437]  Partner DoesNot Exist: Sportbetmax_Городенка-1 for club base_id - 211
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,438]  Partner DoesNot Exist: Сайёхи Худжанд for club base_id - 762
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,440]  Partner DoesNot Exist: Терек 20 for club base_id - 763
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,446]  Partner DoesNot Exist: Риверабет for club base_id - 761
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,453]  Partner DoesNot Exist: Фортуна_Rub90 for club base_id - 764
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:09,453]  Partner DoesNot Exist: Черкесск_руб90 for club base_id - 765
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,184]  Partner DoesNot Exist: Панорама_Тольятти-14 for club base_id - 263
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,186]  Partner DoesNot Exist: Панорама_Тольятти-11 for club base_id - 262
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,187]  Partner DoesNot Exist: Панорама_Тольятти-15 for club base_id - 261
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,201]  Partner DoesNot Exist: Панорама_Тольятти-16 for club base_id - 264
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,227]  Partner DoesNot Exist: sportbetmax_Одесса-3 for club base_id - 59
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,233]  Partner DoesNot Exist: БЦ Ярославль for club base_id - 57
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,381]  Partner DoesNot Exist: sportbetmax_Ивано-Франковск-1 for club base_id - 113
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,404]  Partner DoesNot Exist: Maximum for club base_id - 770
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,407]  Partner DoesNot Exist: Moskvabet for club base_id - 773
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,546]  Partner DoesNot Exist: Панорама for club base_id - 826
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,556]  Partner DoesNot Exist: Панорама for club base_id - 841
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,605]  Partner DoesNot Exist: Омск for club base_id - 753
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,611]  Partner DoesNot Exist: Кобеаз for club base_id - 751
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,612]  Partner DoesNot Exist: Евгений_Якутия for club base_id - 750
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,615]  Partner DoesNot Exist: Панорама_Калининград-6 for club base_id - 757
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,615]  Partner DoesNot Exist: Kovrov for club base_id - 737
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,617]  Partner DoesNot Exist: Панорама_Курск for club base_id - 755
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,618]  Partner DoesNot Exist: Панорама_Владимир for club base_id - 754
+save_Base.py[LINE:66]# INFO     [2015-11-24 11:34:10,703]  Partner DoesNot Exist: Санкт Петербург for club base_id - 114
+save_Base.py[LINE:48]# INFO     [2015-11-24 11:34:11,502]  Partner DoesNot Exist: Фортуна_Rub90 for cash base_id - 715
+save_Base.py[LINE:135]# INFO     [2015-11-24 11:34:22,066]  Terminals
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:34:33,641]  https://partner190.com/backend.php/terminal?page=1
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:34:44,417]  https://partner190.com/backend.php/terminal?page=2
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:34:55,253]  https://partner190.com/backend.php/terminal?page=3
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:35:06,211]  https://partner190.com/backend.php/terminal?page=4
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:35:17,137]  https://partner190.com/backend.php/terminal?page=5
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:35:28,276]  https://partner190.com/backend.php/terminal?page=6
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:35:39,318]  https://partner190.com/backend.php/terminal?page=7
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:35:50,410]  https://partner190.com/backend.php/terminal?page=8
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:36:01,486]  https://partner190.com/backend.php/terminal?page=9
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:36:12,496]  https://partner190.com/backend.php/terminal?page=10
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:36:23,322]  https://partner190.com/backend.php/terminal?page=11
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:36:34,348]  https://partner190.com/backend.php/terminal?page=12
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:36:45,217]  https://partner190.com/backend.php/terminal?page=13
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:36:56,181]  https://partner190.com/backend.php/terminal?page=14
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:37:07,167]  https://partner190.com/backend.php/terminal?page=15
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:37:18,028]  https://partner190.com/backend.php/terminal?page=16
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:37:29,410]  https://partner190.com/backend.php/terminal?page=17
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:37:40,197]  https://partner190.com/backend.php/terminal?page=18
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:37:50,977]  https://partner190.com/backend.php/terminal?page=19
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:38:01,732]  https://partner190.com/backend.php/terminal?page=20
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:38:12,595]  https://partner190.com/backend.php/terminal?page=21
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:38:23,460]  https://partner190.com/backend.php/terminal?page=22
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:38:33,970]  https://partner190.com/backend.php/terminal?page=23
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:38:44,976]  https://partner190.com/backend.php/terminal?page=24
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:38:55,990]  https://partner190.com/backend.php/terminal?page=25
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:39:06,983]  https://partner190.com/backend.php/terminal?page=26
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:39:18,134]  https://partner190.com/backend.php/terminal?page=27
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:39:29,344]  https://partner190.com/backend.php/terminal?page=28
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:39:40,607]  https://partner190.com/backend.php/terminal?page=29
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:39:51,671]  https://partner190.com/backend.php/terminal?page=30
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:40:03,401]  https://partner190.com/backend.php/terminal?page=31
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:40:14,644]  https://partner190.com/backend.php/terminal?page=32
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:40:26,321]  https://partner190.com/backend.php/terminal?page=33
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:40:37,193]  https://partner190.com/backend.php/terminal?page=34
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:40:48,107]  https://partner190.com/backend.php/terminal?page=35
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:40:59,438]  https://partner190.com/backend.php/terminal?page=36
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:41:10,851]  https://partner190.com/backend.php/terminal?page=37
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:41:22,046]  https://partner190.com/backend.php/terminal?page=38
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:41:34,743]  https://partner190.com/backend.php/terminal?page=39
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:41:46,091]  https://partner190.com/backend.php/terminal?page=40
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:41:57,401]  https://partner190.com/backend.php/terminal?page=41
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:42:10,174]  https://partner190.com/backend.php/terminal?page=42
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:42:21,448]  https://partner190.com/backend.php/terminal?page=43
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:42:32,375]  https://partner190.com/backend.php/terminal?page=44
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:42:43,513]  https://partner190.com/backend.php/terminal?page=45
+rubParse.py[LINE:217]# INFO     [2015-11-24 11:42:50,802]  https://partner190.com/backend.php/terminal?page=46
+save_Base.py[LINE:102]# INFO     [2015-11-24 11:42:51,348]  Club DoesNotExist Кстово for key 937203-231083-680684-961430-313155-860699
+save_Base.py[LINE:102]# INFO     [2015-11-24 11:42:52,512]  Club DoesNotExist Кстово for key 369218-031741-298336-099666-993835-467497
+save_Base.py[LINE:102]# INFO     [2015-11-24 11:42:52,513]  Club DoesNotExist Кстово for key 863244-591871-423871-632793-691752-381788
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:54,181]  Partner DoesNotExist Sportbetmax_Херсон for key 057080-057565-214963-257929-432514-385907
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:54,183]  Partner DoesNotExist Sportbetmax_Херсон for key 858597-236702-433302-654545-998331-816988
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:54,184]  Partner DoesNotExist Sportbetmax_Херсон for key 605157-194819-218896-388872-179816-082392
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:54,184]  Partner DoesNotExist Sportbetmax_Херсон for key 537872-298508-659240-465678-216004-563711
+save_Base.py[LINE:102]# INFO     [2015-11-24 11:42:54,505]  Club DoesNotExist Старые игроки for key 402183-122082-788364-196789-026496-914107
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:55,197]  Partner DoesNotExist 777 for key 551792-196331-285006-916246-867119-047162
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:55,198]  Partner DoesNotExist 777 for key 752070-897487-318173-050107-727345-785566
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:55,200]  Partner DoesNotExist 777 for key 695577-105449-729620-093778-246951-194031
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:55,201]  Partner DoesNotExist 777 for key 761733-685443-975304-891131-410371-254521
+save_Base.py[LINE:104]# INFO     [2015-11-24 11:42:57,148]  Partner DoesNotExist 777 for key 414595-963849-121997-393080-902978-616204
+save_Base.py[LINE:139]# INFO     [2015-11-24 11:42:58,588]  Agreegate Done
+save_Base.py[LINE:181]# INFO     [2015-11-24 11:42:58,654]  Delete 103 partners and Delete 51 clubs

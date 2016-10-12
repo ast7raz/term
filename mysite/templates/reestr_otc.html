@@ -1,0 +1,45 @@
+﻿{%extends "base.html" %}
+{%block title%}Реестр учета 3.0{%endblock%}
+{%block content%}
+<!--<script src="/static/event.js"></script>-->
+<!--<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>-->
+<!--<script src="/static/cashlist.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+<section class="reestr_otc">
+<div class="reestr_otc_form">
+<div class="date_and_time">
+<input type="date">От</input>
+<input type="time"></input>
+<input type="date">До</input>
+<input type="time"></input>
+</div>
+{%if partners%}
+<select id="partner">
+<option selected="selected" name="False" value="False"></option>
+{%for i in partners%}
+<option name="{{i.part_name}}" value={{i.id}}>{{i.part_name}}</option>
+{%endfor%}
+</select>
+{%endif%}
+
+{%if cashs%}
+<select id="cash">
+<option name="False" value="False"></option>
+{%for i in cashs%}
+<option name="{{i.cash_name}}" value={{i.id}}>{{i.cash_name}}</option>
+{%endfor%}
+</select>
+{%endif%}
+
+
+
+
+
+<input type="checkbox">Имя/Связанный обьект</input>
+</div>
+
+
+
+
+</section>
+{%endblock%}

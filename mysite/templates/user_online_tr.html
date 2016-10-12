@@ -1,0 +1,104 @@
+﻿<html>
+<head>
+<title>Сотрудники в раcчете</title>
+<style type="text/css">
+tr#red{
+background-color:red;
+}
+tr#green{
+background-color:55ff38;
+}
+</style>
+</head>
+<body>
+{%if form%}
+<form action="/calculate/">
+{{form}}
+<input id=stater type="checkbox">Статус расчёта<Br>
+
+</form>
+{%endif%}
+{%if te%}
+
+
+<table class=struct>
+{%for i in te%}
+{%if i.activ%}
+<tr style="color:green">
+{%else%}
+<tr style="color:red">
+	{%endif%}
+		<td class=worker>{{i.worker}}</td>
+		{%if "-----" not in i.sports.sport%}
+		<td class=sport>{{i.sports.sport}}</td>
+		{%endif%}
+		
+	</tr>
+	{%endfor%}
+</table>
+
+
+{%endif%}
+<a href="/calculate/">Показать</a>
+<a href="/accounts/account/" target="_blank">Аккаунт</a>
+<a href="/accounts/logout/?next=/calctrans/">Выйти</a>
+<script>
+
+var request=function(req_perem){
+if (req_perem==undefined){
+var tim=true
+}else{
+var tim=false
+}
+
+req_perem=req_perem||"?state=1"
+var req = new XMLHttpRequest()
+	req.open('GET', '/calctrans/'+req_perem, true);
+	req.onreadystatechange = function() {
+		if (req.readyState == 4) {
+			if(req.status == 200) {
+				
+				var elems=document.getElementsByTagName("table")
+				elems[0].parentNode.removeChild(elems[0])
+				var newtable=document.createElement("table")
+				otv=JSON.parse(req.responseText)
+				for(i in otv ){
+					tr=document.createElement("tr")
+					if (otv[i].active==true){
+						tr.id="green"
+					}else{
+						tr.id="red"}
+					td1=document.createElement("td")
+					td1.innerHTML=otv[i].worker
+					tr.appendChild(td1)
+					if (otv[i].sport!="-----"){
+						td2=document.createElement("td")
+						td2.innerHTML=otv[i].sport
+						tr.appendChild(td2)}
+					newtable.appendChild(tr)
+					
+				}
+				body1=document.getElementsByTagName("body")
+				body1[0].appendChild(newtable)
+         }
+  }
+}
+req.send(null)
+if (tim==true){
+setTimeout(request,5000)}}
+request()
+var sporter=document.getElementById("id_sport")
+var stat=document.getElementById("stater")
+var statfunc=function(){
+var a=stat.checked
+var b=sporter.value
+req_perem="?stater="+a+"&sport="+b
+console.log(req_perem)
+request(req_perem)
+
+}
+sporter.onchange=statfunc
+stat.onchange=statfunc
+window.onbeforeunload = request("?delete=0")
+</script>
+</body>

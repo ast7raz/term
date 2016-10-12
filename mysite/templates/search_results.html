@@ -1,0 +1,24 @@
+﻿{%extends "base.html" %}
+{%block title%}Поиск{%endblock%}
+{%block content%}
+ <section class="container">
+            <div class="login">
+<form action="" method="get">
+<input type="text" name="q">
+<input type="submit" value="Найти">
+</form>
+<p>Вы искали:<strong>{{q}}</strong></p>
+</div>
+</section>
+{%if books %}
+	<p>Найдено {{books|length}} книг {{books|pluralize}}.</p>
+	<ul>
+		{%for book in books%}
+		<li>{{book.title}} -- {{book.publisher}} -- ({{book.publication_date}})</li>
+		{%endfor%}
+	</ul>
+{%else%}
+	<p>Книг удовлетворяющих вашему запросу не найдено.</p>
+{%endif%}
+
+{%endblock%}

@@ -1,0 +1,19 @@
+﻿{%extends "base.html" %}
+{%block title%}Создать номер телефона{%endblock%}
+{%block content%}
+<meta http-equiv="Refresh" content="30" />
+<script src="/static/event.js"></script>
+
+        <section class="container">
+            <div class="login">
+<h1>Спасибо что внесли номер!</h1>
+
+</div>
+
+</section>
+<script>
+document.getElementById("id_partner").addEventListener("change", addChoise)
+document.getElementById("id_club").addEventListener("change", addChoise)
+document.getElementById("id_cash").addEventListener("change", addChoise)
+</script>
+{%endblock%}

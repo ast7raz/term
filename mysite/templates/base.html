@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="ru">
+<head>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link href="/static/style.css" rel="stylesheet" type="text/css" media="screen"/>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>{%block title%}{%endblock%}</title>
+</head>
+<body>
+<section class="header">
+<div class="header">
+<div class="account">
+<form action="/accounts/logout/" method="get">
+{%if user.username%}
+<p class="user" username="{{user.username}}" useremail="{{user.email}}">Добро пожаловать, {{user.username}}!</p>
+
+<input type="hidden" name="next" value="/">
+
+	<p class="submit"><input type="submit" name="commit" value="Выйти"></p>
+{%endif%}
+</form>
+</div>
+<div class="button">
+{% if perms.terminals.add_keys%}
+<a href="/" class="button28">Все ключи</a>
+{%endif%}
+<a href="/accounts/account/" class="button28">Аккаунт</a>
+{% if perms.books.add_book%}
+<a href="/books/search/" class="button28">Поиск книг</a>
+<a href="/contact/" class="button28">Отправить отзыв</a>
+<a href="/pb/view" class="button28">Телефоны партнёров</a>
+
+<a href="/register/" class="button28">Добавить пользователя</a>
+{%endif%}
+{% if perms.terminals.add_keys%}
+<a href="/rtc/" class="button28">Ключи онлайн</a>
+{%endif%}
+{% if perms.terminals.change_keys%}
+<a href="/agree/" class="button28" target="_blank">Агрегация базы</a>
+{%endif%}
+{% if perms.terminals.Averange%}
+<a href="/la/" class="button28" target="_blank" title="Страница нагрузки на боевые сервера RUB90">Нагрузка</a>
+{%endif%}
+{%if user.is_staff%}
+<a href="/admin/" class="button28" target="_balank" title="Админка">Админка</a>
+{%endif%}
+</div>
+
+</div>
+</section>
+{%block content%}{%endblock%}
+
+{%block footer%}
+<section class="footer">
+
+<hr>
+<p>Спасибо, что посетили этот сайт!</p>
+<hr>
+
+</section>
+{%endblock%}
+</body>
+</html>

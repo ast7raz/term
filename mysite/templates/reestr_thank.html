@@ -1,0 +1,37 @@
+﻿{%extends "base.html" %}
+{%block title%}Реестр учета 3.0{%endblock%}
+{%block content%}
+<script src="/static/event.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="/static/cashlist.js"></script>
+<section class="filter">
+{%if obj%}
+<h1>Спасибо что зарегистрировали запрос.
+<p>Был зерегистрирован запроc со следующими данными:</p>
+<p><a href="/reestr/form/">Чтобы зарегистрировать ещё один запрос нажмите здесь!</a></p>
+
+<div class=reestr_thanks>
+<table class=reestr_table>
+
+<tr><td>Время обращения (UTC)</td><td>{{obj.time}}</td></tr>
+<tr><td>Пользователь принявший запрос</td><td>{{obj.user}}</td></tr>
+<tr><td>Партнёрская группа</td><td>{{obj.partname}}</td></tr>
+<tr><td>Клуб</td><td>{{obj.clubname}}</td></tr>
+<tr><td>Касса</td><td>{{obj.cashname}}</td></tr>
+<tr><td>Инструмент обращения</td><td>{{obj.instrument}}</td></tr>
+<tr><td>Роль обратившегося</td><td>{{obj.user_position}}</td></tr>
+<tr><td>Тип обращения</td><td>{{obj.request_type}}</td></tr>
+<tr><td>Тема обращения</td><td>{{obj.request_subject}}</td></tr>
+<tr><td>Коментарий</td><td>{{obj.coment}}</td></tr>
+<tr><td>Продолжительность решения (минуты)</td><td>{{obj.duration}}</td></tr>
+<tr><td>Тикет OTRS (если запрос открыт)</td><td>{{obj.otrs}}</td></tr>
+<tr><td>Баг JIRA</td><td>{{obj.jira}}</td></tr>
+<tr><td>Уровень решения запроса</td><td>{{obj.level}}</td></tr>
+<tr><td>Статуз запроса</td><td>{{obj.state}}</td></tr>
+</table>
+
+</div>
+</h1>
+{%endif%}
+</section>
+{%endblock%}

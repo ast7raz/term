@@ -1,0 +1,26 @@
+﻿{%extends "base.html" %}
+{%block title%}Информация профиля {{user.username}}{%endblock%}
+{%block content%}
+        <section class="container">
+            <div class="login">
+{%if done%}
+<h1>{{done}}</h1>
+{%else%}
+<h1>Ваш аккаунт {{user.get_full_name}}</h1>
+{%endif%}
+<p>Ваше имя: <strong>{{user.username}}</strong></p>
+
+<p>Активность: <strong>{{user.is_active}}</strong></p>
+<p>Последний логин: <strong>{{user.last_login}}</strong></p>
+<p>Дата создания аккаунта: {{user.date_joined}}</strong></p>
+
+{%if form%}
+<form method="POST" action="/accounts/account/">{% csrf_token %}
+{{form}}
+<input type="submit" value="Изменить пароль">
+
+</form>
+{%endif%}
+</div>
+</section>
+{%endblock%}

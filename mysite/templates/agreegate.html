@@ -1,0 +1,34 @@
+﻿{%extends "base.html" %}
+{%block title%}Агрегация базы{%endblock%}
+{%block content%}
+<script src="/static/event.js"></script>
+
+
+
+<section class=filter>
+
+
+<div>
+
+<form action="/agree">
+<p>Внимание! Агрегация может занять продолжительное время. Пожалуйста дождитесь завершения агрегации. </p>
+<p><label name=doc>Агрегация по документам</label>
+<input label="Doc" type="radio" name=doc value=rad1>
+{% if perms.terminals.delete_keys%}
+<label name=admin>Агрегация по админке</label>
+<input label="Doc" type="radio" name=doc value=rad2>
+
+
+{%endif%}
+<input type="submit" value="Агрегация"></p>
+{%if le%}
+
+<p>{{le}}</p>
+{%endif%}
+
+</form>
+</div>
+</section>
+
+
+{%endblock%}

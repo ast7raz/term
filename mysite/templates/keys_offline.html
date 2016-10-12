@@ -1,0 +1,88 @@
+﻿{%extends "base.html" %}
+{%block title%}Известные терминалы{%endblock%}
+{%block content%}
+<script src="/static/event.js"></script>
+
+
+
+<section class=filter>
+
+
+<div>
+<form action="/">
+<label name=key>Ключ</label>
+<input label="Ключ" type="text" name=key value="{{tizer.key}}">
+<label name=name>Имя ключа</label>
+<input type="text" name=name value="{{tizer.name}}">
+<label name=part>Партнёрка</label>
+<input type="text" name=part value="{{tizer.part}}">
+<label name=club>Клуб</label>
+<input type="text" name=club value="{{tizer.club}}">
+<label name=version>Версия образа</label>
+<input type="text" name=version value="{{tizer.version}}">
+<label name=ip>IP</label>
+<input type="text" name=ip value="{{tizer.ip}}">
+<br>
+<label name=mid>Machine_id</label>
+<input type="text" name=mid value="{{tizer.mid}}">
+
+<input type="submit" value="Фильтровать">
+<button type="button" onclick="location.href='/'">X</button>
+</form>
+</div>
+</section>
+{%if goll%}
+<section class=head_div>
+<table class=head_table>
+	<caption>Ключи терминалов</caption>	
+	<tr>
+	
+	<th class=keys>Ключ терминала</th>
+	<th class="name">Имя ключа терминала</th>
+	<th class="part">Партнёрка</th>
+	<th class="club">Клуб</th>
+	<th class="version">Версия образа терминала</th>
+	<th class="ip">Ip терминала</th>
+	<th class="active">Активация</th>
+	<th class="blocked">Блокировка</th>
+	<th class="mid">Machine_id</th>
+	<th class="dlo">Дата</th>
+	</tr>
+</table>	
+
+</section>
+<section class=head_div1>
+<table class=content>
+	{%for key in goll%}
+
+	<tr>
+	<td class=keys>{{key.key}}</td>
+	<td class="name">{{key.name}}</td>
+	<td class="part">{{key.part}}</td>
+	<td class="club">{{key.club}}</td>
+	<td class="version">{{key.version}}</td>
+	<td class="ip">{{key.ip}}</td>
+	<td class="active">{% if key.active == True%}
+	<img src="/static/galka.png" width="20" height="20" alt="{{key.active}}">
+	{% else%}
+	<img src="/static/Krest.png" width="20" height="20" alt="{{key.active}}">
+	{% endif %}</td>
+	<td class="blocked">{% if key.blocked == True%}
+	<img src="/static/galka.png" width="20" height="20" alt="{{key.blocked}}">
+	{% else%}
+	<img src="/static/Krest.png" width="20" height="20" alt="{{key.blocked}}">
+	{% endif %}</td>
+	<td class="mid">{{key.machine_id}}</td>
+	<td class="dlo">{{key.date_last_online}}</td>
+	</tr>
+	
+	{%endfor%}
+	</table>
+<p id=calc>Всего известных ключей: {{lenfi}}.</p>
+</section>
+{%else%}
+<p>Известных ключей по вашему запросу не найдено</p>
+{%endif%}
+
+
+{%endblock%}

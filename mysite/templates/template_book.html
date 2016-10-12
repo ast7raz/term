@@ -1,0 +1,36 @@
+﻿{%extends "base.html" %}
+{%block title%}Главная{%endblock%}
+{%block content%}
+<script>
+iter=0;
+function xm() {
+	var t=setTimeout("xm()", 120000)
+	xmlhttp= new XMLHttpRequest();
+	xmlhttp.open("POST","",true);
+	xmlhttp.onload = function() {
+		//alert(this.responseText);
+		var load=this.responseText.split(')(')
+		if (load[iter]==undefined){
+		iter=0
+		
+		}
+		else{
+		document.getElementById("test").innerHTML=load[iter]
+		}
+		
+		iter=iter+1;
+		
+		
+	}
+
+	xmlhttp.send();}
+xm()
+</script>
+
+<p id="test" class="skript"></p>
+<table>
+{%for k,v in values%}
+<tr><td>{{k}}</td><td>{{v}}</td></tr>
+{%endfor%}
+</table>
+{%endblock%}

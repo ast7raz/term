@@ -1,0 +1,35 @@
+﻿<html>
+<head>
+<title>Инструмент support</title>
+{%if "/calc" not in next%}
+<link href="/static/style.css" rel="stylesheet" type="text/css" media="screen"/>
+
+{%endif%}
+<meta name="google-site-verification" content="1S4AdvrDmvsvQPGCyPp4q3fVv-aPSPtl8NgGD9C0xek" />
+</head>
+<body>
+<section class="container">
+	<div class="login">
+        <h1>Войти в личный кабинет</h1>
+		{%if auth_errore%}
+			<p class="error">{{auth_errore}}</p>
+		{%endif%}
+{%if form.errors%}
+	<p class="error">Неверное имя или пароль!</p>
+{%endif%}
+
+
+		<form method="post" action="">{% csrf_token %}
+			<p><input type="text" name="username" value="" placeholder="Логин" id="username"></p>
+			<p><input type="password" name="password" value="" placeholder="Пароль" id="password"></p>
+			
+			<p class="submit"><input type="submit" name="commit" value="Войти"></p>
+			<a href="{% url 'social:begin' 'google-oauth2' %}">
+			<i class="fa fa-google-plus"></i> Login with Google+</a>
+			
+			<input type='hidden' name="next" value={{next|escape}}>
+		</form>
+    </div>
+</section>	
+</body>
+</html>
