@@ -162,7 +162,7 @@ def get_all_cash(opener):
         logging.info(unicode(i))
         #print(unicode(i))
     return all_cashs
-def get_terminal_url(opener):
+def get_terminal_url(opener, last_page=0):
     terminalurl="%s/backend.php/terminal" %opener.host
     page=opener.open(terminalurl).read()
     htmlpage=html.document_fromstring(page)
@@ -171,7 +171,8 @@ def get_terminal_url(opener):
     url_list=[]
     for p in range(int(range_pages)):
         p=p+1
-        url_list.append("%s?page=%s" %(terminalurl, p))
+        if p>=last_page:
+            url_list.append("%s?page=%s" %(terminalurl, p))
     return url_list
 def get_key(opener,id):
     url="%s/backend.php/terminal/%s/edit" %(opener.host, str(id))
@@ -181,6 +182,7 @@ def get_key(opener,id):
     return key
 
 def get_terminals_on_page(opener, termurl):
+    #print(termurl)
     page=opener.open(termurl).read()
     htmlpage=html.document_fromstring(page)
     tbody=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr')
@@ -209,9 +211,10 @@ def get_terminals_on_page(opener, termurl):
         slov[base_id]={"key":key, "name":name, "part_name":part, "club_name":club, "activ":activ, "blocked":blocked, "base_id":base_id}
     return slov
 
-def get_all_terminals(opener):
+def get_all_terminals(opener, last_page):
     all_terminals={}
-    clubsurl=get_terminal_url(opener)
+    clubsurl=get_terminal_url(opener, last_page)
+    print(clubsurl)
     for i in clubsurl:
         all_terminals.update(get_terminals_on_page(opener,i))
         logging.info(unicode(i))
