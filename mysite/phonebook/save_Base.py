@@ -5,7 +5,7 @@ import os, sys, argparse,time, shutil
 import rubParse
 import logging
 from autorizback import Opener
-import setuper
+#import setuper
 
 from mysite import settings
 logdir=settings.LOG_DIR
