@@ -126,7 +126,7 @@ def agree_terminals(terms_dictions):
     for key in terms_dictions:
         terminal_agree(terms_dictions[key])
 
-def agree_all_data(partner=True,clubs_cashs=True, terminals=True):
+def agree_all_data(partner=True,clubs_cashs=True, terminals=True, last_page=0):
     logging.info(u"Start Agreegate")
     logging.info(u"Agregate param: Partner=%s; Club and Cash=%s; Terminals=%s;" %(unicode(partner), unicode(clubs_cashs), unicode(terminals)))
     PU=Parser_users.objects.get(parser="adminka")
@@ -143,9 +143,10 @@ def agree_all_data(partner=True,clubs_cashs=True, terminals=True):
         agree_clubs(clubs)
         agree_cashs(cashs)
     if terminals==True:
+
         logging.info(u"Terminals")
         #print("Terminals")
-        term=rubParse.get_all_terminals(opener)
+        term=rubParse.get_all_terminals(opener, last_page)
         agree_terminals(term)
     logging.info(u"Agreegate Done")
 def boolifT(string):
