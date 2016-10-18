@@ -1,22 +1,19 @@
 # -*- coding: utf-8 -*-
 __author__ = 'user'
 import os, sys, argparse,time, shutil
-import django
+
 import rubParse
 import logging
 from autorizback import Opener
-filename=u'/home/asorokin/www-support/mysite/Agree.log'
-logdir=u"/home/asorokin/www-support/mysite/Logs_site"
+import setuper
+
+from mysite import settings
+logdir=settings.LOG_DIR
+filename=os.path.join(logdir,'Agree.log')
+
 logging.basicConfig(format = u'%(filename)s[LINE:%(lineno)d]# %(levelname)-8s [%(asctime)s]  %(message)s', level = logging.INFO, filename = filename)
-
-sys.path.append("/var/www-support/mysite")
-#print(sys.path)
-#os.curdir="Z:\\home\\test.key\\www\\mysite"
-#print(os.path.abspath(os.curdir))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
-from django.conf import settings
-django.setup()
-
+#print(filename)
+#print(logdir)
 from phonebook.models import Cash,Club,Partner
 from terminals.models import Keys, Parser_users
 
@@ -222,24 +219,11 @@ def Get_clubs_receive_terminals():
     print("Number of clubs with terminals: %s" %str(len(clubs)))
     return clubs
 
-if __name__=="__main__":
-    #Get_prtners_receive_terminals()
-    #Get_clubs_receive_terminals()
-    #print(remoove_facke_bd())
-    main()
-    #newfilename=getNewFileName(filename)
-    #shutil.copy2(filename, newfilename)
-    #os.rename('name1','name2')
 
-    #print()
-    #main()
-    #print(bool(""))
-    #partner=False, clubs_cashs=False)
-    """opener, token=rubParse.Admin_Authorization()
-    partlist=rubParse.get_partlist(opener, token)
-    agree_partners(partlist)
-    clubs, cashs=rubParse.get_cashs_and_clubs(opener)
-    agree_clubs(clubs)
-    agree_cashs(cashs)
-    term=rubParse.get_all_terminals(opener)
-    agree_terminals(term)"""
+
+"""if __name__=="__main__":
+    print(Get_project_path())
+    main()"""
+if __name__=="__main__":
+
+    main()
