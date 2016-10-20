@@ -10,25 +10,68 @@
 
 <div>
 
-<form action="/agree">
+<form action="/agree/" method="POST">{% csrf_token %}
 <p>Внимание! Агрегация может занять продолжительное время. Пожалуйста дождитесь завершения агрегации. </p>
-<p><label name=doc>Агрегация по документам</label>
-<input label="Doc" type="radio" name=doc value=rad1>
 {% if perms.terminals.delete_keys%}
-<label name=admin>Агрегация по админке</label>
-<input label="Doc" type="radio" name=doc value=rad2>
-
-
+    <label name="Part">Партнёры</label>
+    <input label="Part" type="checkbox" name="part" >
+    <label name="Clubs_Cashs">Клубы и кассы</label>
+    <input label="Clubs_Cashs" type="checkbox" name="clubs" >
+    <label name="Terminals">Терминалы</label>
+    <input label="Terminals" type="checkbox" name="Term" >
+    <label name="Last_page">Страница начала агрегации по терминалам</label>
+    <input label="Last_page" type="number" name=last_page style="width: 4em;">
 {%endif%}
-<input type="submit" value="Агрегация"></p>
-{%if le%}
-
-<p>{{le}}</p>
-{%endif%}
-
+<input type="submit" value="Агрегация">
+<input type="button" id="stop" value="Остановить">
 </form>
+    <p id="le">
+        {%if le%}
+            {{le}}
+        {%endif%}
+    </p>
+
 </div>
 </section>
+<section class="Log">
+
+    <div id="log">
+
+    </div>
 
 
+</section>
+<script>
+function Getlog(){
+    var xhr = new XMLHttpRequest();
+	xhr.open('GET', '/agree/log/', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	xhr.onload = function() {
+		var src=this.responseText
+            //console.log(src)
+		var ddd = document.getElementById("log");
+		    ddd.innerHTML=src
+		    console.log(ddd)
+		}
+
+		xhr.send()
+}
+function StopAgree(){
+    var xhr = new XMLHttpRequest();
+	xhr.open('GET', '/agree/stop/', true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	xhr.onload = function() {
+		var src=this.responseText
+            //console.log(src)
+		var ddd = document.getElementById("le");
+		    ddd.innerHTML=src
+		    console.log(ddd)
+		}
+
+		xhr.send()
+}
+document.getElementById("stop").addEventListener("click", StopAgree)
+setInterval(Getlog, 2000)
+
+</script>
 {%endblock%}

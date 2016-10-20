@@ -4,10 +4,19 @@ import urllib2
 from urllib import urlencode
 import lxml.html as html
 import threading
-import logging
+import logging, os
+def Get_project_path(project_name="mysite"):
+    APP_DIR = os.path.dirname(__file__)
+    print(APP_DIR)
+    list_dir = APP_DIR.split("\\")
+    index = list_dir.index(project_name)
+    lgbt = list_dir[0:index + 1]
+    patch = "/".join(lgbt)
+    project_path = os.path.normpath(patch)
+    return project_path
+filename=os.path.join(Get_project_path(), "pars.log")
 
-
-logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.ERROR, filename = '/var/www-support/mysite/pars.log')
+logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.ERROR, filename = filename)
 def start(username, password ,url):
     actvers=""
     pass_man=urllib2.HTTPPasswordMgrWithDefaultRealm()

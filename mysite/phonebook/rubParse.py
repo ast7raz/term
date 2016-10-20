@@ -214,7 +214,7 @@ def get_terminals_on_page(opener, termurl):
 def get_all_terminals(opener, last_page):
     all_terminals={}
     clubsurl=get_terminal_url(opener, last_page)
-    print(clubsurl)
+    #print(clubsurl)
     for i in clubsurl:
         all_terminals.update(get_terminals_on_page(opener,i))
         logging.info(unicode(i))

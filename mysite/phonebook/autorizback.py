@@ -33,6 +33,7 @@ class Opener(object):
         reg="window.localStorage.+"
         p=re.compile(reg)
         tok=p.findall(page)
+        #print(tok)
         dkt=tok[0].split(" = '")[1].replace("';","")
         self.token={"token":dkt}
         self.opener=opener
@@ -53,4 +54,4 @@ class Opener(object):
         return page
 
 if __name__=="__main__":
-    opener=Opener()
+    opener=Opener()

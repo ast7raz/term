@@ -5,9 +5,10 @@ from mysite.views import hello, current_datetime, hours_ahead
 from books.views import display_meta, search, contact,register, account
 from django.contrib.auth.views import login, logout
 from phonebook.views import PhoneBok, PhoneBookView
-from terminals.views import keyonline, keyoffline,agreegate,get_ssh
+from terminals.views import keyonline, keyoffline,agreegate,get_ssh, agreegate_log, agreegate_stop
 from calculation.views import calc_get, calc_get_transparent
-from load_averange.views import LoadAv #, LoadAv2
+import settings
+#from load_averange.views import LoadAv #, LoadAv2
 from reestrs.views import reestr_form, reestr_cash, cash_validation, reestr_save_req, reestr_spasibo, reestr_otc
 templa={'template_name':"/var/www-support/mysite/templates/login.html"}
 
@@ -18,6 +19,7 @@ urlpatterns = patterns('',
 
 
     url(r'^admin/', include(admin.site.urls)),
+    #url(r'^static/', include(settings.STATICFILES_DIRS)),
     url(r"^hello/$", hello),
     url(r"^time/$", current_datetime),
     url(r"^time/(\d{1,2})/$", hours_ahead),
@@ -36,10 +38,12 @@ urlpatterns = patterns('',
     url(r"^rtc/test/$", keyoffline),
     url(r"^rtc/get_key/$", get_ssh),
     url(r"^agree/$", agreegate),
+    url(r"^agree/log/$", agreegate_log),
+    url(r"^agree/stop/$", agreegate_stop),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
     url(r"^calculate/$", calc_get),
     url(r"^calctrans/$", calc_get_transparent),
-    url(r"^la/$", LoadAv),
+    #url(r"^la/$", LoadAv),
     url(r"^reestr/form/$", reestr_form),
     url(r"^reestr/form/cash/$", reestr_cash),
     url(r"^reestr/form/valid/$", cash_validation),
