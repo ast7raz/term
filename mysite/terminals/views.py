@@ -5,7 +5,10 @@ from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse
 import json
 #import runscript
+from Lib import get_pid_of_log, test_procces, kill_proc
 import pars_rtc
+import json, os, subprocess
+from mysite import settings
 from terminals.models import Keys, Parser_users
 #import pars_doc
 from phonebook.save_Base import main
@@ -138,19 +141,66 @@ def keyoffline(request):
         return render_to_response("keys_offline.html",locals(),context_instance=RequestContext(request))
 @permission_required('terminals.change_keys')
 def agreegate(request):
-    if len(request.GET)>0:
-        if request.GET["doc"]=="rad1":
-            
-            try:
-                #pars_doc.start()
-                le=u"Агрегация по документам выпонена успешно!"
-            except:
-                le=u"Извините агрегация по документам не выпонена. Попробуйте повторить Агрегацию.!"
-        elif request.GET["doc"]=="rad2":
-            #terminals.admin_pars.start()
-            try:
-                main()
-                le=u"Агрегация по админке выпонена успешно!"
-            except:
-                le=u"Извините агрегация по админке не выпонена. Попробуйте повторить Агрегацию.!"
-    return render_to_response("agreegate.html",locals(),context_instance=RequestContext(request))
+    if request.method == "POST":
+        ls=request.POST.keys()
+        """
+        for key in ls:
+            print(key, request.POST[key])
+        """
+        sub=[]
+        sub.append(settings.PYTHON)
+        sub.append(os.path.join(settings.BASE_DIR, "manage.py"))
+        sub.append("agree_base")
+        if "part" not in request.POST:
+            sub.append("-p")
+        if "clubs" not in request.POST:
+            sub.append("-c")
+        if "Term" not in request.POST:
+            sub.append("-t")
+        else:
+            if len(request.POST["last_page"])>0:
+                sub.append("-l")
+                sub.append(request.POST["last_page"])
+        #print (sub)
+        pid=get_pid_of_log(os.path.join(settings.LOG_DIR, "Agree.log"))
+        proc=test_procces(pid, "agree_base")
+        #print(pid, proc)
+        if (len(pid)>0):
+            if proc==False:
+                subprocess.Popen(sub)
+                le="Агрегация базы данных запущена. Информация о процессе агрегации будет отображаться ниже."
+            elif proc=="":
+                subprocess.Popen(sub)
+                le="Агрегация"
+            else:
+                le = "Агрегация не была запущена потому чо процесс агрегации уже был запущен ранее!"
+        else:
+            le="Агрегация не была запущена по пречине ошибок!"
+        return render_to_response("agreegate.html", locals(), context_instance=RequestContext(request))
+    else:
+        return render_to_response("agreegate.html",locals(),context_instance=RequestContext(request))
+def agreegate_log(request):
+    file_path=os.path.join(settings.LOG_DIR, "Agree.log")
+    #print(file_path)
+    f=open(file_path, "r")
+    li=f.read().split("\n")
+    li="<br>".join(li)
+    #print(li)
+    f.close()
+    #li="DONE"
+    return HttpResponse(li)
+def agreegate_stop(request):
+    pid = get_pid_of_log(os.path.join(settings.LOG_DIR, "Agree.log"))
+    proc = test_procces(pid, "agree_base")
+    if (len(pid) > 0):
+        if proc == True:
+            if kill_proc(pid):
+
+                li="Агрегация остановленна пользователем!"
+            else:
+                li = "Агрегация не была начата либо была завершена!"
+        else:
+            li = "Агрегация не была начата либо была завершена!"
+    else:
+        li = "Ошибка получения данных! Попробуйте ещё раз."
+    return HttpResponse(li)
