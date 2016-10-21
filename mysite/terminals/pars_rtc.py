@@ -7,8 +7,8 @@ import threading
 import logging, os
 def Get_project_path(project_name="mysite"):
     APP_DIR = os.path.dirname(__file__)
-    print(APP_DIR)
-    list_dir = APP_DIR.split("\\")
+    #print(APP_DIR)
+    list_dir = APP_DIR.split("/")
     index = list_dir.index(project_name)
     lgbt = list_dir[0:index + 1]
     patch = "/".join(lgbt)

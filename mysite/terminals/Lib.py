@@ -14,7 +14,7 @@ def test_procces(pid, serch_string):
     else:
         return False
 
-def get_pid_of_log(log="D:\\gitterm\\mysite\\Logs_site\\Agree.log"):
+def get_pid_of_log(log):
     f=open(log, "r")
     text=f.read()
     f.close()
@@ -26,7 +26,6 @@ def get_pid_of_log(log="D:\\gitterm\\mysite\\Logs_site\\Agree.log"):
     #print(string_pid)
     pid=string_pid.split(" ")[-1]
     return pid
-print(get_pid_of_log())
 
 def kill_proc(pid):
     try:

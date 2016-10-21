@@ -21,7 +21,7 @@ def keyonline(request):
         old=0
         PU=Parser_users.objects.get(parser="trc")
         on_keys, keys, ret_test=pars_rtc.start(username=PU.username, password=PU.userpass, url=PU.parsurl)
-        print()
+        #print()
         fi=Keys.objects.filter(key__in=keys).order_by("club","part")
         if len(request.GET)>0:
 
@@ -92,11 +92,11 @@ def get_ssh(request):
 	PU=Parser_users.objects.get(parser="trc")
         page=request.POST["page"].replace("./",PU.parsurl)
         #arg=request.arguments
-        print(request.POST["fun"])
+        #print(request.POST["fun"])
         if request.POST["fun"]!="X":
             li=pars_rtc.get_cmd(str(page), username=PU.username, password=PU.userpass).replace("$ ","")
         else:
-            print(page)
+            #print(page)
             pars_rtc.get_x(str(page), username=PU.username, password=PU.userpass)
             li="DONE"
         #print(li)
@@ -148,6 +148,9 @@ def agreegate(request):
             print(key, request.POST[key])
         """
         sub=[]
+        #sub.append("sudo")
+        #sub.append("-u")
+        #sub.append("asorokin")
         sub.append(settings.PYTHON)
         sub.append(os.path.join(settings.BASE_DIR, "manage.py"))
         sub.append("agree_base")
@@ -167,7 +170,7 @@ def agreegate(request):
         #print(pid, proc)
         if (len(pid)>0):
             if proc==False:
-                subprocess.Popen(sub)
+            	subprocess.Popen(sub)
                 le="Агрегация базы данных запущена. Информация о процессе агрегации будет отображаться ниже."
             elif proc=="":
                 subprocess.Popen(sub)
@@ -181,13 +184,24 @@ def agreegate(request):
         return render_to_response("agreegate.html",locals(),context_instance=RequestContext(request))
 def agreegate_log(request):
     file_path=os.path.join(settings.LOG_DIR, "Agree.log")
+    #li=file_path
+
     #print(file_path)
-    f=open(file_path, "r")
-    li=f.read().split("\n")
-    li="<br>".join(li)
-    #print(li)
-    f.close()
-    #li="DONE"
+    try:
+	f=open(file_path, "r")
+    except Exception as (errno, strerror):
+	li="I/O error({0}): {1}".format(errno, strerror)
+    #li="Files open!"
+    else:
+    
+	li=f.read().split("\n")
+    
+	#print(li)
+	li="<br>".join(li)
+	#print(li)
+	f.close()
+	#li="DONE"
+    
     return HttpResponse(li)
 def agreegate_stop(request):
     pid = get_pid_of_log(os.path.join(settings.LOG_DIR, "Agree.log"))
