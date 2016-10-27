@@ -2,7 +2,11 @@
 {%block title%}Терминалы онлайн{%endblock%}
 {%block content%}
 <script src="/static/event.js"></script>
+<script>
 
+
+
+</script>
 
 
 <section class=filter>
@@ -22,16 +26,26 @@
 <input type="text" name=admin value="{{tizer.adm}}">
 
 <input type="submit" value="Фильтровать">
-<button type="button" onclick="location.href='/rtc'" >Очистить</button>
+<input type="button" onclick="location.href='/rtc'" value="Очистить" >
+	<a id="a_mass">Массовое действие</a>
 </form>
 </div>
+	<div id="divmasseffect" style="display:none;">
+		 	<h1>Доступные массовые действия</h1>
+		{% csrf_token %}
+		<input class="mass_button" type="button"  value="X" >
+		<input class="mass_button" type="button"  value="reboot" >
+		<input class="mass_button" type="button"  value="update" >
+		<input class="mass_button" type="button"  value="white label BB" >
+		<input class="mass_button" type="button"  value="white label Rub90" >
+	</div>
 </section>
 {%if goll%}
 <section class=head_div>
 <table class=head_table>
 	<caption>Ключи терминалов в колличестве: {{lenkey}}; Старых:{{old}}; Новых:{{new}};</caption>	
 	<tr class="keysstring">
-	
+	<th class="masseffect">Массовое действие<br><input type="checkbox" id="masseffect"></th>
 	<th class="keys">Ключ терминала</th>
 	<th class="name">Имя ключа терминала</th>
 	<th class="part">Партнёрка</th>
@@ -51,7 +65,10 @@
 	{%for key in goll%}
 
 	<tr class="keysstring">
-	<td class="keys">{{key.key}}</td>
+		<td class="masseffect">
+		<input type="checkbox" class="mass" name={{key.mashine_id}}>
+		</td>
+	<td class="keys"><a href="/rtc/info/{{key.mashine_id}}/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a></td>
 	<td class="name">{{key.name}}</td>
 	<td class="part">{{key.part}}</td>
 	<td class="club">{{key.club}}</td>
@@ -68,7 +85,7 @@
 	{%endif%}
 	<button class="bu" title="Разрыв всех существующих содинений данного терминала, терминал не на долго пропадает со страници активных терминалов. Не влияет на работу терминала." name="X" OnClick="vnc('X {{key.key}} {{key.x}}');">X</button>
 	{%if key.upgrade %}
-	<button class="bu"name"upgrade" OnClick="vnc('upgrade {{key.key}} {{key.upgrade}}')">UP</button>
+	<button class="bu" name="upgrade" OnClick="vnc('upgrade {{key.key}} {{key.upgrade}}')">UP</button>
 	{%endif%}
 	{%else%}
 	Upgrading
@@ -198,6 +215,93 @@ xhr.send();
 //setInterval(con,10000)
 }
 con()
+changer= function(){
+	//console.log(this.checked)
+	elements=document.getElementsByClassName("mass")
+	for (i in elements){
+		if (elements[i].type!=undefined){
+		//console.log(elements[i])
+			elements[i].checked=this.checked;
+		}
+	}
+
+}
+if (document.documentElement.hidden === undefined) {
+    Object.defineProperty(Element.prototype, "hidden", {
+      set: function(value) {
+        this.setAttribute('hiden', value);
+      },
+      get: function() {
+        return this.getAttribute('hiden');
+      }
+    });
+  }
+var visible = false;
+
+disp_but=function() {
+
+    if(visible) {
+
+        document.getElementById('divmasseffect' ).style.display = 'none';
+
+        visible = false;
+        console.log(visible)
+
+    } else {
+
+        document.getElementById('divmasseffect' ).style.display = 'block';
+
+        visible = true;
+		console.log(visible)
+    }
+}
+mass_button=function(){
+
+	console.log(this.value)
+	elements=document.getElementsByClassName("mass")
+	var csrf=document.getElementsByName("csrfmiddlewaretoken")[0]
+	//console.log(csrf.value)
+	var list_id=[]
+	for(var i=0; i<elements.length; i++){
+		if(elements[i].type!=undefined){
+			if (elements[i].checked){
+				list_id.push(elements[i].name);
+			}
+		}
+
+	}
+	if (list_id.length>0){
+		if (confirm("Вы действительно хотите выполнить массовое действие для выбранных терминалов?")==true){
+			var slov={}
+			slov.command=this.value
+			slov.ids=list_id
+			console.log(slov)
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', './masseffect/', true);
+			xhr.setRequestHeader('Content-Type', "application/json; charset=utf-8")
+			xhr.setRequestHeader('X-CSRFToken', csrf.value)
+			xhr.onload = function() {
+				console.log(this.responseText)
+				if (this.responseText=="done"){
+					location.reload();
+				}
+			}
+
+			xhr.send(param=JSON.stringify(slov))
+		}
+	}else{
+		alert("Не выбраны терминалы для массового действия! Пожалуйста выберите терминалы для массового действия.")
+	}
+}
+
+document.getElementById("masseffect").addEventListener("change", changer)
+document.getElementById("a_mass").addEventListener("click", disp_but)
+var buts=document.getElementsByClassName("mass_button")
+for (but in buts){
+	if (buts[but].type!=undefined){
+		buts[but].addEventListener("click", mass_button)
+	}
+}
 </script>
 
 {%endblock%}

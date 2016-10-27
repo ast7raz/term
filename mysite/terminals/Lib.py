@@ -26,6 +26,10 @@ def get_pid_of_log(log):
     #print(string_pid)
     pid=string_pid.split(" ")[-1]
     return pid
+<<<<<<< HEAD
+=======
+#print(get_pid_of_log())
+>>>>>>> 2742650... added mass effect in key online.
 
 def kill_proc(pid):
     try:

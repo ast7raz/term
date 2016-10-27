@@ -58,6 +58,7 @@ def keyonline(request):
                 "vnc":on_keys[f.key]["vnc"],
                 "x":on_keys[f.key]["x"],
                 "upgrade":on_keys[f.key]["up"],
+                "mashine_id":on_keys[f.key]["mid"],
                 })
             if "~" in on_keys[f.key]["version"]:
         	new +=1
@@ -76,7 +77,8 @@ def keyonline(request):
                         "ssh":on_keys[f]["ssh"],
                         "vnc":on_keys[f]["vnc"],
                         "x":on_keys[f]["x"],
-                        "upgrade":on_keys[f]["up"]
+                        "upgrade":on_keys[f]["up"],
+                        "mashine_id":on_keys[f]["mid"],
                         })
                     if "~" in on_keys[f]["version"]:
                 	new+=1
@@ -218,3 +220,27 @@ def agreegate_stop(request):
     else:
         li = "Ошибка получения данных! Попробуйте ещё раз."
     return HttpResponse(li)
+def mass_effects(request):
+    if request.method=="POST":
+        req=json.loads(request.body)
+        if req["command"]=="X" or req["command"]=="update" or req["command"]=="reboot":
+            PU = Parser_users.objects.get(parser="trc")
+        elif req["command"]=="white label BB" or req["command"]=="white label Rub90":
+            PU = Parser_users.objects.get(parser="trcv2")
+        else:
+            PU=False
+        if PU!=False:
+            pars_rtc.begin_mass(req, PU.parsurl, PU.username, PU.userpass)
+            li="done"
+        else:
+            li="Autoryz token not response"
+        return HttpResponse(li)
+    else:
+        return HttpResponse("Not connect")
+def get_info(request, id):
+    PU = Parser_users.objects.get(parser="trcv2")
+    url=PU.parsurl+"info/"+id
+    log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
+    title=id+" log"
+    return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
+

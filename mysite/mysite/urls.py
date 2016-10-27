@@ -5,12 +5,14 @@ from mysite.views import hello, current_datetime, hours_ahead
 from books.views import display_meta, search, contact,register, account
 from django.contrib.auth.views import login, logout
 from phonebook.views import PhoneBok, PhoneBookView
-from terminals.views import keyonline, keyoffline,agreegate,get_ssh, agreegate_log, agreegate_stop
+from terminals.views import keyonline, keyoffline,agreegate,get_ssh, agreegate_log, agreegate_stop,mass_effects, get_info
+
 from calculation.views import calc_get, calc_get_transparent
 import settings
+import os
 #from load_averange.views import LoadAv #, LoadAv2
 from reestrs.views import reestr_form, reestr_cash, cash_validation, reestr_save_req, reestr_spasibo, reestr_otc
-templa={'template_name':"/var/www-support/mysite/templates/login.html"}
+templa={'template_name':os.path.join(settings.TEMPLATE_DIRS[0], "login.html")}
 
 urlpatterns = patterns('',
     # Examples:
@@ -36,6 +38,8 @@ urlpatterns = patterns('',
     url(r"^pb/view$", PhoneBookView.as_view()),
     url(r"^rtc/$", keyonline),
     url(r"^rtc/test/$", keyoffline),
+    url(r"^rtc/info/(?P<id>\w+)/$", get_info),
+    url(r"^rtc/masseffect/$", mass_effects),
     url(r"^rtc/get_key/$", get_ssh),
     url(r"^agree/$", agreegate),
     url(r"^agree/log/$", agreegate_log),
