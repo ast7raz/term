@@ -27,6 +27,10 @@ def get_pid_of_log(log):
     pid=string_pid.split(" ")[-1]
     return pid
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#print(get_pid_of_log())
+>>>>>>> 2742650... added mass effect in key online.
 =======
 #print(get_pid_of_log())
 >>>>>>> 2742650... added mass effect in key online.
