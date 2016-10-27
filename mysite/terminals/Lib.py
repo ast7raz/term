@@ -29,6 +29,10 @@ def get_pid_of_log(log):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#print(get_pid_of_log())
+>>>>>>> 2742650... added mass effect in key online.
 =======
 #print(get_pid_of_log())
 >>>>>>> 2742650... added mass effect in key online.
