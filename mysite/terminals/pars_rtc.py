@@ -3,12 +3,12 @@ __author__ = 'user'
 import urllib2
 from urllib import urlencode
 import lxml.html as html
-import threading
+from mysite.settings import DIR_SPLITTER
 import logging, os
 def Get_project_path(project_name="mysite"):
     APP_DIR = os.path.dirname(__file__)
-    print(APP_DIR)
-    list_dir = APP_DIR.split("\\")
+    #print(APP_DIR)
+    list_dir = APP_DIR.split(DIR_SPLITTER)
     index = list_dir.index(project_name)
     lgbt = list_dir[0:index + 1]
     patch = "/".join(lgbt)
@@ -86,9 +86,9 @@ def get_x(url, username, password):
     urllib2.install_opener(opener)
     logging.debug("X2 Done")
     try:
-	r=urllib2.urlopen(url)
+        r=urllib2.urlopen(url)
     except urllib2.HTTPError as e:
-	logging.info(e.code)
+        logging.info(e.code)
 	#logging.info(e.read())
     logging.debug("x3 Done")
     #text=r.getcode()
@@ -96,6 +96,69 @@ def get_x(url, username, password):
     #print(text)
     #print(li)
     #return li
+def begin_mass(jso, url, username="support", password="6cc19eda65a973a2"):
 
+    for id in jso["ids"]:
+        if jso["command"]=="X":
+            get_x(url+id+"/"+"x", username, password)
+        elif jso["command"]=="update":
+            get_x(url + id + "/" + "upgrade", username, password)
+        elif jso["command"] == "reboot":
+            send_cmd(url + id + "/cmd", username, password, jso["command"])
+            get_x(url + id + "/" + "x", username, password)
+        elif jso["command"]=="white label Rub90":
+            get_x(url +"/upgrade/"+id+"?white_label=rub90", username, password)
+
+            pass
+        elif jso["command"] == "white label BB":
+            get_x(url + "/upgrade/" + id + "?white_label=bingo-boom", username, password)
+            pass
+        else:
+
+            pass
+    return True
+def get_term_info(url, username, password):
+    logging.debug(url)
+    pass_man = urllib2.HTTPPasswordMgrWithDefaultRealm()
+    # logging.debug("X1 Done")
+    pass_man.add_password(None, url, username, password)
+    auth_handler = urllib2.HTTPBasicAuthHandler(pass_man)
+    opener = urllib2.build_opener(auth_handler)
+    urllib2.install_opener(opener)
+    logging.debug("X2 Done")
+
+    try:
+        r = urllib2.urlopen(url).read()
+        body2=r.split("<p>Last operations:</p>")
+        #print(len(body2))
+        log=body2[-1].replace("\n</p>\n\n</body>\n</html>\n","")
+        if len(body2)>1:
+            return log
+        else:
+            return "На данный момент действий с этим терминалом не производилось."
+    except Exception as e:
+        # print(e)
+        logging.info(e)
+        return "Извените в данный момент лог не доступен."
+
+def send_cmd(url, username, password, command):
+    logging.debug(url)
+    pass_man = urllib2.HTTPPasswordMgrWithDefaultRealm()
+    # logging.debug("X1 Done")
+    pass_man.add_password(None, url, username, password)
+    auth_handler = urllib2.HTTPBasicAuthHandler(pass_man)
+    opener = urllib2.build_opener(auth_handler)
+    urllib2.install_opener(opener)
+    logging.debug("X2 Done")
+    req=urllib2.Request(url, urlencode({"command":command},))
+    try:
+        r = urllib2.urlopen(req,timeout=0.5)
+
+    except Exception as e:
+        #print(e)
+        logging.info(e)
+    # logging.info(e.read())
+    logging.debug("x3 Done")
 if __name__ == "__main__":
+
     pass

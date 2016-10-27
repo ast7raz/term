@@ -26,7 +26,7 @@ def get_pid_of_log(log="D:\\gitterm\\mysite\\Logs_site\\Agree.log"):
     #print(string_pid)
     pid=string_pid.split(" ")[-1]
     return pid
-print(get_pid_of_log())
+#print(get_pid_of_log())
 
 def kill_proc(pid):
     try:
