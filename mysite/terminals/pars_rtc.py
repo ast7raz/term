@@ -10,7 +10,11 @@ def Get_project_path(project_name="mysite"):
     #print(APP_DIR)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     list_dir = APP_DIR.split("/")
+=======
+    list_dir = APP_DIR.split(DIR_SPLITTER)
+>>>>>>> 2742650... added mass effect in key online.
 =======
     list_dir = APP_DIR.split(DIR_SPLITTER)
 >>>>>>> 2742650... added mass effect in key online.
