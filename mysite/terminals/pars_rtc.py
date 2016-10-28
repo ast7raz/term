@@ -8,11 +8,7 @@ import logging, os
 def Get_project_path(project_name="mysite"):
     APP_DIR = os.path.dirname(__file__)
     #print(APP_DIR)
-<<<<<<< HEAD
-    list_dir = APP_DIR.split("/")
-=======
     list_dir = APP_DIR.split(DIR_SPLITTER)
->>>>>>> 2742650... added mass effect in key online.
     index = list_dir.index(project_name)
     lgbt = list_dir[0:index + 1]
     patch = "/".join(lgbt)
@@ -130,7 +126,7 @@ def get_term_info(url, username, password):
     opener = urllib2.build_opener(auth_handler)
     urllib2.install_opener(opener)
     logging.debug("X2 Done")
-
+    
     try:
         r = urllib2.urlopen(url).read()
         body2=r.split("<p>Last operations:</p>")
