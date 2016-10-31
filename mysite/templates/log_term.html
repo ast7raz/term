@@ -6,10 +6,31 @@
 <title>{{title}}</title>
 </head>
 <body>
-
-
-
-
+{%if keys%}
+<section class="Keys">
+    <h1>Ключи с таким mashine_id:</h1>
+    <table >
+        <tr style="width:100%;">
+                <td style="width:30%;">Ключ        </td>
+                <td style="width:10%;">Имя ключа       </td>
+                <td style="width:10%;">Партнёрская группа       </td>
+                <td style="width:10%;">Клуб       </td>
+                <td style="width:10%;">IP адрес         </td>
+                <td style="width:10%;">Время последнего онлайна</td>
+            </tr>
+        {%for key in keys%}
+            <tr style="width:100%;">
+                <td style="width:30%;">{{key.key}}        </td>
+                <td style="width:10%;">{{key.name}}       </td>
+                <td style="width:10%;">{{key.part}}       </td>
+                <td style="width:10%;">{{key.club}}       </td>
+                <td style="width:10%;">{{key.ip}}         </td>
+                <td style="width:10%;">{{key.date_last_online}}</td>
+            </tr>
+        {%endfor%}
+    </table>
+</section>
+{%endif%}
 
 <section class="Log">
     <h1>Последние изменения в термнале {{id}}</h1>
