@@ -51,6 +51,13 @@ def save(seter_ip):
 
     print(len(seter_ip))
     logging.info(len(seter_ip))
+def saver_go():
+    logging.info(u"start")
+    # tz=3
+    # print((datetime.datetime.utcnow()+datetime.timedelta(hours=tz)).strftime("%d.%m.%y %H:%M"))
+    seter_ip = go()
+    save(seter_ip)
+
 if __name__=="__main__":
     logging.info(u"start")
     #tz=3
