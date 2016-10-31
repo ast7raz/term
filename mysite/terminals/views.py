@@ -239,6 +239,7 @@ def mass_effects(request):
         return HttpResponse("Not connect")
 def get_info(request, id):
     PU = Parser_users.objects.get(parser="trcv2")
+    keys=Keys.objects.filter(machine_id=id)
     url=PU.parsurl+"info/"+id
     log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
     title=id+" log"
