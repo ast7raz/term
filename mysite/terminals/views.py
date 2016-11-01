@@ -94,11 +94,11 @@ def get_ssh(request):
 	PU=Parser_users.objects.get(parser="trc")
         page=request.POST["page"].replace("./",PU.parsurl)
         #arg=request.arguments
-        #print(request.POST["fun"])
+        print(request.POST["fun"])
         if request.POST["fun"]!="X":
             li=pars_rtc.get_cmd(str(page), username=PU.username, password=PU.userpass).replace("$ ","")
         else:
-            #print(page)
+            print(page)
             pars_rtc.get_x(str(page), username=PU.username, password=PU.userpass)
             li="DONE"
         #print(li)
@@ -150,9 +150,6 @@ def agreegate(request):
             print(key, request.POST[key])
         """
         sub=[]
-        #sub.append("sudo")
-        #sub.append("-u")
-        #sub.append("asorokin")
         sub.append(settings.PYTHON)
         sub.append(os.path.join(settings.BASE_DIR, "manage.py"))
         sub.append("agree_base")
@@ -172,7 +169,7 @@ def agreegate(request):
         #print(pid, proc)
         if (len(pid)>0):
             if proc==False:
-            	subprocess.Popen(sub)
+                subprocess.Popen(sub)
                 le="Агрегация базы данных запущена. Информация о процессе агрегации будет отображаться ниже."
             elif proc=="":
                 subprocess.Popen(sub)
@@ -186,24 +183,13 @@ def agreegate(request):
         return render_to_response("agreegate.html",locals(),context_instance=RequestContext(request))
 def agreegate_log(request):
     file_path=os.path.join(settings.LOG_DIR, "Agree.log")
-    #li=file_path
-
     #print(file_path)
-    try:
-	f=open(file_path, "r")
-    except Exception as (errno, strerror):
-	li="I/O error({0}): {1}".format(errno, strerror)
-    #li="Files open!"
-    else:
-    
-	li=f.read().split("\n")
-    
-	#print(li)
-	li="<br>".join(li)
-	#print(li)
-	f.close()
-	#li="DONE"
-    
+    f=open(file_path, "r")
+    li=f.read().split("\n")
+    li="<br>".join(li)
+    #print(li)
+    f.close()
+    #li="DONE"
     return HttpResponse(li)
 def agreegate_stop(request):
     pid = get_pid_of_log(os.path.join(settings.LOG_DIR, "Agree.log"))
@@ -220,6 +206,7 @@ def agreegate_stop(request):
     else:
         li = "Ошибка получения данных! Попробуйте ещё раз."
     return HttpResponse(li)
+@permission_required('terminals.add_keys')
 def mass_effects(request):
     if request.method=="POST":
         req=json.loads(request.body)
@@ -237,11 +224,14 @@ def mass_effects(request):
         return HttpResponse(li)
     else:
         return HttpResponse("Not connect")
+@permission_required('terminals.add_keys')
 def get_info(request, id):
-    PU = Parser_users.objects.get(parser="trcv2")
-    keys=Keys.objects.filter(machine_id=id)
-    url=PU.parsurl+"info/"+id
-    log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
-    title=id+" log"
-    return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
-
+    if request.method=="POST":
+        PU = Parser_users.objects.get(parser="trcv2")
+        url=PU.parsurl+"info/"+id
+        log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
+        return HttpResponse(log)
+    else:
+        title = id + " log"
+        keys = Keys.objects.filter(machine_id=id)
+        return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
