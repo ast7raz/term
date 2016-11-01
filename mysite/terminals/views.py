@@ -206,6 +206,7 @@ def agreegate_stop(request):
     else:
         li = "Ошибка получения данных! Попробуйте ещё раз."
     return HttpResponse(li)
+@permission_required('terminals.add_keys')
 def mass_effects(request):
     if request.method=="POST":
         req=json.loads(request.body)
@@ -223,11 +224,15 @@ def mass_effects(request):
         return HttpResponse(li)
     else:
         return HttpResponse("Not connect")
+@permission_required('terminals.add_keys')
 def get_info(request, id):
-    PU = Parser_users.objects.get(parser="trcv2")
-    keys=Keys.objects.filter(machine_id=id)
-    url=PU.parsurl+"info/"+id
-    log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
-    title=id+" log"
-    return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
+    if request.method=="POST":
+        PU = Parser_users.objects.get(parser="trcv2")
 
+        url=PU.parsurl+"info/"+id
+        log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
+        return HttpResponse(log)
+    else:
+        title = id + " log"
+        keys = Keys.objects.filter(machine_id=id)
+        return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))

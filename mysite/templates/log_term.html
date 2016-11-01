@@ -28,7 +28,7 @@
                 <td style="width:10%;">{{key.club}}       </td>
                 <td style="width:10%;">{{key.ip}}         </td>
                 <td style="width:10%;">{{key.date_last_online}}</td>
-                <td style="width:10%;"><input type="button" value="Востоновить ключ" OnClick="action('Restore_key {{key.key}} ./{{id}}/ssh')"></td>
+                <td style="width:10%;"><input type="button" value="Востановить ключ" OnClick="action('Restore_key {{key.key}} ./{{id}}/ssh')"></td>
             </tr>
         {%endfor%}
     </table>
@@ -38,14 +38,43 @@
 <section class="Log">
     <h1>Последние изменения в термнале {{id}}</h1>
 
-        {{log|safe}}
+        <div id="Log_update"></div>
 
 
 </section>
 <script>
 
+function logging(id){
+    var xhr = new XMLHttpRequest();
+    var csrf="{% csrf_token %}";
+    var toc=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+    var body= "id="+encodeURIComponent(id)+"&csrfmiddlewaretoken="+encodeURIComponent(toc);
+    //console.log(body)
+    xhr.open('POST', "", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+	    var cmd=this.responseText
+	    if (cmd=="DONE"){
+		    location.reload();
+	    }
+	    else{
+	        //console.log(cmd)
+	        document.getElementById('Log_update').innerHTML=cmd
+	        setTimeout(function(){logging(id)}, 2000)
+	    //sen(cmd)
+	    }
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send(body);
+
+}
+
 new Clipboard('.key').on("success", function(e){alert("Ключ скопирован")});
-setInterval(function(){location.reload()}, 20000000)
+window.onload=logging("{{id}}")
 
 function sen(ssh, cmd, key ){
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
