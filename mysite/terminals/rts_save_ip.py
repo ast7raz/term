@@ -29,7 +29,7 @@ def go():
             #print(k1[i]["key"])
     return seter_list
 def save(seter_ip):
-    tz=3
+    tz=2
     timer=(datetime.datetime.utcnow()+datetime.timedelta(hours=tz)).strftime("%d.%m.%y %H:%M")
     for set in seter_ip:
         print(set)
