@@ -18,6 +18,7 @@
                 <td style="width:10%;">Клуб       </td>
                 <td style="width:10%;">IP адрес         </td>
                 <td style="width:10%;">Время последнего онлайна</td>
+                <td style="width:10%;">Востоновление ключа</td>
             </tr>
         {%for key in keys%}
             <tr style="width:100%;">
@@ -27,6 +28,7 @@
                 <td style="width:10%;">{{key.club}}       </td>
                 <td style="width:10%;">{{key.ip}}         </td>
                 <td style="width:10%;">{{key.date_last_online}}</td>
+                <td style="width:10%;"><input type="button" value="Востоновить ключ" OnClick="action('Restore_key {{key.key}} ./{{id}}/ssh')"></td>
             </tr>
         {%endfor%}
     </table>
@@ -43,7 +45,64 @@
 <script>
 
 new Clipboard('.key').on("success", function(e){alert("Ключ скопирован")});
-setInterval(function(){location.reload()}, 2000)
+setInterval(function(){location.reload()}, 20000000)
+
+function sen(ssh, cmd, key ){
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+    var xhr = new XHR();
+    if (ssh!="Connection"){
+        var body="ssh="+encodeURIComponent(ssh)+"&cmd="+encodeURIComponent(cmd)+"&key="+encodeURIComponent(key);
+    }else{
+        var body= "ssh="+encodeURIComponent("True")+"&cmd="+encodeURIComponent(cmd)+"&key="+encodeURIComponent(key);
+    }
+    console.log(body)
+    xhr.open('POST', 'http://localhost:52213/send', true);
+    xhr.setRequestHeader('Access-Control-Request-Headers', 'Origin, X-Requested-With');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+        console.log( this.responseText );
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send(body);
+}
+
+
+
+
+function action(key){
+    console.log(key)
+    key=key.split(" ")
+    console.log(key)
+    var xhr = new XMLHttpRequest();
+    var csrf="{% csrf_token %}";
+    var toc=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+    var body= "fun="+encodeURIComponent(key[0])+"&key="+encodeURIComponent(key[1])+"&csrfmiddlewaretoken="+encodeURIComponent(toc)+"&page="+encodeURIComponent(key[2]);
+    console.log(body)
+
+    xhr.open('POST', '/rtc/get_key/', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+	    var cmd=this.responseText
+	    if (cmd=="DONE"){
+		    location.reload();
+	    }
+	    else{
+	        console.log(cmd)
+	        sen(cmd, key[0], key[1])
+	    }
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send(body);
+}
+
 
 </script>
 </body>
