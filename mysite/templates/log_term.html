@@ -7,6 +7,18 @@
 <title>{{title}}</title>
 </head>
 <body>
+<section class="udalenka">
+    <h1>Действия доступные для этого терминала:</h1>
+    <input type="button" value="VNC" OnClick="action('VNC key ./{{id}}/vnc')">
+    <input type="button" value="SSH" OnClick="action('VNC key ./{{id}}/ssh')">
+    <input type="button" value="X" OnClick="action('X key ./{{id}}/x')">
+    <input class="mass_button" type="button"  value="reboot" OnClick="mass_batt('reboot','{{id}}')">
+    <input class="mass_button" type="button"  value="update" OnClick="mass_batt('update','{{id}}')">
+	<input class="mass_button" type="button"  value="white label BB" OnClick="mass_batt('white label BB','{{id}}')">
+	<input class="mass_button" type="button"  value="white label Rub90" OnClick="mass_batt('white label Rub90','{{id}}')">
+    {% csrf_token %}
+
+</section>
 {%if keys%}
 <section class="Keys">
     <h1>Ключи с таким mashine_id:</h1>
@@ -18,7 +30,7 @@
                 <td style="width:10%;">Клуб       </td>
                 <td style="width:10%;">IP адрес         </td>
                 <td style="width:10%;">Время последнего онлайна</td>
-                <td style="width:10%;">Востоновление ключа</td>
+                <td style="width:10%;">Востановление ключа</td>
             </tr>
         {%for key in keys%}
             <tr style="width:100%;">
@@ -76,7 +88,7 @@ function logging(id){
 new Clipboard('.key').on("success", function(e){alert("Ключ скопирован")});
 window.onload=logging("{{id}}")
 
-function sen(ssh, cmd, key ){
+function sen(ssh, cmd, key ,url){
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
     var xhr = new XHR();
     if (ssh!="Connection"){
@@ -85,7 +97,7 @@ function sen(ssh, cmd, key ){
         var body= "ssh="+encodeURIComponent("True")+"&cmd="+encodeURIComponent(cmd)+"&key="+encodeURIComponent(key);
     }
     console.log(body)
-    xhr.open('POST', 'http://localhost:52213/send', true);
+    xhr.open('POST', url, true);
     xhr.setRequestHeader('Access-Control-Request-Headers', 'Origin, X-Requested-With');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhr.onload = function() {
@@ -98,6 +110,28 @@ function sen(ssh, cmd, key ){
 
     xhr.send(body);
 }
+function sen2(cmd){
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+    var xhr = new XHR();
+    if (cmd!="Connection"){
+        var body="con="+encodeURIComponent(cmd);
+    }else{
+        var body= "con="+encodeURIComponent("True");
+    }
+    xhr.open('POST', 'http://localhost:52213/con', true);
+    //xhr.setRequestHeader('Access-Control-Request-Headers', 'Origin, X-Requested-With');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+        console.log( this.responseText );
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+xhr.send(body);
+}
+
 
 
 
@@ -120,8 +154,14 @@ function action(key){
 		    location.reload();
 	    }
 	    else{
-	        console.log(cmd)
-	        sen(cmd, key[0], key[1])
+	        console.log(key[0])
+	        if ((key[0] == "VNC") || (key[0] == "X")){
+	            console.log(cmd)
+	            sen2(cmd)
+	        }else{
+	            console.log("ШО")
+	            sen(cmd, key[0], key[1], 'http://localhost:52213/send')
+	        }
 	    }
     }
 
@@ -131,7 +171,26 @@ function action(key){
 
     xhr.send(body);
 }
+function mass_batt(command, id){
+    var csrf=document.getElementsByName("csrfmiddlewaretoken")[0]
+    var list_id=[id]
+    var slov={}
+	slov.command=command
+	slov.ids=list_id
+	console.log(slov)
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/rtc/masseffect/', true);
+	xhr.setRequestHeader('Content-Type', "application/json; charset=utf-8")
 
+	xhr.setRequestHeader('X-CSRFToken', csrf.value)
+	xhr.onload = function() {
+		console.log(this.responseText)
+		if (this.responseText=="done"){
+			location.reload();
+		}
+	}
+	xhr.send(param=JSON.stringify(slov))
+}
 
 </script>
 </body>
