@@ -96,7 +96,7 @@ def get_x(url, username, password):
     #print(text)
     #print(li)
     #return li
-def begin_mass(jso, url, username="support", password="6cc19eda65a973a2"):
+def begin_mass(jso, url, username, password):
 
     for id in jso["ids"]:
         if jso["command"]=="X":
@@ -186,5 +186,5 @@ def send_cmd(url, username, password, command):
 
     logging.debug("x3 Done")
 if __name__ == "__main__":
-    print(send_cmd("https://rub90.com/trc/6cd12730d952e93f5eac86875810c45b/cmd", "support", "6cc19eda65a973a2", "dpkg -l | grep white-label | grep ii"))
+
     pass
