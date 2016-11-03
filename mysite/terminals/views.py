@@ -235,6 +235,10 @@ def get_info(request, id):
         log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
         return HttpResponse(log)
     else:
+        PU = Parser_users.objects.get(parser="trc")
+        dpkg=pars_rtc.send_cmd(PU.parsurl + id + "/cmd", PU.username, PU.userpass, "dpkg -l | grep white-label | grep ii")
+        if dpkg!=None:
+            wl=dpkg.split("          ")[-1]
         title = id + " log"
         keys = Keys.objects.filter(machine_id=id)
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
