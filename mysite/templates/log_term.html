@@ -7,18 +7,25 @@
 <title>{{title}}</title>
 </head>
 <body>
+
 <section class="udalenka">
     <h1>Действия доступные для этого терминала:</h1>
     <input type="button" value="VNC" OnClick="action('VNC key ./{{id}}/vnc')">
     <input type="button" value="SSH" OnClick="action('VNC key ./{{id}}/ssh')">
     <input type="button" value="X" OnClick="action('X key ./{{id}}/x')">
+    {% if perms.terminals.delete_keys%}
     <input class="mass_button" type="button"  value="reboot" OnClick="mass_batt('reboot','{{id}}')">
+    <input class="mass_button" type="button"  value="soft_reboot" OnClick="mass_batt('soft_reboot','{{id}}')">
     <input class="mass_button" type="button"  value="update" OnClick="mass_batt('update','{{id}}')">
 	<input class="mass_button" type="button"  value="white label BB" OnClick="mass_batt('white label BB','{{id}}')">
 	<input class="mass_button" type="button"  value="white label Rub90" OnClick="mass_batt('white label Rub90','{{id}}')">
+    <input class="mass_button" type="button"  value="swap_monitor" OnClick="mass_batt('swap_monitor','{{id}}')">
+    <input class="mass_button" type="button"  value="kiosk" OnClick="mass_batt('kiosk','{{id}}')">
+    {%endif%}
     {% csrf_token %}
 
 </section>
+
 {%if keys%}
 <section class="Keys">
     <h1>Ключи с таким mashine_id:</h1>
@@ -40,7 +47,10 @@
                 <td style="width:10%;">{{key.club}}       </td>
                 <td style="width:10%;">{{key.ip}}         </td>
                 <td style="width:10%;">{{key.date_last_online}}</td>
-                <td style="width:10%;"><input type="button" value="Востановить ключ" OnClick="action('Restore_key {{key.key}} ./{{id}}/ssh')"></td>
+                <td style="width:10%;">
+
+                    <input type="button" value="Востановить ключ" OnClick="mass_batt('restore_key', '{{id}}', '{{key.key}}')">
+                </td>
             </tr>
         {%endfor%}
     </table>
@@ -171,12 +181,13 @@ function action(key){
 
     xhr.send(body);
 }
-function mass_batt(command, id){
+function mass_batt(command, id, key=""){
     var csrf=document.getElementsByName("csrfmiddlewaretoken")[0]
     var list_id=[id]
     var slov={}
 	slov.command=command
 	slov.ids=list_id
+	slov.key=key
 	console.log(slov)
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', '/rtc/masseffect/', true);

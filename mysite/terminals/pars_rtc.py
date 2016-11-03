@@ -106,6 +106,17 @@ def begin_mass(jso, url, username="support", password="6cc19eda65a973a2"):
         elif jso["command"] == "reboot":
             send_cmd(url + id + "/cmd", username, password, jso["command"])
             get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "restore_key":
+            send_cmd(url + id + "/cmd", username, password, """wget --method=PUT --body-data='%s' http://localhost/key && wget -t 1 -o- --post-data='' http://localhost/shutdown/soft""" %jso["key"])
+            get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "soft_reboot":
+            send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data='' http://localhost/shutdown/soft")
+            get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "swap_monitor":
+            send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data="" http://localhost/swap")
+        elif jso["command"] == "kiosk":
+            send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data="" http://localhost/toggle_kiosk")
+            #get_x(url + id + "/" + "x", username, password)
         elif jso["command"]=="white label Rub90":
             get_x(url +"/upgrade/"+id+"?white_label=rub90", username, password)
 

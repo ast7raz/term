@@ -89,6 +89,7 @@ def keyonline(request):
         #print(fi)
         #print(on_keys)
         return render_to_response("keys_onlyne.html",locals(),context_instance=RequestContext(request))
+@permission_required('terminals.add_keys')
 def get_ssh(request):
     if request.method=="POST":
 	PU=Parser_users.objects.get(parser="trc")
@@ -181,6 +182,7 @@ def agreegate(request):
         return render_to_response("agreegate.html", locals(), context_instance=RequestContext(request))
     else:
         return render_to_response("agreegate.html",locals(),context_instance=RequestContext(request))
+@permission_required('terminals.change_keys')
 def agreegate_log(request):
     file_path=os.path.join(settings.LOG_DIR, "Agree.log")
     #print(file_path)
@@ -191,6 +193,7 @@ def agreegate_log(request):
     f.close()
     #li="DONE"
     return HttpResponse(li)
+@permission_required('terminals.change_keys')
 def agreegate_stop(request):
     pid = get_pid_of_log(os.path.join(settings.LOG_DIR, "Agree.log"))
     proc = test_procces(pid, "agree_base")
@@ -206,11 +209,11 @@ def agreegate_stop(request):
     else:
         li = "Ошибка получения данных! Попробуйте ещё раз."
     return HttpResponse(li)
-@permission_required('terminals.add_keys')
+@permission_required('terminals.delete_keys')
 def mass_effects(request):
     if request.method=="POST":
         req=json.loads(request.body)
-        if req["command"]=="X" or req["command"]=="update" or req["command"]=="reboot":
+        if req["command"]=="X" or req["command"]=="update" or req["command"]=="reboot" or req["command"]=="restore_key" or req["command"]=="soft_reboot" or req["command"]=="swap_monitor" or req["command"] == "kiosk":
             PU = Parser_users.objects.get(parser="trc")
         elif req["command"]=="white label BB" or req["command"]=="white label Rub90":
             PU = Parser_users.objects.get(parser="trcv2")
