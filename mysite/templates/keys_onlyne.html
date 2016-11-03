@@ -27,7 +27,9 @@
 
 <input type="submit" value="Фильтровать">
 <input type="button" onclick="location.href='/rtc'" value="Очистить" >
+	{% if perms.terminals.delete_keys%}
 	<a id="a_mass">Массовое действие</a>
+	{%endif%}
 </form>
 </div>
 	<div id="divmasseffect" style="display:none;">
