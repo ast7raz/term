@@ -14,9 +14,9 @@ def Get_project_path(project_name="mysite"):
     patch = "/".join(lgbt)
     project_path = os.path.normpath(patch)
     return project_path
-filename=os.path.join(Get_project_path(), "pars.log")
+#filename=os.path.join(Get_project_path(), "pars.log")
 
-logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.ERROR, filename = filename)
+#logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.ERROR, filename = filename)
 def start(username, password ,url):
     actvers=""
     pass_man=urllib2.HTTPPasswordMgrWithDefaultRealm()
@@ -162,6 +162,7 @@ def send_cmd(url, username, password, command):
     urllib2.install_opener(opener)
     logging.debug("X2 Done")
     req=urllib2.Request(url, urlencode({"command":command},))
+    r="test"
     try:
         r = urllib2.urlopen(req,timeout=0.5)
 
@@ -169,7 +170,21 @@ def send_cmd(url, username, password, command):
         #print(e)
         logging.info(e)
     # logging.info(e.read())
+    print(r)
+    if isinstance(r, object):
+        try:
+            text=r.read()
+            #print(text)
+            page = html.document_fromstring(text)
+            # print(page)
+            li = page.xpath("/html/body/pre")[0].text
+            # print(li)
+            return li
+        except:
+            pass
+
+
     logging.debug("x3 Done")
 if __name__ == "__main__":
-
+    print(send_cmd("https://rub90.com/trc/6cd12730d952e93f5eac86875810c45b/cmd", "support", "6cc19eda65a973a2", "dpkg -l | grep white-label | grep ii"))
     pass
