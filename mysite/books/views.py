@@ -12,9 +12,11 @@ from calculation.models import Calculate,Sport
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token, ensure_csrf_cookie, csrf_exempt
+from onliner.decorators import set_user_online
 from social.backends.google import GoogleOAuth2
 @csrf_exempt
 @login_required()
+
 def display_meta(request):
     host=request.get_host()
     path=request.get_full_path()
@@ -83,6 +85,7 @@ def register(request):
 
     return render_to_response("register.html", locals(), context_instance=RequestContext(request))
 @login_required()
+@set_user_online
 def account(request):
     if request.method=="POST":
         form=ChangePasswordForm(request.POST)

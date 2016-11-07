@@ -10,9 +10,11 @@ import pars_rtc
 import json, os, subprocess
 from mysite import settings
 from terminals.models import Keys, Parser_users
+from onliner.decorators import set_user_online
 #import pars_doc
 from phonebook.save_Base import main
 @permission_required('terminals.add_keys')
+@set_user_online
 def keyonline(request):
         tizer={"key":"", "name":"", "part":"", "club":"", "adm":""}
         goll=[]
@@ -106,6 +108,7 @@ def get_ssh(request):
         #print(page)
     return HttpResponse(li)
 @permission_required('terminals.add_keys')
+@set_user_online
 def keyoffline(request):
         goll=Keys.objects.all()
         tizer={"key":"", "name":"", "part":"", "club":"", "version":"", "ip":"", "mid":""}
@@ -143,6 +146,7 @@ def keyoffline(request):
         
         return render_to_response("keys_offline.html",locals(),context_instance=RequestContext(request))
 @permission_required('terminals.change_keys')
+@set_user_online
 def agreegate(request):
     if request.method == "POST":
         ls=request.POST.keys()
@@ -183,6 +187,7 @@ def agreegate(request):
     else:
         return render_to_response("agreegate.html",locals(),context_instance=RequestContext(request))
 @permission_required('terminals.change_keys')
+@set_user_online
 def agreegate_log(request):
     file_path=os.path.join(settings.LOG_DIR, "Agree.log")
     #print(file_path)
@@ -210,6 +215,7 @@ def agreegate_stop(request):
         li = "Ошибка получения данных! Попробуйте ещё раз."
     return HttpResponse(li)
 @permission_required('terminals.delete_keys')
+@set_user_online
 def mass_effects(request):
     if request.method=="POST":
         req=json.loads(request.body)
@@ -228,6 +234,7 @@ def mass_effects(request):
     else:
         return HttpResponse("Not connect")
 @permission_required('terminals.add_keys')
+
 def get_info(request, id):
     if request.method=="POST":
         PU = Parser_users.objects.get(parser="trcv2")
