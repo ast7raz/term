@@ -11,6 +11,8 @@ import json, os, subprocess
 from mysite import settings
 from terminals.models import Keys, Parser_users
 from onliner.decorators import set_user_online
+from logger.decorators import Added_action_terminal, Added_action_of_post
+from logger.models import Logger_Action
 #import pars_doc
 from phonebook.save_Base import main
 @permission_required('terminals.add_keys')
@@ -92,6 +94,7 @@ def keyonline(request):
         #print(on_keys)
         return render_to_response("keys_onlyne.html",locals(),context_instance=RequestContext(request))
 @permission_required('terminals.add_keys')
+@Added_action_of_post
 def get_ssh(request):
     if request.method=="POST":
 	PU=Parser_users.objects.get(parser="trc")
@@ -216,6 +219,7 @@ def agreegate_stop(request):
     return HttpResponse(li)
 @permission_required('terminals.delete_keys')
 @set_user_online
+@Added_action_terminal
 def mass_effects(request):
     if request.method=="POST":
         req=json.loads(request.body)
@@ -248,5 +252,8 @@ def get_info(request, id):
         if dpkg!=None:
             wl=dpkg.split("          ")[-1]
         title = id + " log"
+        actions=Logger_Action.objects.filter(object_name="Terminal", object=id).order_by("time").reverse()[:20]
+        #print(actions)
         keys = Keys.objects.filter(machine_id=id)
+        print(keys)
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
