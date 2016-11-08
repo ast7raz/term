@@ -61,7 +61,28 @@
 
 <section class="Log">
     <h1>Последние изменения в термнале {{id}}</h1>
+        {%if actions%}
+            <div>
+                <table >
+                    <tr>
+                            <td style="width:10%;">Пользователь</td>
+                            <td style="width:10%;">Наименование действия</td>
+                            <td style="width:70%;">Действие</td>
+                            <td style="width:10%;">Время действия</td>
+                        </tr>
+                    {%for action in actions%}
+                        <tr>
+                            <td style="width:10%;">{{action.user}}</td>
+                            <td style="width:10%;">{{action.action_name}}</td>
+                            <td style="width:70%;">{{action.action}}</td>
+                            <td style="width:20%;">{{action.time}}</td>
+                        </tr>
 
+                    {%endfor%}
+                </table>
+
+            </div>
+        {%endif%}
         <div id="Log_update"></div>
 
 
