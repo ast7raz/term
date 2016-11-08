@@ -254,9 +254,5 @@ def get_info(request, id):
         actions=Logger_Action.objects.filter(object_name="Terminal", object=id).order_by("time").reverse()[:20]
         #print(actions)
         keys = Keys.objects.filter(machine_id=id)
-<<<<<<< HEAD
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
-=======
-        print(keys)
-        return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
->>>>>>> c9b5867... added loging on terminal action
+
