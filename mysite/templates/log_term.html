@@ -67,15 +67,17 @@
                     <tr>
                             <td style="width:10%;">Пользователь</td>
                             <td style="width:10%;">Наименование действия</td>
-                            <td style="width:70%;">Действие</td>
+                            <td style="width:60%;">Действие</td>
+                            <td style="width:10%;">IP</td>
                             <td style="width:10%;">Время действия</td>
                         </tr>
                     {%for action in actions%}
                         <tr>
                             <td style="width:10%;">{{action.user}}</td>
                             <td style="width:10%;">{{action.action_name}}</td>
-                            <td style="width:70%;">{{action.action}}</td>
-                            <td style="width:20%;">{{action.time}}</td>
+                            <td style="width:60%;">{{action.action}}</td>
+                            <td style="width:10%;">{{action.user_ip}}</td>
+                            <td style="width:10%;">{{action.time}}</td>
                         </tr>
 
                     {%endfor%}
