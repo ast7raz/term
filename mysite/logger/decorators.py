@@ -22,7 +22,7 @@ def Added_action_of_post(fun):
             page=request.POST["page"].split("/")
             ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
             response=fun(request)
-            Logger_Action.objects.create(user=user, action_name=page[-1], action=response.content, object_name="Terminal", object=page[-2], user_ip=ip)
+            Logger_Action.objects.create(user=user, action_name=page[-1], action=response.content, object_name="Terminal", object=page[-2],user_ip=ip)
             return response
 
     return wraper_added

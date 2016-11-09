@@ -7,5 +7,5 @@ class Logger_Action(models.Model):
     time=models.DateTimeField(auto_now=False, auto_now_add=True)
     object_name=models.CharField(max_length=40)
     object=models.CharField(max_length=40)
-    user_ip=models.IPAddressField(blank=True)
+    user_ip=models.CharField(max_length=15, blank=True)
 # Create your models here.
