@@ -139,7 +139,7 @@ def get_term_info(url, username, password):
     
     try:
         r = urllib2.urlopen(url).read()
-        body2=r.split("<p>Last operations:</p>")
+        body2=r.split("<p>Last upgrade log:</p>")
         #print(len(body2))
         log=body2[-1].replace("\n</p>\n\n</body>\n</html>\n","")
         if len(body2)>1:
