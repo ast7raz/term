@@ -14,9 +14,9 @@ def Get_project_path(project_name="mysite"):
     patch = "/".join(lgbt)
     project_path = os.path.normpath(patch)
     return project_path
-#filename=os.path.join(Get_project_path(), "pars.log")
+filename=os.path.join(Get_project_path(), "pars.log")
 
-#logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.ERROR, filename = filename)
+logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.ERROR, filename = filename)
 def start(username, password ,url):
     actvers=""
     pass_man=urllib2.HTTPPasswordMgrWithDefaultRealm()
@@ -117,13 +117,12 @@ def begin_mass(jso, url, username, password):
         elif jso["command"] == "kiosk":
             send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data="" http://localhost/toggle_kiosk")
             #get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "run vnc":
+            run_vnc(url + id + "/cmd", username, password)
         elif jso["command"]=="white label Rub90":
             get_x(url +"/upgrade/"+id+"?white_label=rub90", username, password)
-
-            pass
         elif jso["command"] == "white label BB":
             get_x(url + "/upgrade/" + id + "?white_label=bingo-boom", username, password)
-            pass
         else:
 
             pass
@@ -170,7 +169,7 @@ def send_cmd(url, username, password, command):
         #print(e)
         logging.info(e)
     # logging.info(e.read())
-    print(r)
+    #print(r)
     if isinstance(r, object):
         try:
             text=r.read()
@@ -183,8 +182,17 @@ def send_cmd(url, username, password, command):
         except:
             pass
 
-
     logging.debug("x3 Done")
+def test_proc(url, username, password, proc):
+    command="su rub90 -c 'pgrep %s'" %proc
+    otv=send_cmd(url,username,password, command)
+    if otv!=None and otv!="":
+        return True
+    else:
+        return False
+def run_vnc(url, username, password):
+    if not test_proc(url, username, password, "x11vnc"):
+       send_cmd(url, username, password, "su rub90 -c 'while true; do x11vnc -usepw -display :0 -q -forever; done;'")
 if __name__ == "__main__":
 
     pass
