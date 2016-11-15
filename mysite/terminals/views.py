@@ -97,7 +97,7 @@ def keyonline(request):
 @Added_action_of_post
 def get_ssh(request):
     if request.method=="POST":
-	PU=Parser_users.objects.get(parser="trc")
+        PU=Parser_users.objects.get(parser="trc")
         page=request.POST["page"].replace("./",PU.parsurl)
         #arg=request.arguments
         print(request.POST["fun"])
@@ -109,7 +109,7 @@ def get_ssh(request):
             li="DONE"
         #print(li)
         #print(page)
-    return HttpResponse(li)
+        return HttpResponse(li)
 @permission_required('terminals.add_keys')
 @set_user_online
 def keyoffline(request):
@@ -223,7 +223,14 @@ def agreegate_stop(request):
 def mass_effects(request):
     if request.method=="POST":
         req=json.loads(request.body)
-        if req["command"]=="X" or req["command"]=="update" or req["command"]=="reboot" or req["command"]=="restore_key" or req["command"]=="soft_reboot" or req["command"]=="swap_monitor" or req["command"] == "kiosk":
+        if req["command"]=="X"\
+                or req["command"]=="update" \
+                or req["command"]=="reboot" \
+                or req["command"]=="restore_key" \
+                or req["command"]=="soft_reboot"\
+                or req["command"]=="swap_monitor"\
+                or req["command"] == "kiosk"\
+                or req["command"] == "run vnc":
             PU = Parser_users.objects.get(parser="trc")
         elif req["command"]=="white label BB" or req["command"]=="white label Rub90":
             PU = Parser_users.objects.get(parser="trcv2")
