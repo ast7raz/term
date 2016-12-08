@@ -185,27 +185,27 @@ def get_terminals_on_page(opener, termurl):
     #print(termurl)
     page=opener.open(termurl).read()
     htmlpage=html.document_fromstring(page)
-    tbody=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr')
+    tbody=htmlpage.xpath('//*[@id="sf_admin_content"]/form/div/table/tbody/tr')
     slov={}
     #print()
 
     for tr in range(len(tbody)):
 
         tr=tr+1
-        activ_base=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr[%s]/td[5]/img' %tr)[0].attrib["title"]
+        activ_base=htmlpage.xpath('//*[@id="sf_admin_content"]/form/div/table/tbody/tr[%s]/td[5]/img' %tr)[0].attrib["title"]
         if activ_base=="Checked":
             activ=True
         else:
             activ=False
-        blocked_base=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr[%s]/td[6]/img' %tr)[0].attrib["title"]
+        blocked_base=htmlpage.xpath('//*[@id="sf_admin_content"]/form/div/table/tbody/tr[%s]/td[6]/img' %tr)[0].attrib["title"]
         if blocked_base=="Checked":
             blocked=True
         else:
             blocked=False
-        name=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr[%s]/td[1]' %tr)[0].text.replace("\n","").strip()
-        part=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr[%s]/td[2]' %tr)[0].text.replace("\n","").strip()
-        club=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr[%s]/td[3]' %tr)[0].text.replace("\n","").strip()
-        base_id=htmlpage.xpath('//*[@id="sf_admin_content"]/div/table/tbody/tr[%s]/td[7]/ul/li/a' %tr)[0].attrib["href"].split("/")[-2]
+        name=htmlpage.xpath('//*[@id="sf_admin_content"]/form/div/table/tbody/tr[%s]/td[2]' %tr)[0].text.replace("\n","").strip()
+        part=htmlpage.xpath('//*[@id="sf_admin_content"]/form/div/table/tbody/tr[%s]/td[3]' %tr)[0].text.replace("\n","").strip()
+        club=htmlpage.xpath('//*[@id="sf_admin_content"]/form/div/table/tbody/tr[%s]/td[4]' %tr)[0].text.replace("\n","").strip()
+        base_id=htmlpage.xpath('//*[@id="sf_admin_content"]/form/div/table/tbody/tr[%s]/td[8]/ul/li[1]/a' %tr)[0].attrib["href"].split("/")[-2]
         key=get_key(opener, base_id)
         #print([key, name, part, club, activ, blocked, base_id])
         slov[base_id]={"key":key, "name":name, "part_name":part, "club_name":club, "activ":activ, "blocked":blocked, "base_id":base_id}
