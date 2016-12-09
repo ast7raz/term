@@ -22,7 +22,7 @@
     <input class="mass_button" type="button"  value="swap_monitor" OnClick="mass_batt('swap_monitor','{{id}}')">
     <input class="mass_button" type="button"  value="kiosk" OnClick="mass_batt('kiosk','{{id}}')">
     <input class="mass_button" type="button"  value="run vnc" OnClick="mass_batt('run vnc','{{id}}')">
-    <input type="button" value="Пустой ключ" OnClick="mass_batt('restore_key', '{{id}}', 'PUSTO-{{id}}')">
+    <input type="button" value="Пустой ключ" style="display:none" OnClick="mass_batt('restore_key', '{{id}}', '')">
     {%endif%}
     {% csrf_token %}
     <h1>White Label - <span style="color:red;">{{wl}}</span></h1>
