@@ -230,7 +230,9 @@ def mass_effects(request):
                 or req["command"]=="soft_reboot"\
                 or req["command"]=="swap_monitor"\
                 or req["command"] == "kiosk"\
-                or req["command"] == "run vnc":
+                or req["command"] == "run vnc"\
+                or req["command"] == "disable gpu" \
+                or req["command"] == "enable gpu":
             PU = Parser_users.objects.get(parser="trc")
         elif req["command"]=="white label BB" or req["command"]=="white label Rub90":
             PU = Parser_users.objects.get(parser="trcv2")
