@@ -117,6 +117,14 @@ def begin_mass(jso, url, username, password):
         elif jso["command"] == "kiosk":
             send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data="" http://localhost/toggle_kiosk")
             #get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "enable gpu":
+            send_cmd(url + id + "/cmd", username, password,
+                     "wget  http://support.firstgaming.com/static/en_kiosk.sh && rm /etc/skelconfig/awesome/kiosk.sh && cp en_kiosk.sh /etc/skelconfig/awesome/kiosk.sh && chmod 755 /etc/skelconfig/awesome/kiosk.sh && rm en_kiosk.sh && service slim restart")
+            # get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "disable gpu":
+            send_cmd(url + id + "/cmd", username, password,
+                     "wget  http://support.firstgaming.com/static/di_kiosk.sh && rm /etc/skelconfig/awesome/kiosk.sh && cp di_kiosk.sh /etc/skelconfig/awesome/kiosk.sh && chmod 755 /etc/skelconfig/awesome/kiosk.sh && rm di_kiosk.sh && service slim restart")
+            # get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "run vnc":
             run_vnc(url + id + "/cmd", username, password)
         elif jso["command"]=="white label Rub90":
