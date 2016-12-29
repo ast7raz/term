@@ -3,7 +3,15 @@
 <head>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <script src="/static/clipboard.min.js"></script>
+    <style>
+        .podsvet{
+        color:red;
 
+
+        }
+
+
+    </style>
 <title>{{title}}</title>
 </head>
 <body>
@@ -46,7 +54,7 @@
             </tr>
         {%for key in keys%}
             <tr style="width:100%;">
-                <td class="key" style="width:30%;" id={{key.key}} data-clipboard-text={{key.key}}>{{key.key}}        </td>
+                <td class="key" style="width:30%;" id={{key.key}} data-clipboard-text={{key.key}} onclick="svetilka(event)">{{key.key}}        </td>
                 <td style="width:10%;">{{key.name}}       </td>
                 <td style="width:10%;">{{key.part}}       </td>
                 <td style="width:10%;">{{key.club}}       </td>
@@ -125,8 +133,19 @@ function logging(id){
 
 }
 
-new Clipboard('.key').on("success", function(e){alert("Ключ скопирован")});
+new Clipboard('.key').on("success", function(e){
+
+console.info("%cКлюч "+e.text+" скопирован!", "color: blue; font-weight:900;")});
 window.onload=logging("{{id}}")
+
+
+function svetilka(event){
+    el=event.toElement
+    el.classList.add("podsvet");
+    setTimeout(function(){el.classList.remove("podsvet");}, 1000)
+    };
+
+
 
 function sen(ssh, cmd, key ,url){
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
