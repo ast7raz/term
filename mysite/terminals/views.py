@@ -264,4 +264,3 @@ def get_info(request, id):
         #print(actions)
         keys = Keys.objects.filter(machine_id=id)
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
-
