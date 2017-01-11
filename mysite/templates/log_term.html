@@ -19,7 +19,8 @@
 <section class="udalenka">
     <h1>Действия доступные для этого терминала:</h1>
     <input type="button" value="VNC" OnClick="action('VNC key ./{{id}}/vnc')">
-    <input type="button" value="SSH" OnClick="action('VNC key ./{{id}}/ssh')">
+    <input type="button" value="SSH" OnClick="action('SSH key ./{{id}}/ssh')">
+    <input type="button" value="SSH-V2" OnClick="action('SSH-V2 key ./ssh/{{id}}')">
     <input type="button" value="X" OnClick="action('X key ./{{id}}/x')">
     {% if perms.terminals.delete_keys%}
     <input class="mass_button" type="button"  value="reboot" OnClick="mass_batt('reboot','{{id}}')">
