@@ -97,9 +97,17 @@ def keyonline(request):
 @Added_action_of_post
 def get_ssh(request):
     if request.method=="POST":
-        PU=Parser_users.objects.get(parser="trc")
-        page=request.POST["page"].replace("./",PU.parsurl)
-        #arg=request.arguments
+        version=1
+        if "V2" in  request.POST["fun"]:
+            version=2
+        if version==1:
+            PU=Parser_users.objects.get(parser="trc")
+            page=request.POST["page"].replace("./",PU.parsurl)
+            #arg=request.arguments
+        else:
+            PU = Parser_users.objects.get(parser="trcv2")
+            page = request.POST["page"].replace("./", PU.parsurl)
+            print(page)
         print(request.POST["fun"])
         if request.POST["fun"]!="X":
             li=pars_rtc.get_cmd(str(page), username=PU.username, password=PU.userpass).replace("$ ","")
