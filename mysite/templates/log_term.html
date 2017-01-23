@@ -20,7 +20,8 @@
     <h1>Действия доступные для этого терминала:</h1>
     <input type="button" value="VNC" OnClick="action('VNC key ./{{id}}/vnc')">
     <input type="button" value="SSH" OnClick="action('SSH key ./{{id}}/ssh')">
-    <input type="button" value="SSH-V2" OnClick="action('SSH-V2 key ./ssh/{{id}}')">
+    <input type="button" value="SSH-V2" OnClick="action('SSH-V2 key ./info/{{id}}')">
+    <input type="button" value="VNC-V2" OnClick="action('VNC-V2 key ./info/{{id}}')">
     <input type="button" value="X" OnClick="action('X key ./{{id}}/x')">
     {% if perms.terminals.delete_keys%}
     <input class="mass_button" type="button"  value="reboot" OnClick="mass_batt('reboot','{{id}}')">
@@ -170,11 +171,14 @@ function sen(ssh, cmd, key ,url){
 
     xhr.send(body);
 }
-function sen2(cmd){
+function sen2(cmd, fun){
     var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
     var xhr = new XHR();
     if (cmd!="Connection"){
         var body="con="+encodeURIComponent(cmd);
+        if (fun!=undefined){
+            body=body+"&fun="+encodeURIComponent(fun);
+        }
     }else{
         var body= "con="+encodeURIComponent("True");
     }
@@ -218,6 +222,11 @@ function action(key){
 	        if ((key[0] == "VNC") || (key[0] == "X") || (key[0] == "SSH-V2") || (key[0] == "SSH")){
 	            console.log(cmd)
 	            sen2(cmd)
+	        }
+	        else if (key[0] == "VNC-V2"){
+	            sen2(cmd, key[0])
+
+
 	        }else{
 	            console.log("ШО")
 	            sen(cmd, key[0], key[1], 'http://localhost:52213/send')
