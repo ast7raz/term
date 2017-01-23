@@ -70,10 +70,16 @@ def get_cmd(url,username, password):
     r=urllib2.urlopen(url)
 
     text=r.read()
+    #print(text)
     #print("get_cmd Print r: "+text)
     page=html.document_fromstring(text)
     #print(page)
-    li=page.xpath("/html/body/pre")[0].text
+    if "v2" not in url:
+        li=page.xpath("/html/body/pre")[0].text
+    else:
+        #print("v2")
+        a=page.xpath("/html/body/pre[3]/a[2]")[0].text
+        li=page.xpath("/html/body/pre[3]/text()")[0].split("\n")[3]+a
     #print(li)
     return li
 def get_x(url, username, password):
