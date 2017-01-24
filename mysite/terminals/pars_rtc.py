@@ -109,30 +109,56 @@ def begin_mass(jso, url, username, password):
             get_x(url+id+"/"+"x", username, password)
         elif jso["command"]=="update":
             get_x(url + id + "/" + "upgrade", username, password)
+        elif jso["command"] == "update_V2":
+            get_x(url + "/upgrade/"+id, username, password)
         elif jso["command"] == "reboot":
             send_cmd(url + id + "/cmd", username, password, jso["command"])
             get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "reboot_V2":
+            send_cmd(url + "/command/"+ id, username, password, "reboot")
+            #get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "restore_key":
             send_cmd(url + id + "/cmd", username, password, """wget --method=PUT --body-data='%s' http://localhost/key && wget -t 1 -o- --post-data='' http://localhost/shutdown/soft""" %jso["key"])
             get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "soft_reboot":
-            send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data='' http://localhost/shutdown/soft")
+            send_cmd(url + id + "/cmd", username, password,
+                     "wget -t 1 -o- --post-data='' http://localhost/shutdown/soft")
             get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "soft_reboot_V2":
+            send_cmd(url + "/command/"+id, username, password,
+                     "wget -t 1 -o- --post-data='' http://localhost/shutdown/soft")
+            #get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "swap_monitor":
             send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data="" http://localhost/swap")
+        elif jso["command"] == "swap_monitor_V2":
+            send_cmd(url + "/command/"+id, username, password, "wget -t 1 -o- --post-data="" http://localhost/swap")
         elif jso["command"] == "kiosk":
             send_cmd(url + id + "/cmd", username, password, "wget -t 1 -o- --post-data="" http://localhost/toggle_kiosk")
             #get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "kiosk_V2":
+            send_cmd(url + "/command/"+id, username, password,
+                     "wget -t 1 -o- --post-data="" http://localhost/toggle_kiosk")
+            # get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "enable gpu":
             send_cmd(url + id + "/cmd", username, password,
+                     "wget  http://support.firstgaming.com/static/en_kiosk.sh && rm /etc/skelconfig/awesome/kiosk.sh && cp en_kiosk.sh /etc/skelconfig/awesome/kiosk.sh && chmod 755 /etc/skelconfig/awesome/kiosk.sh && rm en_kiosk.sh && service slim restart")
+            # get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "enable gpu_V2":
+            send_cmd(url + "/command/"+id, username, password,
                      "wget  http://support.firstgaming.com/static/en_kiosk.sh && rm /etc/skelconfig/awesome/kiosk.sh && cp en_kiosk.sh /etc/skelconfig/awesome/kiosk.sh && chmod 755 /etc/skelconfig/awesome/kiosk.sh && rm en_kiosk.sh && service slim restart")
             # get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "disable gpu":
             send_cmd(url + id + "/cmd", username, password,
                      "wget  http://support.firstgaming.com/static/di_kiosk.sh && rm /etc/skelconfig/awesome/kiosk.sh && cp di_kiosk.sh /etc/skelconfig/awesome/kiosk.sh && chmod 755 /etc/skelconfig/awesome/kiosk.sh && rm di_kiosk.sh && service slim restart")
             # get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "disable gpu_V2":
+            send_cmd(url + "/command/"+id, username, password,
+                     "wget  http://support.firstgaming.com/static/di_kiosk.sh && rm /etc/skelconfig/awesome/kiosk.sh && cp di_kiosk.sh /etc/skelconfig/awesome/kiosk.sh && chmod 755 /etc/skelconfig/awesome/kiosk.sh && rm di_kiosk.sh && service slim restart")
+            # get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "run vnc":
             run_vnc(url + id + "/cmd", username, password)
+        elif jso["command"] == "run vnc_V2":
+            run_vnc(url + "/command/"+id, username, password)
         elif jso["command"]=="white label Rub90":
             get_x(url +"/upgrade/"+id+"?white_label=rub90", username, password)
         elif jso["command"] == "white label BB":

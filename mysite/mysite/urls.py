@@ -39,6 +39,8 @@ urlpatterns = patterns('',
     url(r"^rtc/$", keyonline),
     url(r"^rtc/test/$", keyoffline),
     url(r"^rtc/info/(?P<id>\w+)/$", get_info),
+    url(r"^rtc/info/(?P<id>\w+)/(?P<version>\d+)/$", get_info),
+
     url(r"^rtc/masseffect/$", mass_effects),
     url(r"^rtc/get_key/$", get_ssh),
     url(r"^agree/$", agreegate),
