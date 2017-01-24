@@ -284,5 +284,6 @@ def get_info(request, id, version=1):
         actions=Logger_Action.objects.filter(object_name="Terminal", object=id).order_by("time").reverse()[:20]
         #print(actions)
         keys = Keys.objects.filter(machine_id=id)
-        print(version)
+        version=int(version)
+        #print(version)
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
