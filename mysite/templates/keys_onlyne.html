@@ -71,8 +71,10 @@
 		<input type="checkbox" class="mass" name={{key.mashine_id}}>
 		</td>
 			<td class="keys">
-				{%if "~" not in key.version or "160822" in key.version or "160818" in key.version%}
-					<a href="/rtc/info/{{key.mashine_id}}/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
+				{%if "~" not in key.version%}
+					<a href="/rtc/info/{{key.mashine_id}}/0/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
+				{%elif "160822" in key.version or "160818" in key.version%}
+					<a href="/rtc/info/{{key.mashine_id}}/1/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
 				{%else%}
 					<a href="/rtc/info/{{key.mashine_id}}/2/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
 				{%endif%}
