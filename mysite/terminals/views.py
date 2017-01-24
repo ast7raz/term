@@ -244,7 +244,17 @@ def mass_effects(request):
                 or req["command"] == "disable gpu" \
                 or req["command"] == "enable gpu":
             PU = Parser_users.objects.get(parser="trc")
-        elif req["command"]=="white label BB" or req["command"]=="white label Rub90":
+        elif req["command"]=="white label BB"\
+                or req["command"]=="white label Rub90"\
+                or req["command"]=="update_V2"\
+                or req["command"] == "reboot_V2" \
+                or req["command"] == "restore_key_V2" \
+                or req["command"] == "soft_reboot_V2" \
+                or req["command"] == "swap_monitor_V2" \
+                or req["command"] == "kiosk_V2" \
+                or req["command"] == "run vnc_V2" \
+                or req["command"] == "disable gpu_V2"\
+                or req["command"]=="enable gpu_V2":
             PU = Parser_users.objects.get(parser="trcv2")
         else:
             PU=False
@@ -258,7 +268,7 @@ def mass_effects(request):
         return HttpResponse("Not connect")
 @permission_required('terminals.add_keys')
 
-def get_info(request, id):
+def get_info(request, id, version=1):
     if request.method=="POST":
         PU = Parser_users.objects.get(parser="trcv2")
         url=PU.parsurl+"info/"+id

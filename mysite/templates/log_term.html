@@ -18,24 +18,48 @@
 
 <section class="udalenka">
     <h1>Действия доступные для этого терминала:</h1>
-    <input type="button" value="VNC" OnClick="action('VNC key ./{{id}}/vnc')">
-    <input type="button" value="SSH" OnClick="action('SSH key ./{{id}}/ssh')">
-    <input type="button" value="SSH-V2" OnClick="action('SSH-V2 key ./info/{{id}}')">
-    <input type="button" value="VNC-V2" OnClick="action('VNC-V2 key ./info/{{id}}')">
-    <input type="button" value="X" OnClick="action('X key ./{{id}}/x')">
-    {% if perms.terminals.delete_keys%}
-    <input class="mass_button" type="button"  value="reboot" OnClick="mass_batt('reboot','{{id}}')">
-    <input class="mass_button" type="button"  value="soft_reboot" OnClick="mass_batt('soft_reboot','{{id}}')">
-    <input class="mass_button" type="button"  value="update" OnClick="mass_batt('update','{{id}}')">
-	<input class="mass_button" type="button"  value="white label BB" OnClick="mass_batt('white label BB','{{id}}')">
-	<input class="mass_button" type="button"  value="white label Rub90" OnClick="mass_batt('white label Rub90','{{id}}')">
-    <input class="mass_button" type="button"  value="swap_monitor" OnClick="mass_batt('swap_monitor','{{id}}')">
-    <input class="mass_button" type="button"  value="kiosk" OnClick="mass_batt('kiosk','{{id}}')">
-    <input class="mass_button" type="button"  value="run vnc" OnClick="mass_batt('run vnc','{{id}}')">
-    <input class="mass_button" type="button"  value="enable gpu" OnClick="mass_batt('enable gpu','{{id}}')">
-    <input class="mass_button" type="button"  value="disable gpu" OnClick="mass_batt('disable gpu','{{id}}')">
-    <input type="button" value="Пустой ключ" style="display:none" OnClick="mass_batt('restore_key', '{{id}}', '')">
+    <div class="V1">
+        <h1>V1</h1>
+        <input type="button" value="SSH" OnClick="action('SSH key ./{{id}}/ssh')">
+        <input type="button" value="VNC" OnClick="action('VNC key ./{{id}}/vnc')">
+        <input type="button" value="X" OnClick="action('X key ./{{id}}/x')">
+        {% if perms.terminals.delete_keys%}
+            <input class="mass_button" type="button"  value="reboot" OnClick="mass_batt('reboot','{{id}}')">
+            <input class="mass_button" type="button"  value="soft_reboot" OnClick="mass_batt('soft_reboot','{{id}}')">
+            <input class="mass_button" type="button"  value="update" OnClick="mass_batt('update','{{id}}')">
+
+            <input class="mass_button" type="button"  value="swap_monitor" OnClick="mass_batt('swap_monitor','{{id}}')">
+            <input class="mass_button" type="button"  value="kiosk" OnClick="mass_batt('kiosk','{{id}}')">
+            <input class="mass_button" type="button"  value="run vnc" OnClick="mass_batt('run vnc','{{id}}')">
+            <input class="mass_button" type="button"  value="enable gpu" OnClick="mass_batt('enable gpu','{{id}}')">
+            <input class="mass_button" type="button"  value="disable gpu" OnClick="mass_batt('disable gpu','{{id}}')">
+            <input type="button" value="Пустой ключ" style="display:none" OnClick="mass_batt('restore_key', '{{id}}', '')">
+        {%endif%}
+    </div>
+    {% if version == "2" %}
+    <div class="V2">
+        <h1>V2</h1>
+        <input type="button" value="SSH" OnClick="action('SSH-V2 key ./info/{{id}}')">
+        <input type="button" value="VNC" OnClick="action('VNC-V2 key ./info/{{id}}')">
+        {% if perms.terminals.delete_keys%}
+            <input class="mass_button" type="button"  value="reboot" OnClick="mass_batt('reboot_V2','{{id}}')">
+            <input class="mass_button" type="button"  value="soft_reboot" OnClick="mass_batt('soft_reboot_V2','{{id}}')">
+            <input class="mass_button" type="button"  value="update" OnClick="mass_batt('update_V2','{{id}}')">
+            <input class="mass_button" type="button"  value="swap_monitor" OnClick="mass_batt('swap_monitor_V2','{{id}}')">
+            <input class="mass_button" type="button"  value="kiosk" OnClick="mass_batt('kiosk_V2','{{id}}')">
+            <input class="mass_button" type="button"  value="run vnc" OnClick="mass_batt('run vnc_V2','{{id}}')">
+            <input class="mass_button" type="button"  value="enable gpu" OnClick="mass_batt('enable gpu_V2','{{id}}')">
+            <input class="mass_button" type="button"  value="disable gpu" OnClick="mass_batt('disable gpu_V2','{{id}}')">
+
+
+            <input class="mass_button" type="button"  value="white label BB" OnClick="mass_batt('white label BB','{{id}}')">
+	        <input class="mass_button" type="button"  value="white label Rub90" OnClick="mass_batt('white label Rub90','{{id}}')">
+        {%endif%}
+    </div>
     {%endif%}
+
+
+
     {% csrf_token %}
     <h1>White Label - <span style="color:red;">{{wl}}</span></h1>
 </section>

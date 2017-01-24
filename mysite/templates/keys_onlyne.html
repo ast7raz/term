@@ -70,7 +70,13 @@
 		<td class="masseffect">
 		<input type="checkbox" class="mass" name={{key.mashine_id}}>
 		</td>
-	<td class="keys"><a href="/rtc/info/{{key.mashine_id}}/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a></td>
+			<td class="keys">
+				{%if "~" not in key.version or "160822" in key.version or "160818" in key.version%}
+					<a href="/rtc/info/{{key.mashine_id}}/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
+				{%else%}
+					<a href="/rtc/info/{{key.mashine_id}}/2/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
+				{%endif%}
+			</td>
 	<td class="name">{{key.name}}</td>
 	<td class="part">{{key.part}}</td>
 	<td class="club">{{key.club}}</td>
