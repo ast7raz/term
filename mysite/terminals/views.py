@@ -13,6 +13,7 @@ from terminals.models import Keys, Parser_users
 from onliner.decorators import set_user_online
 from logger.decorators import Added_action_terminal, Added_action_of_post
 from logger.models import Logger_Action
+from Lib import get_part_on_version_term
 #import pars_doc
 from phonebook.save_Base import main
 @permission_required('terminals.add_keys')
@@ -286,4 +287,19 @@ def get_info(request, id, version=1):
 
         version=int(version)
         #print(version)
+
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
+
+def get_part(request):
+    if len(request.GET)>0:
+        version=request.GET["version"]
+    else:
+        version=""
+    partners = get_part_on_version_term(version)
+    terms_on_part=[]
+    for i in partners:
+        keys = Keys.objects.filter(part=i)
+        keys_new = keys.filter(version__icontains="~")
+        keys_old = keys.filter(version__icontains=".")
+        terms_on_part.append({"part_name":i.part_name, "keys":len(keys), "new_term":len(keys_new), "old_term":len(keys_old)})
+    return render_to_response("part_term.html", locals(), context_instance=RequestContext(request))

@@ -5,7 +5,7 @@ from mysite.views import hello, current_datetime, hours_ahead
 from books.views import display_meta, search, contact,register, account
 from django.contrib.auth.views import login, logout
 from phonebook.views import PhoneBok, PhoneBookView
-from terminals.views import keyonline, keyoffline,agreegate,get_ssh, agreegate_log, agreegate_stop,mass_effects, get_info
+from terminals.views import keyonline, keyoffline,agreegate,get_ssh, agreegate_log, agreegate_stop,mass_effects, get_info, get_part
 
 from calculation.views import calc_get, calc_get_transparent
 import settings
@@ -55,6 +55,7 @@ urlpatterns = patterns('',
     url(r"^reestr/form/valid/$", cash_validation),
     url(r"^reestr/form/submit/$", reestr_save_req),
     url(r"^reestr/form/thank/(?P<id>\d+)/$", reestr_spasibo),
+    url(r"^reestr/part_term/$", get_part),
     url(r"^reestr/otc/$", reestr_otc),
     #url(r"^loav/$", LoadAv2),
     url('', include('social.apps.django_app.urls', namespace='social')),

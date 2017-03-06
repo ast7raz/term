@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <thead>
+    <td>Имя партнёрки</td>
+    <td>Всего ключей для терминалов</td>
+    <td>Колличество зарегистрированных ключей на новых терминалах</td>
+    <td>Колличество зарегистрированных ключей на старых терминалах</td>
+    </thead>
+    {%for part in terms_on_part%}
+    <tr>
+    <td>{{part.part_name}}</td>
+    <td>{{part.keys}}</td>
+    <td>{{part.new_term}}</td>
+    <td>{{part.old_term}}</td>
+    </tr>
+    {%endfor%}
+
+</table>
+
+
+
+</body>
+</html>
