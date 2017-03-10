@@ -3,15 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        td{
+            border-style:inset;
+            border-spacing:0px;
+        }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+
+    </style>
 </head>
 <body>
 <form action=".", method="GET" >
+    Партнёрские группы с терминалом :
 <select name="version">
     <option value="">Любой терминал</option>
     <option value=".">Старый терминал</option>
     <option value="~">Новый терминал</option>
 
 </select>
+    <br>
+    Терминал был онлайн хотябы раз в течении:
     <select name="Number_of_days">
         <option value=1>1 День</option>
         <option value=2>2 Дня</option>
@@ -23,15 +41,18 @@
         <option selected value=365 >1 Год</option>
 
     </select>
-<input type="submit">
+    <br>
+<input type="submit" value="Запросить статистику">
 
 </form>
-<table>
-    <thead>
+<table style="{border-style:groove}">
+    <thead style="{color}">
+    <tr    style="background: aquamarine;">
     <td>Имя партнёрки</td>
     <td>Всего ключей для терминалов</td>
     <td>Колличество зарегистрированных ключей на новых терминалах</td>
     <td>Колличество зарегистрированных ключей на старых терминалах</td>
+    </tr>
     </thead>
     {%for part in terms_on_part%}
     <tr>

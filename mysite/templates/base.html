@@ -44,6 +44,9 @@
 {%if user.is_staff%}
 <a href="/admin/" class="button28" target="_balank" title="Админка">Админка</a>
 {%endif%}
+{% if perms.terminals.add_keys%}
+<a href="/reestr/part_term/" class="button28">Статистика по терминалам</a>
+{%endif%}
 </div>
 
 </div>
