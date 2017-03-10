@@ -1,5 +1,6 @@
 import psutil
 from phonebook.models import Partner
+import datetime
 
 def test_procces(pid, serch_string):
     try:
@@ -38,10 +39,12 @@ def kill_proc(pid):
         return False
     p.kill()
     return True
-def get_part_on_version_term(version=""):
+def get_part_on_version_term(version="", date=datetime.datetime.utcnow() - datetime.timedelta(days=30)):
     partners = Partner.objects.all()
     if version != "":
         partners = partners.filter(keys__version__icontains=version)
+    partners = partners.filter(keys__date_time_last_online__gte=date)
+    #print(datetime.datetime.utcnow() - datetime.timedelta(days=10))
     partners = partners.distinct()
     partners = partners.order_by("part_name")
     return partners

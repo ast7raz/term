@@ -3,11 +3,9 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse
-import json
-#import runscript
 from Lib import get_pid_of_log, test_procces, kill_proc
 import pars_rtc
-import json, os, subprocess
+import json, os, subprocess, datetime
 from mysite import settings
 from terminals.models import Keys, Parser_users
 from onliner.decorators import set_user_online
@@ -292,13 +290,17 @@ def get_info(request, id, version=1):
 def get_part(request):
     if len(request.GET)>0:
         version=request.GET["version"]
+        number_of_days=request.GET["Number_of_days"]
     else:
         version=""
-    partners = get_part_on_version_term(version)
+        number_of_days=365
+
+    date=datetime.datetime.utcnow()-datetime.timedelta(days=int(number_of_days))
+    partners = get_part_on_version_term(version, date)
     terms_on_part=[]
     for i in partners:
         keys = Keys.objects.filter(part=i)
-        keys_new = keys.filter(version__icontains="~")
-        keys_old = keys.filter(version__icontains=".")
+        keys_new = keys.filter(version__icontains="~", date_time_last_online__gte=date)
+        keys_old = keys.filter(version__icontains=".", date_time_last_online__gte=date)
         terms_on_part.append({"part_name":i.part_name, "keys":len(keys), "new_term":len(keys_new), "old_term":len(keys_old)})
     return render_to_response("part_term.html", locals(), context_instance=RequestContext(request))
