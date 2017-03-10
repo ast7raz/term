@@ -40,10 +40,11 @@ def kill_proc(pid):
         return False
     p.kill()
     return True
-def get_part_on_version_term(version="", date=datetime.datetime.utcnow() - datetime.timedelta(days=30)):
+def get_part_on_version_term(version="", date=datetime.datetime.utcnow() - datetime.timedelta(days=365)):
     partners = Partner.objects.all()
     if version != "":
         partners = partners.filter(keys__version__icontains=version)
+    partners=partners.exclude(part_name="SUPPORT")
     partners = partners.filter(keys__date_time_last_online__gte=date)
     #print(datetime.datetime.utcnow() - datetime.timedelta(days=10))
     partners = partners.distinct()
