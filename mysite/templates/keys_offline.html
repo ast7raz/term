@@ -1,6 +1,8 @@
 ﻿{%extends "base.html" %}
 {%block title%}Известные терминалы{%endblock%}
 {%block content%}
+{% load tz %}
+{% get_current_timezone as TIME_ZONE %}
 <script src="/static/event.js"></script>
 
 
@@ -73,7 +75,7 @@
 	<img src="/static/Krest.png" width="20" height="20" alt="{{key.blocked}}">
 	{% endif %}</td>
 	<td class="mid">{{key.machine_id}}</td>
-	<td class="dlo">{{key.date_time_last_online}}</td>
+	<td class="dlo">{{key.date_time_last_online|timezone:"Europe/Kiev"}}</td>
 	</tr>
 	
 	{%endfor%}
@@ -83,6 +85,7 @@
 {%else%}
 <p>Известных ключей по вашему запросу не найдено</p>
 {%endif%}
+
 
 
 {%endblock%}
