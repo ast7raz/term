@@ -5,7 +5,27 @@
     <title>Title</title>
 </head>
 <body>
+<form action=".", method="GET" >
+<select name="version">
+    <option value="">Любой терминал</option>
+    <option value=".">Старый терминал</option>
+    <option value="~">Новый терминал</option>
 
+</select>
+    <select name="Number_of_days">
+        <option value=1>1 День</option>
+        <option value=2>2 Дня</option>
+        <option value=5>5 Дня</option>
+        <option value=7>1 Неделя</option>
+        <option value=14>2 Недели</option>
+        <option value=30>1 Месяц</option>
+        <option value=60>2 Месяц</option>
+        <option selected value=365 >1 Год</option>
+
+    </select>
+<input type="submit">
+
+</form>
 <table>
     <thead>
     <td>Имя партнёрки</td>
