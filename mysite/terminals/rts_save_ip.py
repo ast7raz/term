@@ -30,6 +30,7 @@ def go():
     return seter_list
 def save(seter_ip):
     tz=2
+    timer1=datetime.datetime.utcnow()
     timer=(datetime.datetime.utcnow()+datetime.timedelta(hours=tz)).strftime("%d.%m.%y %H:%M")
     for set in seter_ip:
         print(set)
@@ -44,6 +45,7 @@ def save(seter_ip):
             key.ip = set[1]
             key.version=set[2]
             key.machine_id=set[3]
+            key.date_time_last_online=timer1
             key.date_last_online=timer
             key.save()
             print("Done")

@@ -290,7 +290,7 @@ def get_info(request, id, version=1):
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
 
 def get_part(request):
-    if len(request.GET["version"])>0:
+    if len(request.GET)>0:
         version=request.GET["version"]
     else:
         version=""

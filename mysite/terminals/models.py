@@ -25,6 +25,7 @@ class Keys(models.Model):
     blocked=models.BooleanField(default=False)
     machine_id=models.CharField(max_length=35, blank=True, default="")
     date_last_online=models.CharField(max_length=20, blank=True, default="")
+    date_time_last_online = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     class Meta:
 	permissions=(
 	("Averange", "Averange"),)
