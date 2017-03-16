@@ -1,0 +1,411 @@
+﻿{%extends "base.html" %}
+{%block title%}Терминалы онлайн{%endblock%}
+{%block content%}
+<script src="/static/event.js"></script>
+<script>
+
+
+
+</script>
+
+
+<section class=filter>
+
+
+<div>
+<form action="/rtcv2">
+<label name=key>Ключ</label>
+<input label="Ключ" type="text" name=key value="{{tizer.key}}">
+<label name=name>Имя ключа</label>
+<input type="text" name=name value="{{tizer.name}}">
+<label name=part>Партнёрка</label>
+<input type="text" name=part value="{{tizer.part}}">
+<label name=club>Клуб</label>
+<input type="text" name=club value="{{tizer.club}}">
+<label name=admin>Логин админа</label>
+<input type="text" name=admin value="{{tizer.adm}}">
+
+<input type="submit" value="Фильтровать">
+<input type="button" onclick="location.href='/rtcv2'" value="Очистить" >
+	{% if perms.terminals.delete_keys%}
+	<a id="a_mass">Массовое действие</a>
+	{%endif%}
+</form>
+</div>
+	<div id="divmasseffect" style="display:none;">
+		 	<h1>Доступные массовые действия</h1>
+		{% csrf_token %}
+		<input class="mass_button" type="button"  value="X" >
+		<input class="mass_button" type="button"  value="reboot" >
+		<input class="mass_button" type="button"  value="update" >
+		<input class="mass_button" type="button"  value="white label BB" >
+		<input class="mass_button" type="button"  value="white label Rub90" >
+	</div>
+</section>
+{%if keys_online%}
+<section class=head_div>
+<table class=head_table>
+	<caption>Всего ключей онлайн: {{lenkey}}. Известных: {{lenfi}}.</caption>
+	<tr class="keysstring">
+	<th class="masseffect">Массовое действие<br><input type="checkbox" id="masseffect"></th>
+	<th class="keys">Ключ терминала</th>
+	<th class="name">Имя ключа терминала</th>
+	<th class="part">Партнёрка</th>
+	<th class="club">Клуб</th>
+	<th class="version">Версия образа терминала</th>
+	<th class="ip">Ip терминала</th>
+	<th class="ud">Удалёнка</th>
+	<th class="active">Активация</th>
+	<th class="blocked">Блокировка</th>
+	<th class="wl">WhiteLabel</th>
+	
+	</tr>
+</table>	
+
+</section>
+<section class=head_div>
+<table class=content>
+	{%for key in keys_online%}
+
+	<tr class="keysstring">
+		<td class="masseffect">
+		<input type="checkbox" class="mass" name={{key.mashinid}}>
+		</td>
+			<td class="keys">
+				{%if "~" not in key.version%}
+					<a href="/rtc/info/{{key.mashinid}}/0/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
+				{%elif "160822" in key.version or "160818" in key.version%}
+					<a href="/rtc/info/{{key.mashinid}}/1/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
+				{%else%}
+					<a href="/rtc/info/{{key.mashinid}}/2/" title="{{key.mashine_id}}" target="_blank">{{key.key}}</a>
+				{%endif%}
+			</td>
+	<td class="name">{{key.name}}</td>
+	<td class="part">{{key.part_name}}</td>
+	<td class="club">{{key.club_name}}</td>
+	<td class="version">{{key.version}}</td>
+	<td class="ip">{{key.ip}}</td>
+	<td class="ud">
+	{%if key.version != "1.0.8" and key.version != "1.0.7" and key.version != "1.0.6" and key.version != "0.0.2" and key.version != "1.0.4"%}
+	<button class="but" title="Соединение через канал SSH" name="VNC" OnClick="action('SSH-V2 key ./info/{{key.mashinid}}');">SSH</button>
+	<button class="but" title="Соединение через канал VNC" name="VNC" OnClick="action('VNC-V2 key ./info/{{key.mashinid}}');">VNC</button>
+
+	{%else%}
+	<button class="bu" title="Соединение через канал VNC" style="visibility:hidden;" name="VNC">VNC</button>
+	<button class="bu" title="Соединение через канал SSH" style="visibility:hidden;" name="VNC">SSH</button>
+	{%endif%}
+	<!--<button class="bu" title="Разрыв всех существующих содинений данного терминала, терминал не на долго пропадает со страници активных терминалов. Не влияет на работу терминала." name="X" OnClick="vnc('X {{key.key}} {{key.x}}');">X</button>-->
+	{%if key.upgrade %}
+	<button class="bu" name="upgrade" OnClick="mass_batt('update_V2','{{key.mashinid}}')">UP</button>
+	{%endif%}
+
+	</td>
+	<td class="active">
+	{% if key.activ == True%}
+	<img src="/static/galka.png" width="20" height="20" alt="{{key.activ}}">
+	{% else%}
+	<img src="/static/Krest.png" width="20" height="20" alt="{{key.activ}}">
+	{% endif %}
+	</td>
+	<td class="blocked">
+	{% if key.blocked == True%}
+	<img src="/static/galka.png" width="20" height="20" alt="{{key.blocked}}">
+	{% else%}
+	<img src="/static/Krest.png" width="20" height="20" alt="{{key.blocked}}">
+	{% endif %}
+	</td>
+	<td class="wl">{{key.white_label}}</td>
+	</tr>
+	
+	{%endfor%}
+	</table>
+<p id=calc>Всего ключей онлайн: {{lenkey}}. Известных: {{lenfi}}.</p>
+</section>
+{%else%}
+<p>Ключей онлайн по вашему запросу не найдено</p>
+{%endif%}
+<p><a href="/static/setup.rar">Утилитка</a></p>
+<script>
+function logging(id){
+    var xhr = new XMLHttpRequest();
+    var csrf="{% csrf_token %}";
+    var toc=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+    var body= "id="+encodeURIComponent(id)+"&csrfmiddlewaretoken="+encodeURIComponent(toc);
+    //console.log(body)
+    xhr.open('POST', "", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+	    var cmd=this.responseText
+	    if (cmd=="DONE"){
+		    location.reload();
+	    }
+	    else{
+	        //console.log(cmd)
+	        document.getElementById('Log_update').innerHTML=cmd
+	        setTimeout(function(){logging(id)}, 2000)
+	    //sen(cmd)
+	    }
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send(body);
+
+}
+
+
+
+function svetilka(event){
+    el=event.toElement
+    el.classList.add("podsvet");
+    setTimeout(function(){el.classList.remove("podsvet");}, 1000)
+    };
+
+
+
+function sen(ssh, cmd, key ,url){
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+    var xhr = new XHR();
+    if (ssh!="Connection"){
+        var body="ssh="+encodeURIComponent(ssh)+"&cmd="+encodeURIComponent(cmd)+"&key="+encodeURIComponent(key);
+    }else{
+        var body= "ssh="+encodeURIComponent("True")+"&cmd="+encodeURIComponent(cmd)+"&key="+encodeURIComponent(key);
+    }
+    //console.log(body)
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Access-Control-Request-Headers', 'Origin, X-Requested-With');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+        console.log( this.responseText );
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send(body);
+}
+function sen2(cmd, fun){
+    var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+    var xhr = new XHR();
+    if (cmd!="Connection"){
+        var body="con="+encodeURIComponent(cmd);
+        if (fun!=undefined){
+            body=body+"&fun="+encodeURIComponent(fun);
+        }
+    }else{
+        var body= "con="+encodeURIComponent("True");
+    }
+    xhr.open('POST', 'http://localhost:52213/con', true);
+    //xhr.setRequestHeader('Access-Control-Request-Headers', 'Origin, X-Requested-With');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+        console.log( this.responseText );
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+xhr.send(body);
+}
+
+
+
+
+
+function action(key){
+    //console.log(key)
+    key=key.split(" ")
+    //console.log(key)
+    var xhr = new XMLHttpRequest();
+    var csrf="{% csrf_token %}";
+    var toc=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+    var body= "fun="+encodeURIComponent(key[0])+"&key="+encodeURIComponent(key[1])+"&csrfmiddlewaretoken="+encodeURIComponent(toc)+"&page="+encodeURIComponent(key[2]);
+    //console.log(body)
+
+    xhr.open('POST', '/rtc/get_key/', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+	    var cmd=this.responseText
+	    if (cmd=="DONE"){
+		    location.reload();
+	    }
+	    else{
+	        //console.log(key[0])
+	        if ((key[0] == "VNC") || (key[0] == "X") || (key[0] == "SSH-V2") || (key[0] == "SSH")){
+	            //console.log(cmd)
+	            sen2(cmd)
+	        }
+	        else if (key[0] == "VNC-V2"){
+	            sen2(cmd, key[0])
+
+
+	        }else{
+	            //console.log("ШО")
+	            sen(cmd, key[0], key[1], 'http://localhost:52213/send')
+	        }
+	    }
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send(body);
+}
+function mass_batt(command, id, key=""){
+    var csrf=document.getElementsByName("csrfmiddlewaretoken")[0]
+    var list_id=[id]
+    var slov={}
+	slov.command=command
+	slov.ids=list_id
+	slov.key=key
+	//console.log(slov)
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/rtc/masseffect/', true);
+	xhr.setRequestHeader('Content-Type', "application/json; charset=utf-8")
+
+	xhr.setRequestHeader('X-CSRFToken', csrf.value)
+	xhr.onload = function() {
+		//console.log(this.responseText)
+		if (this.responseText=="done"){
+			location.reload();
+		}
+	}
+	xhr.send(param=JSON.stringify(slov))
+}
+function con(){
+
+// (1)
+var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+var btn=document.getElementsByClassName('but');
+var xhr = new XHR();
+var body= "con="+encodeURIComponent("True");
+// (2) запрос на другой домен :)
+xhr.open('GET', 'http://localhost:52213/con', true);
+//xhr.setRequestHeader('Access-Control-Request-Headers', 'Origin, X-Requested-With');
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+xhr.onload = function() {
+  //console.log( this.responseText );
+	for (butn in btn){
+		//console.log(butn)
+		if (butn!="item" && butn!="namedItem" && butn!="length"){
+		//console.log(btn[butn]);
+		btn[butn].style.visibility="visible"
+		}
+		}
+}
+
+xhr.onerror = function() {
+	for (butn in btn){
+		//console.log(butn)
+		if (butn!="item" || butn!="namedItem" || butn!="length"){
+		//aconsole.log(btn[butn]);
+		var ert=typeof(btn[butn])
+		if (ert=="object"){
+		//console.log(ert)
+		btn[butn].style.visibility="hidden"}
+		}
+	}
+
+	}
+
+xhr.send();
+//setInterval(con,10000)
+}
+con()
+changer= function(){
+	//console.log(this.checked)
+	elements=document.getElementsByClassName("mass")
+	for (i in elements){
+		if (elements[i].type!=undefined){
+		//console.log(elements[i])
+			elements[i].checked=this.checked;
+		}
+	}
+
+}
+if (document.documentElement.hidden === undefined) {
+    Object.defineProperty(Element.prototype, "hidden", {
+      set: function(value) {
+        this.setAttribute('hiden', value);
+      },
+      get: function() {
+        return this.getAttribute('hiden');
+      }
+    });
+  }
+var visible = false;
+
+disp_but=function() {
+
+    if(visible) {
+
+        document.getElementById('divmasseffect' ).style.display = 'none';
+
+        visible = false;
+        //console.log(visible)
+
+    } else {
+
+        document.getElementById('divmasseffect' ).style.display = 'block';
+
+        visible = true;
+		//console.log(visible)
+    }
+}
+
+mass_button=function(){
+
+	//console.log(this.value)
+	elements=document.getElementsByClassName("mass")
+	var csrf=document.getElementsByName("csrfmiddlewaretoken")[0]
+	//console.log(csrf.value)
+	var list_id=[]
+	for(var i=0; i<elements.length; i++){
+		if(elements[i].type!=undefined){
+			if (elements[i].checked){
+				list_id.push(elements[i].name);
+			}
+		}
+
+	}
+	if (list_id.length>0){
+		if (confirm("Вы действительно хотите выполнить массовое действие для выбранных терминалов?")==true){
+			var slov={}
+			slov.command=this.value
+			slov.ids=list_id
+			console.log(slov)
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '/rtc/masseffect/', true);
+			xhr.setRequestHeader('Content-Type', "application/json; charset=utf-8")
+			xhr.setRequestHeader('X-CSRFToken', csrf.value)
+			xhr.onload = function() {
+				console.log(this.responseText)
+				if (this.responseText=="done"){
+					location.reload();
+				}
+			}
+
+			xhr.send(param=JSON.stringify(slov))
+		}
+	}else{
+		alert("Не выбраны терминалы для массового действия! Пожалуйста выберите терминалы для массового действия.")
+	}
+}
+
+
+document.getElementById("masseffect").addEventListener("change", changer)
+document.getElementById("a_mass").addEventListener("click", disp_but)
+var buts=document.getElementsByClassName("mass_button")
+for (but in buts){
+	if (buts[but].type!=undefined){
+		buts[but].addEventListener("click", mass_button)
+	}
+}
+</script>
+
+{%endblock%}

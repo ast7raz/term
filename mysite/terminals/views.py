@@ -12,6 +12,7 @@ from onliner.decorators import set_user_online
 from logger.decorators import Added_action_terminal, Added_action_of_post
 from logger.models import Logger_Action
 from Lib import get_part_on_version_term
+from terminals.pars_trcv2 import TRC_Parser
 #import pars_doc
 from phonebook.save_Base import main
 @permission_required('terminals.add_keys')
@@ -304,3 +305,112 @@ def get_part(request):
         keys_old = keys.filter(version__icontains=".", date_time_last_online__gte=date)
         terms_on_part.append({"part_name":i.part_name, "keys":len(keys), "new_term":len(keys_new), "old_term":len(keys_old)})
     return render_to_response("part_term.html", locals(), context_instance=RequestContext(request))
+
+
+def keyonline_v2(request):
+    tizer = {"key": "", "name": "", "part": "", "club": "", "adm": ""}
+    goll = []
+    goll2 = []
+    lenkey=0
+    old = 0
+    online_keys=""
+    PU = Parser_users.objects.get(parser="trcv2")
+    online_keys=TRC_Parser(username=PU.username, password=PU.userpass, url=PU.parsurl)
+    # print()
+    fi = Keys.objects.filter(key__in=online_keys.get_list_keys()).order_by("club", "part")
+    #print(fi)
+    keys_online = []
+    if len(request.GET) > 0:
+
+        if len(request.GET["key"]) > 0:
+            tizer["key"] = request.GET["key"]
+            fi = fi.filter(key=request.GET["key"])
+        if len(request.GET["name"]) > 0:
+            tizer["name"] = request.GET["name"]
+            fi = fi.filter(name=request.GET["name"])
+        if len(request.GET["part"]) > 0:
+            tizer["part"] = unicode(request.GET["part"])
+            # print(tizer["part"])
+            fi = fi.filter(part__part_name=unicode(request.GET["part"]))
+        if len(request.GET["club"]) > 0:
+            tizer["club"] = request.GET["club"]
+            fi = fi.filter(club__club_name=request.GET["club"])
+        if len(request.GET["admin"]) > 0:
+            tizer["adm"] = request.GET["admin"]
+            fi = fi.filter(admin=request.GET["admin"])
+        #print(online_keys)
+        if len(fi)>0:
+            for i in fi:
+                print(i)
+                key=online_keys.get_key(str(i))
+                key.part_name=i.part
+                key.club_name=i.club
+                key.name=i.name
+                keys_online.append(key)
+
+    else:
+        if len(fi)>0:
+            for i in fi:
+                #print(i)
+                key = online_keys.pop_key(str(i))
+                key.part_name = i.part
+                key.club_name = i.club
+                key.name = i.name
+                keys_online.append(key)
+
+        for i in online_keys.get_list_keys():
+            keys_online.append(i)
+    lenfi=len(fi)
+    lenkey = len(keys_online)
+        #keys_online.extend(online_keys.keys)
+        #keys_online=online_keys.get_list_keys()
+    '''
+    for f in fi:
+        goll.append({
+            "key": f.key,
+            "name": f.name,
+            "part": f.part,
+            "club": f.club,
+            "version": on_keys[f.key]["version"],
+            "ip": on_keys[f.key]["ip"],
+            "admin": f.admin,
+            "pas": f.pas,
+            "active": f.active,
+            "blocked": f.blocked,
+            "ssh": on_keys[f.key]["ssh"],
+            "vnc": on_keys[f.key]["vnc"],
+            "x": on_keys[f.key]["x"],
+            "upgrade": on_keys[f.key]["up"],
+            "mashine_id": on_keys[f.key]["mid"],
+        })
+        if "~" in on_keys[f.key]["version"]:
+            new += 1
+        else:
+            old += 1
+
+
+    goll2.append(f.key)
+
+    if len(request.GET) == 0:
+        for f in keys:
+            if on_keys[f]["key"] not in goll2:
+            # print(on_keys[f]["key"])
+                goll.append({
+                    "key": on_keys[f]["key"],
+                    "version": on_keys[f]["version"],
+                    "ip": on_keys[f]["ip"],
+                    "ssh": on_keys[f]["ssh"],
+                    "vnc": on_keys[f]["vnc"],
+                    "x": on_keys[f]["x"],
+                    "upgrade": on_keys[f]["up"],
+                    "mashine_id": on_keys[f]["mid"],
+                })
+                if "~" in on_keys[f]["version"]:
+                    new += 1
+                else:
+                    old += 1
+    lenfi = len(fi)
+    lenkey = len(goll)
+    # print(fi)
+    # print(on_keys)'''
+    return render_to_response("keys_onlyne2.html", locals(), context_instance=RequestContext(request))
