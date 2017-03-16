@@ -5,7 +5,7 @@ from mysite.views import hello, current_datetime, hours_ahead
 from books.views import display_meta, search, contact,register, account
 from django.contrib.auth.views import login, logout
 from phonebook.views import PhoneBok, PhoneBookView
-from terminals.views import keyonline, keyoffline,agreegate,get_ssh, agreegate_log, agreegate_stop,mass_effects, get_info, get_part
+from terminals.views import keyonline, keyoffline,agreegate,get_ssh, agreegate_log, agreegate_stop,mass_effects, get_info, get_part,keyonline_v2
 
 from calculation.views import calc_get, calc_get_transparent
 import settings
@@ -37,6 +37,7 @@ urlpatterns = patterns('',
     url(r"^pb/$", PhoneBok.as_view()),
     url(r"^pb/view$", PhoneBookView.as_view()),
     url(r"^rtc/$", keyonline),
+    url(r"^rtcv2/$", keyonline_v2),
     url(r"^rtc/test/$", keyoffline),
     url(r"^rtc/info/(?P<id>\w+)/$", get_info),
     url(r"^rtc/info/(?P<id>\w+)/(?P<version>\d+)/$", get_info),

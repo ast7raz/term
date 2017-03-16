@@ -27,7 +27,25 @@ def Added_action_of_post(fun):
             #ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
             ip = get_ip(request, real_ip_only=True) or "127.0.0.1"
             response=fun(request)
-            Logger_Action.objects.create(user=user, action_name=page[-1], action=response.content, object_name="Terminal", object=page[-2],user_ip=ip)
+            if "V2" in request.POST["fun"]:
+                #print(request.POST["fun"])
+                Logger_Action.objects.create(user=user,
+                                             action_name=request.POST["fun"],
+                                             action=response.content,
+                                             object_name="Terminal",
+                                             object=page[-1],
+                                             user_ip=ip,
+                                             )
+
+            else:
+                Logger_Action.objects.create(user=user,
+                                             action_name=page[-1],
+                                             action=response.content,
+                                             object_name="Terminal",
+                                             object=page[-2],
+                                             user_ip=ip,
+                                             )
+
             return response
 
     return wraper_added

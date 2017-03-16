@@ -1,24 +1,32 @@
 # -*- coding: utf-8 -*-
 __author__ = 'ast7raz'
+import logging, os
+if __name__=="__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
+    #from mysite import settings
 import urllib2
 import datetime
+
 from urllib import urlencode
 import lxml.html as html
-from terminals.models import Keys
 from mysite.settings import DIR_SPLITTER
-import logging, os
-def Get_project_path(project_name="mysite"):
-    APP_DIR = os.path.dirname(__file__)
-    #print(APP_DIR)
-    list_dir = APP_DIR.split(DIR_SPLITTER)
-    index = list_dir.index(project_name)
-    lgbt = list_dir[0:index + 1]
-    patch = "/".join(lgbt)
-    project_path = os.path.normpath(patch)
-    return project_path
-filename=os.path.join(Get_project_path(), "pars.log")
+from terminals.models import Keys
 
-logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.INFO, filename = filename)
+
+
+if __name__!="__main__":
+    def Get_project_path(project_name="mysite"):
+        APP_DIR = os.path.dirname(__file__)
+        #print(APP_DIR)
+        list_dir = APP_DIR.split(DIR_SPLITTER)
+        index = list_dir.index(project_name)
+        lgbt = list_dir[0:index + 1]
+        patch = "/".join(lgbt)
+        project_path = os.path.normpath(patch)
+        return project_path
+    filename=os.path.join(Get_project_path(), "pars.log")
+
+    logging.basicConfig(format = u'%(levelname)-8s [%(asctime)s] %(message)s', level = logging.INFO, filename = filename)
 
 
 
@@ -67,6 +75,7 @@ class Key():
         self.INFO_URL = self.INFO % {"url": url, "mashinid": self.mashinid}
         self.COMMAND_URL = self.COMMAND % {"url": url, "mashinid": self.mashinid}
         #print(self.blocked,self.key)
+
     def __unicode__(self):
         return self.key
     def __str__(self):
@@ -93,23 +102,45 @@ class Key():
             logging.info(self.key+u" - Done")
 
 class TRC_Parser():
+    keys=[]
 
     def __init__(self,username, password ,url):
         self.url=url
         self.opener=self.__autorization(username,password,url)
+        self.pars_keys()
+        #return self.keys
+    def __unicode__(self):
+        return u"[%u]" % u", ".join(u"'" + unicode(i) + u"'" for i in self.keys)
+    def __str__(self):
+        #print(self.keys)
+        return "[%s]" % ", ".join("'"+str(i)+"'" for i in self.keys)
     def get_page(self):
         r = urllib2.urlopen(self.url)
         page = html.document_fromstring(r.read())
         return page
     def get_list_keys(self):
-        list=self.get_page().xpath("/html/body/table/tr")
-        list_key=[]
-        timer=datetime.datetime.utcnow()
+        return self.keys
+    def pars_keys(self):
+        list = self.get_page().xpath("/html/body/table/tr")
+        timer = datetime.datetime.utcnow()
+        self.keys=[]
         for tr in list[1:]:
-            key=Key(self.url, tr, timer)
-            list_key.append(key)
-            #print(key)
-        return list_key
+            key = Key(self.url, tr, timer)
+            self.keys.append(key)
+            # print(key)
+    def __get_index(self, key_string):
+        for i in range(len(self.keys)):
+            if self.keys[i].key==key_string:
+                return i
+    def get_key(self, key_string):
+        for i in self.keys:
+            if i.key==key_string:
+                return i
+    def pop_key(self, key_string):
+        index=self.__get_index(key_string)
+        elem=self.keys.pop(index)
+        #print(elem)
+        return elem
     def __autorization(self, username, password ,url):
         #actvers=""
         pass_man=urllib2.HTTPPasswordMgrWithDefaultRealm()
@@ -120,6 +151,8 @@ class TRC_Parser():
         return opener
 
 if __name__=="__main__":
+
     parser=TRC_Parser("support", "6cc19eda65a973a2", "https://rub90.com/trcv2/")
+    print("done")
     #print(parser.TESTING %{"mashinid":"teteteet"})
-    print(parser.get_list_keys()[1].save_in_db())
+    print(parser.get_key("358321-080866-538985-122726-052937-529107").version)

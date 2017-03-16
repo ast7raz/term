@@ -1,3 +1,4 @@
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -188,7 +189,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, sel
   outline-offset: 0;
 }
 
-input[type=submit], input[type=button] {
+input[type=submit] {
   padding: 0 18px;
   height: 29px;
   font-size: 12px;
@@ -221,7 +222,7 @@ input[type=submit]:active {
   line-height: 34px;
 }
 
-/* пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ vladmaxi, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+/* Стили бара vladmaxi, можно удалить */
 input[id=id_subject], textarea[id=id_message], input[id=id_email]{
   margin: 5px;
   padding: 0 10px;
@@ -339,14 +340,9 @@ text-align:center;
 	width:10%;
 	text-align:center;
 }
-.active, .blocked, .version{
+.active, .blocked, .version, .wl{
 width:5%;
 text-align:center;
-}
-.masseffect{
-width:3%;
-text-align:center;
-
 }
 .name, .ip, .ud{
 width:5%;
@@ -499,7 +495,4 @@ height:55px;
 .thank{
 margin-top:50px;
 text-align:center;
-}
-[hiden]{
-display:none;
 }
