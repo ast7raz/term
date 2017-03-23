@@ -1,5 +1,7 @@
 import psutil
 from phonebook.models import Partner
+from terminals.models import Keys
+from django.db.models import Q
 import datetime
 
 def test_procces(pid, serch_string):
@@ -41,10 +43,11 @@ def kill_proc(pid):
     return True
 def get_part_on_version_term(version="", date=datetime.datetime.utcnow() - datetime.timedelta(days=365)):
     partners = Partner.objects.all()
+    keys=Keys.objects.all()
     if version != "":
-        partners = partners.filter(keys__version__icontains=version)
+        keys = keys.filter(version__icontains=version, date_time_last_online__gte=date)
     partners=partners.exclude(part_name="SUPPORT")
-    partners = partners.filter(keys__date_time_last_online__gte=date)
+    partners = partners.filter(keys__in=list(keys))
     #print(datetime.datetime.utcnow() - datetime.timedelta(days=10))
     partners = partners.distinct()
     partners = partners.order_by("part_name")
