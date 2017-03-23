@@ -289,15 +289,13 @@ def get_info(request, id, version=1):
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
 
 def get_part(request):
+    filt={"version":"", "number_of_days":365}
     if len(request.GET)>0:
-        version=request.GET["version"]
-        number_of_days=request.GET["Number_of_days"]
-    else:
-        version=""
-        number_of_days=365
+        filt["version"]=request.GET["version"]
+        filt["number_of_days"]=request.GET["Number_of_days"]
 
-    date=datetime.datetime.utcnow()-datetime.timedelta(days=int(number_of_days))
-    partners = get_part_on_version_term(version, date)
+    date=datetime.datetime.utcnow()-datetime.timedelta(days=int(filt["number_of_days"]))
+    partners = get_part_on_version_term(filt["version"], date)
     terms_on_part=[]
     for i in partners:
         keys = Keys.objects.filter(part=i)
