@@ -57,7 +57,7 @@ def keyonline(request):
                 "admin":f.admin,
                 "pas":f.pas,
                 "active":f.active,
-                "blocked":f.blocked,
+                "blocked":f.in_blocked,
                 "ssh":on_keys[f.key]["ssh"],
                 "vnc":on_keys[f.key]["vnc"],
                 "x":on_keys[f.key]["x"],
