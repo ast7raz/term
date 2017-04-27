@@ -233,7 +233,10 @@ def agreegate_stop(request):
 def mass_effects(request):
     if request.method=="POST":
         req=json.loads(request.body)
+        print(req)
         if req["command"]=="X"\
+                or req["command"]=="block" \
+                or req["command"] == "unblock"\
                 or req["command"]=="update" \
                 or req["command"]=="reboot" \
                 or req["command"]=="restore_key" \
@@ -412,3 +415,23 @@ def keyonline_v2(request):
     # print(fi)
     # print(on_keys)'''
     return render_to_response("keys_onlyne2.html", locals(), context_instance=RequestContext(request))
+
+
+def Terminal_blocked(request, id=''):
+    if request.method=="GET":
+        if id=="":
+            name=''
+            mesage=''
+        else:
+            keys = Keys.objects.filter(machine_id=id)
+            name=keys[0].name
+            mesage=keys[0].mesage
+
+        return render_to_response("term_first.html", locals(), context_instance=RequestContext(request))
+    else:
+        if id=="":
+            return HttpResponse(True)
+        else:
+            keys = Keys.objects.filter(machine_id=id)
+            blok=keys[0].in_blocked
+            return HttpResponse(blok)

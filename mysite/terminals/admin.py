@@ -1,7 +1,7 @@
 from django.contrib import admin
 from models import Keys, Parser_users
 class KeysAdmin(admin.ModelAdmin):
-    fields = ("key", "name", "part", "club", "active", "blocked", "ip")
+    fields = ("key", "name", "part", "club", "active", "blocked", "ip", "mesage", "in_blocked")
     list_display=('key', 'ip', 'name','part','club','version')
     search_fields=('key','name', "ip", "version")
 admin.site.register(Keys,KeysAdmin)

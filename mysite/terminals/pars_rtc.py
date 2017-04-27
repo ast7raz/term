@@ -5,6 +5,8 @@ from urllib import urlencode
 import lxml.html as html
 from mysite.settings import DIR_SPLITTER
 import logging, os
+from src_rclua import get_rc
+from terminals.models import Keys
 def Get_project_path(project_name="mysite"):
     APP_DIR = os.path.dirname(__file__)
     #print(APP_DIR)
@@ -103,7 +105,7 @@ def get_x(url, username, password):
     #print(li)
     #return li
 def begin_mass(jso, url, username, password):
-
+    #print(Get_project_path())
     for id in jso["ids"]:
         if jso["command"]=="X":
             get_x(url+id+"/"+"x", username, password)
@@ -119,6 +121,36 @@ def begin_mass(jso, url, username, password):
             #get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "restore_key":
             send_cmd(url + id + "/cmd", username, password, """wget --method=PUT --body-data='%s' http://localhost/key && wget -t 1 -o- --post-data='' http://localhost/shutdown/soft""" %jso["key"])
+            get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "block":
+            try:
+                term=Keys.objects.get(machine_id=id)
+                term.in_blocked=True
+                term.save()
+            except:
+                print("ERRORE")
+            patch=os.path.normpath(Get_project_path())
+            patch=os.path.join(patch, "static", "termfiles")
+            #print(patch)
+            file_name=os.path.join(patch, "rc.lua_%s_rub90" %(id))
+            print(file_name)
+            #print(get_rc(id))
+            fi=open(file_name, "w")
+            fi.write(get_rc(id))
+            fi.close()
+            send_cmd(url + id + "/cmd", username, password,
+                     """wget http://support.firstgaming.com/static/termfiles/rc.lua_%s_rub90 && cp rc.lua_%s_rub90 /usr/share/rub90/config/awesome/rc.lua && rm rc.lua_%s_rub90 && wget -t 1 -o- --post-data="" http://localhost/shutdown/soft""" %(id, id, id))
+            get_x(url + id + "/" + "x", username, password)
+        elif jso["command"] == "unblock":
+            try:
+                term = Keys.objects.get(machine_id=id)
+                print(term)
+                term.in_blocked = False
+                term.save()
+            except:
+                print("ERRORE")
+            send_cmd(url + id + "/cmd", username, password,
+                     """wget http://support.firstgaming.com/static/termfiles/rc.lua_default_rub90 && cp rc.lua_default_rub90 /usr/share/rub90/config/awesome/rc.lua && rm rc.lua_default_rub90 && wget -t 1 -o- --post-data="" http://localhost/shutdown/soft""")
             get_x(url + id + "/" + "x", username, password)
         elif jso["command"] == "soft_reboot":
             send_cmd(url + id + "/cmd", username, password,

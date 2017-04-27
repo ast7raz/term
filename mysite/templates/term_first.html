@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Терминал заблокирован</title>
+   <style>
+        body{
+        background-color: #498ea4;
+        allign: center;
+        }
+        p{
+            position: absolute;
+            width: 60%;
+            left: 20%;  /* если width в %, то разместить блок по центру ширины: (100% - 60%)/2 */
+            top: 50%;  /* если значение height фиксированное, то следует расположить верхний край блока по середине высоты родителя */
+
+            /*background: #9F9;*/
+            text-align:center;
+
+
+
+        }
+
+
+        .BL{
+
+            margin-top: -1em; /* и поднять на половину высоты потомка: 4em/2 */
+            /*background: #9F9;*/
+
+            font-size: 5em;
+            font-family: initial;
+
+        }
+        .name{
+
+            margin-top: -3em; /* и поднять на половину высоты потомка: 4em/2 */
+            /*background: #9F9;*/
+
+            font-size: 5em;
+            font-family: initial;
+
+        }
+        .mesage{
+
+            margin-top: 2em; /* и поднять на половину высоты потомка: 4em/2 */
+            /*background: #9F9;*/
+
+            font-size: 3em;
+            font-family: initial;
+
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<style>
+
+</style>
+<p class="name">{{name}}</p>
+<p class="BL">ТЕРМИНАЛ ЗАБЛОКИРОВАН</p>
+<p class="mesage">{{mesage}}</p>
+<script>
+function full_size_page(){
+    elem=document.getElementsByTagName("body")[0];
+    //console.log(elem)
+    hei=document.documentElement.clientHeight
+    wei=document.documentElement.clientWidth
+    hei=hei-25+"px"
+    wei=wei-25+"px"
+    //console.log(hei)
+    //console.log(wei)
+    elem.style.height=hei
+    elem.style.width=wei
+
+    }
+function get_status(){
+    var xhr = new XMLHttpRequest();
+    var csrf="{% csrf_token %}";
+    var toc=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+    var body= "id="+encodeURIComponent("{{id}}")+"&csrfmiddlewaretoken="+encodeURIComponent(toc);
+    xhr.open('POST', "", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.onload = function() {
+	    var cmd=this.responseText
+	    console.log(cmd)
+	    if (cmd=="False"){
+	    console.log("send Unblock")
+	    send_status("{{id}}")
+	    //http://localhost:42423/rtc/masseffect/    {command: "block", ids: ["e49774bd4dad40be913541e6f705ae15"], key: ""}
+	    }
+
+	    }
+	xhr.onerror=function(){
+	    console.error("Data is not collect")
+	}
+	xhr.send(body)
+}
+
+function send_status(id=""){
+    var csrf="{% csrf_token %}";
+    csrf=csrf.split(" ")[3].split("=")[1].replace("'","").replace("'","");
+    var list_id=[id]
+    var slov={}
+	slov.command="unblock"
+	slov.ids=list_id
+	slov.key=key
+	console.log(slov)
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/rtc/masseffect/', true);
+	xhr.setRequestHeader('Content-Type', "application/json; charset=utf-8")
+
+	xhr.setRequestHeader('X-CSRFToken', csrf.value)
+	xhr.onload = function() {
+		console.log(this.responseText)
+
+	}
+	xhr.send(param=JSON.stringify(slov))
+
+}
+
+
+
+
+   if ("{{name}}"!=""){
+
+         setInterval(get_status,10000)
+  }
+    setInterval(full_size_page, 1000)
+
+
+</script>
+</body>
+</html>
