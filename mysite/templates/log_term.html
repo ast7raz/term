@@ -35,6 +35,8 @@
             <input class="mass_button" type="button"  value="run vnc" OnClick="mass_batt('run vnc','{{id}}')">
             <input class="mass_button" type="button"  value="enable gpu" OnClick="mass_batt('enable gpu','{{id}}')">
             <input class="mass_button" type="button"  value="disable gpu" OnClick="mass_batt('disable gpu','{{id}}')">
+            <input class="mass_button" type="button"  value="block" OnClick="mass_batt('block','{{id}}')">
+            <input class="mass_button" type="button"  value="unblock" OnClick="mass_batt('unblock','{{id}}')">
             {%endif%}
             <input type="button" value="Пустой ключ" style="display:none" OnClick="mass_batt('restore_key', '{{id}}', '')">
         {%endif%}
