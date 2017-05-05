@@ -56,16 +56,72 @@ table {
     </thead>
     {%for part in terms_on_part%}
     <tr>
-    <td>{{part.part_name}}</td>
-    <td>{{part.keys}}</td>
-    <td>{{part.new_term}}</td>
-    <td>{{part.old_term}}</td>
-    </tr>
-    {%endfor%}
+    <td class="nam">{{part.part_name}}</td>
+    <td class="allkey">{{part.keys}}</td>
+    <td class="newkey">{{part.new_term}}</td>
 
+    <td class="oldkey">{{part.old_term}}</td>
+    </tr>
+
+    {%endfor%}
+    <tr style="font-weight: 900; background: aquamarine; ">
+        <td id="part">Итого</td>
+        <td id="all_key"></td>
+        <td id="new_key"></td>
+        <td id="old_key"></td>
+    </tr>
 </table>
 
 
+<script>
+    var nam=document.getElementsByClassName("nam")
+    var part=0
+    for (var i in nam){
+        if (typeof nam[i]=="object"){
+        part=part+1
 
+        }
+
+    }
+    document.getElementById("part").innerHTML= document.getElementById("part").innerHTML+"   Партнёрок: "+part
+    console.log(part)
+
+
+
+    var allkey=document.getElementsByClassName("allkey")
+    var all_key=0
+    for (var i in allkey){
+        if(typeof allkey[i]=="object"){
+            all_key=all_key+Number(allkey[i].textContent)
+            //console.log(allkey[i].textContent)
+            }
+    }
+    document.getElementById("all_key").innerHTML="Всего ключей в этих партнёрках: "+all_key
+    //console.log(all_key)
+
+    var newkey=document.getElementsByClassName("newkey")
+    var new_key=0
+    for (var i in newkey){
+        if(typeof newkey[i]=="object"){
+            new_key=new_key+Number(newkey[i].textContent)
+            //console.log(newkey[i].textContent)
+            }
+    }
+    document.getElementById("new_key").innerHTML="Новых ключей зарегистрировано в этих партнёрках: "+new_key
+    //console.log(new_key)
+
+
+
+    var oldkey=document.getElementsByClassName("oldkey")
+    var old_key=0
+    for (var i in oldkey){
+        if(typeof oldkey[i]=="object"){
+            old_key=old_key+Number(oldkey[i].textContent)
+            //console.log(oldkey[i].textContent)
+            }
+    }
+    document.getElementById("old_key").innerHTML="Старых ключей зарегистрировано в этих партнёрках: "+old_key
+    //console.log(new_key)
+</script>
 </body>
 </html>
