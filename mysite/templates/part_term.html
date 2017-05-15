@@ -18,6 +18,35 @@ table {
 
 
     </style>
+    <script>
+        function Add_Coment(partner){
+        console.log(partner)
+        var prom=prompt("Добавить коментарий для партнёрки "+partner)
+        if (prom !=null){
+        console.log(prom)
+        var csrf=document.getElementsByName("csrfmiddlewaretoken")[0]
+        var slov={"partner":partner, "coment":prom}
+
+        var xhr = new XMLHttpRequest();
+			xhr.open('POST', './', true);
+			xhr.setRequestHeader('Content-Type', "application/json; charset=utf-8")
+			xhr.setRequestHeader('X-CSRFToken', csrf.value)
+			xhr.onload = function() {
+				console.log(this.responseText)
+				if (this.responseText=="Done"){
+					location.reload();
+				}
+			}
+
+			xhr.send(param=JSON.stringify(slov))
+
+        }
+        }
+
+
+
+
+    </script>
 </head>
 <body>
 <form action=".", method="GET" >
@@ -28,6 +57,7 @@ table {
     <option value="~" {% if filt.version == '~'%} selected {%endif%}>Новый терминал</option>
 
 </select>
+    {% csrf_token %}
     <br>
     Терминал был онлайн хотябы раз в течении:
     <select name="Number_of_days">
@@ -52,6 +82,7 @@ table {
     <td>Всего ключей для терминалов</td>
     <td>Колличество зарегистрированных ключей на новых терминалах</td>
     <td>Колличество зарегистрированных ключей на старых терминалах</td>
+        <td>Заметка по данной партнёрке</td>
     </tr>
     </thead>
     {%for part in terms_on_part%}
@@ -61,6 +92,7 @@ table {
     <td class="newkey">{{part.new_term}}</td>
 
     <td class="oldkey">{{part.old_term}}</td>
+        <td class="coment" onclick="Add_Coment('{{part.part_name}}')" title="Нажмите на ячейку чтобы добавить коментарий">{{part.coment}}</td>
     </tr>
 
     {%endfor%}
@@ -74,6 +106,8 @@ table {
 
 
 <script>
+
+
     var nam=document.getElementsByClassName("nam")
     var part=0
     for (var i in nam){

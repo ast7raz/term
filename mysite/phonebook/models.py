@@ -7,6 +7,7 @@ import json
 class Partner(models.Model):
     part_name=models.CharField(max_length=300)
     base_id=models.IntegerField(blank=True, null=True)
+    term_coment=models.CharField(max_length=3000, blank=True,)
     def __unicode__(self):
         return unicode(self.part_name)
 
@@ -43,4 +44,6 @@ class Phone(models.Model):
     rol=models.ForeignKey(Roll)
     def __unicode__(self):
         return unicode(self.phone_number)
+
+
 # Create your models here.

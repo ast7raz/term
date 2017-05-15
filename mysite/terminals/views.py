@@ -13,6 +13,7 @@ from logger.decorators import Added_action_terminal, Added_action_of_post
 from logger.models import Logger_Action
 from Lib import get_part_on_version_term
 from terminals.pars_trcv2 import TRC_Parser
+from phonebook.models import Partner
 #import pars_doc
 from phonebook.save_Base import main
 @permission_required('terminals.add_keys')
@@ -272,8 +273,9 @@ def mass_effects(request):
 @permission_required('terminals.add_keys')
 
 def get_info(request, id, version=1):
-    if request.method=="POST":
+    if request.method == "POST":
         PU = Parser_users.objects.get(parser="trcv2")
+
         url=PU.parsurl+"info/"+id
         log=pars_rtc.get_term_info(url,PU.username, PU.userpass)
         return HttpResponse(log)
@@ -293,22 +295,26 @@ def get_info(request, id, version=1):
         return render_to_response("log_term.html", locals(), context_instance=RequestContext(request))
 
 def get_part(request):
-    filt={"version":"", "number_of_days":365}
-    if len(request.GET)>0:
-        filt["version"]=request.GET["version"]
-        filt["number_of_days"]=request.GET["Number_of_days"]
-
-    date=datetime.datetime.utcnow()-datetime.timedelta(days=int(filt["number_of_days"]))
-    partners = get_part_on_version_term(filt["version"], date)
-    terms_on_part=[]
-    for i in partners:
-        keys = Keys.objects.filter(part=i)
-        keys_new = keys.filter(version__icontains="~", date_time_last_online__gte=date)
-        keys_old = keys.filter(version__icontains=".", date_time_last_online__gte=date)
-        terms_on_part.append({"part_name":i.part_name, "keys":len(keys), "new_term":len(keys_new), "old_term":len(keys_old)})
-
-    return render_to_response("part_term.html", locals(), context_instance=RequestContext(request))
-
+    if request.method != "POST":
+        filt={"version":"", "number_of_days":365}
+        if len(request.GET)>0:
+            filt["version"]=request.GET["version"]
+            filt["number_of_days"]=request.GET["Number_of_days"]
+        date=datetime.datetime.utcnow()-datetime.timedelta(days=int(filt["number_of_days"]))
+        partners = get_part_on_version_term(filt["version"], date)
+        terms_on_part=[]
+        for i in partners:
+            keys = Keys.objects.filter(part=i)
+            keys_new = keys.filter(version__icontains="~", date_time_last_online__gte=date)
+            keys_old = keys.filter(version__icontains=".", date_time_last_online__gte=date)
+            terms_on_part.append({"part_name":i.part_name, "coment":i.term_coment, "keys":len(keys), "new_term":len(keys_new), "old_term":len(keys_old)})
+        return render_to_response("part_term.html", locals(), context_instance=RequestContext(request))
+    else:
+        body=json.loads(request.body)
+        part=Partner.objects.get(part_name=body["partner"])
+        part.term_coment=body["coment"]
+        part.save()
+        return HttpResponse("Done")
 
 def keyonline_v2(request):
     tizer = {"key": "", "name": "", "part": "", "club": "", "adm": ""}
