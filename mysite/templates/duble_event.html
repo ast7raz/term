@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+
+    <LINK href="/static/dubles.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+    <script src="/static/dubles.js"></script>
+    <script src="/static/clipboard.min.js"></script>
+
+
+
+</head>
+
+<body ng-app="EventDubleApp"  >
+
+{% csrf_token %}
+    {% verbatim %}
+    <div id="openModal" class="modalDialog">
+        <div>
+        <p>Настройки</p>
+            <tabs>
+                <pane title="Настройки игрока" >
+                    <div ng-controller="UserConfigCTRL">
+                        <div class="cant_section">
+                            <select ng-model="config.fields.audio_file" ng-options="f.fields.file_name for f in audio_files">
+
+
+                                <option value="">Новый файл</option>
+                            </select>
+                            <br>
+
+                            <div ng-show="config.fields.audio_file==null">
+                                <file ng-model="inputFile" accept="audio/mpeg" name="alarm"></file>
+
+                                <input type="button" ng-click="save()" value="Добавить">
+                            </div>
+                            <br>
+                            <label for="volume">Громкость: </label>
+                            <input id="volume" type="range" min="0" max="1" step="0.01" ng-model="config.fields.volume">
+                            <input type="button" ng-click="play()" value="Проверить">
+                        </div>
+                        <div class="cant_section">
+                        <select ng-model="config.fields.image_file" ng-options="i.fields.file_name for i in image_files">
+                            <option value="">Новый файл</option>
+
+                        </select>
+                            <div ng-show="config.fields.image_file==null">
+                                <file ng-model="inputImgFile" accept="image/jpeg,image/png" name="alarm"></file>
+
+                                <input type="button" ng-click="save_image()" value="Добавить">
+                            </div>
+                        <br>
+                        <label for="red">Цвет: </label>
+                        <input id="red" type="color" ng-model="config.fields.hex_color">
+                        <br>
+                        <label for="transparent">Прозрачность: </label>
+                        <input id="transparent" type="range" min="0" max="1" step="0.01" ng-model="config.fields.transparent">
+
+                        <div class="squer" style="background-color: rgba({{config.fields.RGB.r}},{{config.fields.RGB.g}},{{config.fields.RGB.b}},{{config.fields.transparent}});"></div>
+                    {{config.fields.img_file}}
+
+                        </div>
+                        <button class="save_button" ng-click="save_config()">Сохранить</button>
+                    </div>
+                </pane>
+
+            </tabs>
+            <a href="#" title="Закрыть" class="close">X</a>
+
+
+        </div>
+    </div>
+<div ng-controller="PageConfigCTRL" style="width:100%; height:100%;">
+    <audio id="player" controls hidden volume="{{config.fields.volume}}">
+  <source src="/static/audio/{{config.fields.audio_file.fields.file_name}}" type="audio/mp3" preload="none" volume="{{config.fields.volume}}" >
+  Ваш браузер не пожжерживает тег audio!
+</audio>
+    <div style="background-image: url('/static/image/{{config.fields.image_file.fields.file_name}}');
+background-repeat:no-repeat;
+background-position:center;
+background-size: contain;
+width:100%;
+ height:100%;
+">
+<div class=all  style="background-color: rgba({{config.fields.RGB.r}},{{config.fields.RGB.g}},{{config.fields.RGB.b}},{{config.fields.transparent}}); ">
+    <div class="ProcDiv" ng-controller="ProcParsCtrl" ng-class="alarm">
+        <p>Парсер дублей {{status}}!</p>
+        <a href="#openModal">Настройки</a>
+
+        <input align="center" id="button_proc" type="button" value="{{butName}}" ng-click="butClick()">
+
+    </div>
+    <div class="DublesDiv" ng-controller="FoundDubleCtrl">
+        <p ng-click="play()">Найденые задвоения</p>
+        <table>
+            <thead>
+                <tr>
+                    <td id="event_id_d">ID события</td>
+                    <td id="event_name_d">Имя события</td>
+                    <td id="event_sport_d">Вид спорта события</td>
+                    <td id="event_provider_d">Провайдер события</td>
+                    <td id="event_start_d">Время начала события</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="duble in dubles | orderBy:Order:reverse">
+
+                    <td id="event_id_d" ><span data-clipboard-text="{{duble.fields.event1_id}}" onclick="svetilka(event)" class="span">{{duble.fields.event1_id}}</span><br><span class="span" data-clipboard-text="{{duble.fields.event2_id}}" onclick="svetilka(event)">{{duble.fields.event2_id}}</span></td>
+                    <td id="event_name_d">{{duble.fields.event1_team1}} - {{duble.fields.event1_team2}}<br>{{duble.fields.event2_team1}} - {{duble.fields.event2_team2}}</td>
+                    <td id="event_sport_d">{{duble.fields.event1_sport}}<br>{{duble.fields.event2_sport}}</td>
+                    <td id="event_provider_d">{{duble.fields.event1_provider}}<br>{{duble.fields.event2_provider}}</td>
+                    <td id="event_start_d">{{duble.fields.event1_date | date:'HH:mm:ss dd-MM-yyyy'}}<br>{{duble.fields.event2_date | date:'HH:mm:ss dd-MM-yyyy'}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="LogsDiv" ng-controller="LoggingEventCtrl">
+        <p>Лог задвоений</p>
+        <a ng-click="show_all()">показать/спрятать</a>
+        <table>
+            <thead>
+                <tr>
+                    <td id="event_id">ID события</td>
+                    <td id="event_name">Имя события</td>
+                    <td id="event_sport">Вид спорта события</td>
+                    <td id="event_start">Время начала события</td>
+                    <td id="duble_start">Время появления задвоения</td>
+                    <td id="duble_end">Время удаления задвоения</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="logevent in logevents | orderBy:Order:reverse">
+
+                    <td id="event_id" >{{logevent.fields.event1_id}}<br>{{logevent.fields.event2_id}}</td>
+                    <td id="event_name">{{logevent.fields.event1_team1}} - {{logevent.fields.event1_team2}}<br>{{logevent.fields.event2_team1}} - {{logevent.fields.event2_team2}}</td>
+                    <td id="event_sport">{{logevent.fields.event1_sport}}<br>{{logevent.fields.event2_sport}}</td>
+                    <!--<td>{{logevent.fields.event1_provider}}<br>{{logevent.fields.event2_provider}}</td>-->
+                    <td id="event_start">{{logevent.fields.event1_date | date:'HH:mm:ss dd-MM-yyyy'}}<br>{{logevent.fields.event2_date | date:'HH:mm:ss dd-MM-yyyy'}}</td>
+                    <td id="duble_start">{{logevent.fields.date_started_duble | date:'HH:mm:ss dd-MM-yyyy'}}</td>
+                    <td id="duble_end">{{logevent.fields.date_ended_duble | date:'HH:mm:ss dd-MM-yyyy'}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+    <div class="ExceptionsDiv" ng-controller="ExceptionsCtrl">
+        <p>Исключения</p>
+        <table>
+            <thead>
+                <tr>
+                    <td id="simptom">Признак исключения</td>
+                    <td id="text">Текст исключения</td>
+                    <td id="user">Пользователь</td>
+                    <td id="do">Действие</td>
+                </tr>
+            <tr>
+                    <td id="simptom"><select ng-model="symptom.model">
+                            <option ng-repeat="option in symptom.options" value="{{option.id}}">{{option.name}}</option>
+                        </select>
+                    </td>
+                    <td id="text"><input type="text" ng-model="text"></td>
+                    <td id="user">{{user_online[0].fields.username}}</td>
+                    <td id="do" ng-click="add()">добавить</td>
+                </tr>
+            <tr ng-show="error.symptom!=null" class="red_alarm"><td><p>{{error.symptom}}</p></td></tr>
+                <tr ng-show="error.text!=null" class="red_alarm"><td><p>{{error.text}}</p></td></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="exception in exceptions | orderBy:Order:reverse">
+                    <td id="simptom">{{exception.fields.Symptom}}</td>
+                    <td id="text">{{exception.fields.text}}</td>
+                    <td id="user">{{exception.fields.user[0]}}</td>
+                    <td id="do" ng-click="remove()">удалить</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+    {% endverbatim %}
+</body>
+<script>
+    function full_size_page(){
+    elem=document.getElementsByTagName("body")[0];
+    //console.log(elem)
+    hei=document.documentElement.clientHeight
+    wei=document.documentElement.clientWidth
+    hei=hei-25+"px"
+    wei=wei-25+"px"
+    //console.log(hei)
+    //console.log(wei)
+    elem.style.height=hei
+    elem.style.width=wei
+    //console.log("Done")
+    }
+
+   setInterval(full_size_page, 500)
+new Clipboard(".span").on("success", function(e){
+console.info (e.text+" скопирован")
+//window.onload=logging(test)
+
+
+})
+   function svetilka(event){
+   //console.log(event)
+    el=event.toElement
+    el.classList.add("podsvet");
+    setTimeout(function(){el.classList.remove("podsvet");}, 500)
+    };
+
+</script>
+</html>
