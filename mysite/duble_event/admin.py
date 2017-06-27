@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Parser_duble_event, Found_duplicates, Logging_duplicates, Exceptions, Audio_file, User_config
+from models import Parser_duble_event, Found_duplicates, Logging_duplicates, Exceptions, Audio_file, User_config, Image_file
 class ParserAdmin(admin.ModelAdmin):
     fields = ("site_name", "pars_url", "login", "password","proxy_addr","proxy_port")
 admin.site.register(Parser_duble_event,ParserAdmin)
@@ -21,6 +21,12 @@ class AudioFileAdmin(admin.ModelAdmin):
     list_display = ("file_name", "file_path")
 
 admin.site.register(Audio_file, AudioFileAdmin)
+class ImageFileAdmin(admin.ModelAdmin):
+    fields=("file_name", "file_path")
+    list_display=("file_name", "file_path")
+admin.site.register(Image_file, ImageFileAdmin)
+
+
 
 
 class UserConfigAdmin(admin.ModelAdmin):

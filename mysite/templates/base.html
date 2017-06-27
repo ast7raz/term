@@ -48,6 +48,9 @@
 {% if perms.terminals.add_keys%}
 <a href="/reestr/part_term/" class="button28">Статистика по терминалам</a>
 {%endif%}
+{%if perms.duble_event.add_user_config%}
+<a href="dubles/#" class="button28" target="_blank" title="Монитор задвоений">Монитор задвоений</a>
+{%endif%}
 </div>
 
 </div>

@@ -11,9 +11,12 @@ from mysite import settings
 from django.core.serializers import serialize
 import os
 from datetime import datetime
+from django.contrib.auth.decorators import permission_required
 
 import json
 # Create your views here.
+@permission_required('duble_event.add_user_config')
+#@set_user_online
 def page(request):
      stat=True
      find_dubles=Found_duplicates.objects.all()
